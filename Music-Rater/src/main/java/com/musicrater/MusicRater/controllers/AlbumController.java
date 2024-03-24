@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/albums")
+@RequestMapping("/api/albums")
 public class AlbumController {
     @Autowired
     private AlbumService albumService;
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Album>> getAllAlbums(){
         return new ResponseEntity<List<Album>>(albumService.allAlbums(), HttpStatus.OK);
     }
