@@ -53,3 +53,111 @@ Criticality: Our project is not critical, so we can afford to use an agile metho
 Dynamism: We may change our goals and technology requirements as the project progresses, which favors an agile approach.
 Personnel: Our personnel are relatively inexperienced, but willing to learn and adapt quickly. This factor does not heavily impact our chosen methodology.
 Culture: Our team members don’t have a big preference for either change or predictability. This factor also does not have a significant impact on our chosen methodology.
+
+
+Iteration Date: 8th Feb 
+Last Iteration’s completed tasks: -
+Leftovers from last iteration: -
+Member contribution:
+Karolina: Work on proposal
+Yizhen (Eloise):  Work on proposal
+David: Work on proposal
+Emilio: Work on proposal
+
+Priority features to be implemented: FInish proposal
+
+Assignments: Project proposal
+Next iteration date: 29th Feb
+
+
+
+Iteration Date: 29th Feb
+Last Iteration’s completed tasks: 
+Proposal finished
+ defined main components of the system and team’s skills. 
+Use cases are finished
+Leftovers from last iteration: 
+Define a timeline for the semester
+ Meeting minutes to write up 
+Member contribution since last iteration:
+Karolina: Viewer use case pov and 2/8+ 2/29 meeting minutes
+Yizhen (Eloise): Viewer use case pov
+David: Editor use case pov
+Emilio: Editor use case pov
+
+Priority features to be implemented: 
+Revisit use cases
+Class diagram
+Generate user stories
+Set up timeline for presentation and end product
+
+Assignments: HW 3
+Next iteration date: Thursday 12th March
+
+
+Iteration Date: 12th Mar
+Last Iteration’s completed tasks:
+HW1-4
+Timeline for project
+Leftovers from last iteration:
+Review class diagrams- ensure we are not missing certain implementations
+Priority features to be implemented:
+Draft frontend interface 
+Backend draft 
+Draft topic presentation
+Draft design presentation
+Draft technique presentation
+Update use case diagrams to include all use cases 
+
+Member contribution:
+Karolina: Explanation of retweet code, meeting minutes
+Yizhen (Eloise): Use case diagrams
+David: Begin frontend planning
+Emilio: Update class diagrams, draft backend, create controllers, services, and 
+
+Assignments: 
+Prepare presentation
+Work on backend
+Design frontend 
+Set up TA meet
+
+
+Next iteration date: 21st Mar (upcoming presentation so meeting more frequently)
+Last Iteration’s completed tasks:
+Backend started
+Class diagrams revised
+
+Leftovers from last iteration:
+Start frontend draft (Karolina and David meeting friday for draft)
+Frontend design prototype
+Draft presentation
+Set TA meet
+
+Main aspects for presentation:
+Intro 
+System overview (tech stack) 
+Security
+Use case diagram (Eloise)
+class diagrams (Eloise)
+Example of a fully dressed use case (Eloise)
+Sequence diagram (Eloise)
+Overview of frontend design 
+Code overview
+Overview of backend design (Emilio)
+Code overview (Emilio)
+
+
+
+Member contribution:
+Karolina: Minutes, Frontend draft, 
+Yizhen (Eloise):    
+David: frontend draft, learning react
+Emilio: begin 
+
+Assignments: 
+Presentation skeleton (by this weekend)
+Visuals finished
+Continue backend
+Implement testing
+Frontend design draft
+
