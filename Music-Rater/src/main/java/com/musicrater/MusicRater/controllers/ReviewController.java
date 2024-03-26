@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/albums")
+@RequestMapping("/api/reviews")
 public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Review> createReview(@RequestBody Review review){
         return new ResponseEntity<Review>(reviewService.createReview(review), HttpStatus.CREATED);
     }
