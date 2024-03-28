@@ -1,25 +1,41 @@
 import logo from './logo.svg';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Album from './pages/album'
+import Artist from './pages/artist'
+import Discover from './pages/discover'
+import Home from './pages/home'
+import Profile from './pages/profile'
+import Song from './pages/song'
 import './App.css';
 
 function App() {
+  // const CLIENT_ID = "9ae889ff3843458cbf365530b585f9a3"
+  // const REDIRECT_URL = "http://localhost:3000"
+  // const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+  // const RESPONSE_TYPE = "token"
+
   return (
     <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/album" element={<Album />} />
+          <Route path="/artist" element={<Artist />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/song" element={<Song />} />
+          
+
+        </Routes>
+      </BrowserRouter>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>TempoTalk</h1>
+          
       </header>
     </div>
-  );
+  )
+    
 }
 
 export default App;
