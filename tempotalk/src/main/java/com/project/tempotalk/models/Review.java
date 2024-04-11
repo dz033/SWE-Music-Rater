@@ -3,6 +3,7 @@ package com.project.tempotalk.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -20,6 +21,7 @@ public class Review {
     private User creator;
     private int score;
     private String body = "";
+    @CreatedDate
     private Date creationDate;
 
     public Review(int score){
@@ -33,6 +35,6 @@ public class Review {
         this.body = body;
         this.score = score;
         this.creator = null;
-        this.creationDate = null;
+        this.creationDate = new Date();
     }
 }
