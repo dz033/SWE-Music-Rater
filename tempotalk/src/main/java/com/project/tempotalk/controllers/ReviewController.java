@@ -1,6 +1,5 @@
 package com.project.tempotalk.controllers;
 
-import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Review;
 import com.project.tempotalk.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
