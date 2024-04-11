@@ -17,11 +17,6 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
-//    @GetMapping
-//    public String test(){
-//        return "This API is reachable!";
-//    }
-
     @GetMapping
     public ResponseEntity<List<Review>> getAllReviews(){
         return new ResponseEntity<List<Review>>(reviewService.allReviews(), HttpStatus.OK);
