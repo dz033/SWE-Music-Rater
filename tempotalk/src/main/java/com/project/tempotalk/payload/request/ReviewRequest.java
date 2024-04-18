@@ -9,6 +9,6 @@ import lombok.Data;
 public class ReviewRequest {
     private String body;
     private int rating;
-    @NotBlank
-    private String username;
+    private String userId;
+    private String musicId;
 }

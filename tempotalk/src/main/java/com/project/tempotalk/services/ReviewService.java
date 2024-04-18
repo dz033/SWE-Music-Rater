@@ -23,12 +23,12 @@ public class ReviewService {
     }
 
     public MessageResponse createReview(ReviewRequest reviewRequest){
-        if (!userRepository.existsByUsername(reviewRequest.getUsername())){
-            return new MessageResponse("Error: Username not found");
+        if (!userRepository.existsById(reviewRequest.getUserId())){
+            return new MessageResponse("Error: User not found");
         }
 
         // Create a new review object
-        Review review = new Review(reviewRequest.getBody(), reviewRequest.getRating());
+        Review review = new Review(reviewRequest.getBody(), reviewRequest.getRating(), reviewRequest.getUserId(), reviewRequest.getMusicId());
 
         reviewRepository.save(review);
         return new MessageResponse("Review created successfully!");
