@@ -36,9 +36,9 @@ public class SongController {
         MessageResponse response = songService.createSong(songRequest);
 
         if (!response.getMessage().equals("Song created successfully!")){
-            return new ResponseEntity<MessageResponse>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<MessageResponse>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
