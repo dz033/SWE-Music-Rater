@@ -22,6 +22,5 @@ public class Song {
     private String releaseDate;
     private int score;
     private List<String> genres;
-    @DocumentReference
-    private List<Review> reviews;
+    private List<String> reviews;
 }
