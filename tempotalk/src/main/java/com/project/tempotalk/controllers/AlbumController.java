@@ -5,7 +5,6 @@ import com.project.tempotalk.payload.request.AlbumRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.services.AlbumService;
 import jakarta.validation.Valid;
-import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
