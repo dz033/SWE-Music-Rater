@@ -32,10 +32,8 @@ public class User {
     private String password;
     @CreatedDate
     private Date creationDate;
-    @DBRef
-    private List<User> following = new ArrayList<>();
-    @DBRef
-    private List<Review> reviews = new ArrayList<>();
+    private List<String> following = new ArrayList<>();
+    private List<String> reviews = new ArrayList<>();
     @DBRef
     private Set<Role> roles = new HashSet<>();
 //    private java.awt.Image profileImage = null;
