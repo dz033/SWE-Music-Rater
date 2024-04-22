@@ -26,7 +26,7 @@ public class AlbumController {
     }
 
     @GetMapping("/{title}")
-    public ResponseEntity<Optional<List<Album>>> getSingleAlbum(@PathVariable String title){
+    public ResponseEntity<Optional<List<Album>>> getAlbumsByName(@PathVariable String title){
         return new ResponseEntity<Optional<List<Album>>>(albumService.albumsByTitle(title), HttpStatus.OK);
     }
 
