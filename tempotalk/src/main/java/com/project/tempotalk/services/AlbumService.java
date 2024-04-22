@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class AlbumService {
     @Autowired
-    private AlbumRepository albumRepository;
+    AlbumRepository albumRepository;
 
     // Return a list of all albums in albumRepository
     public List<Album> allAlbums(){

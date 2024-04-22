@@ -1,7 +1,6 @@
 package com.project.tempotalk.repositories;
 
 import com.project.tempotalk.models.Album;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

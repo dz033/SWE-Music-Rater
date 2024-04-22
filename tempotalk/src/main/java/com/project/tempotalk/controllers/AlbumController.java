@@ -5,6 +5,7 @@ import com.project.tempotalk.payload.request.AlbumRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.services.AlbumService;
 import jakarta.validation.Valid;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @RequestMapping("/api/albums")
 public class AlbumController {
     @Autowired
-    private AlbumService albumService;
+    AlbumService albumService;
     @GetMapping()
     public ResponseEntity<List<Album>> getAllAlbums(){
         return new ResponseEntity<List<Album>>(albumService.allAlbums(), HttpStatus.OK);
@@ -31,7 +32,7 @@ public class AlbumController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
+    public ResponseEntity<MessageResponse> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
         MessageResponse response = albumService.createAlbum(albumRequest);
 
         if (!response.getMessage().equals("Album created successfully!")){
