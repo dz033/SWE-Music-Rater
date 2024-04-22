@@ -1,6 +1,5 @@
 package com.project.tempotalk.controllers;
 
-import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Artist;
 import com.project.tempotalk.payload.request.ArtistRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
