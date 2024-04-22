@@ -19,6 +19,7 @@ import java.util.Optional;
 public class AlbumController {
     @Autowired
     AlbumService albumService;
+
     @GetMapping()
     public ResponseEntity<List<Album>> getAllAlbums(){
         return new ResponseEntity<List<Album>>(albumService.allAlbums(), HttpStatus.OK);
