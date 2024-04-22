@@ -30,7 +30,7 @@ public class AlbumController {
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MessageResponse> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
         MessageResponse response = albumService.createAlbum(albumRequest);
 
