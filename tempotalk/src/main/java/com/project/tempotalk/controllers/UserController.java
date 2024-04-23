@@ -1,14 +1,15 @@
 package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.models.User;
+import com.project.tempotalk.payload.request.FollowRequest;
+import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +28,17 @@ public class UserController {
     @GetMapping("/{username}")
     public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable String username){
         return new ResponseEntity<>(userService.userByUsername(username), HttpStatus.OK);
+    }
+
+    @PutMapping("/follow")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<MessageResponse> follow(@Valid @RequestBody FollowRequest followRequest){
+        MessageResponse response = userService.followUser(followRequest);
+
+        if (!response.getMessage().equals("User followed successfully!")){
+            return new ResponseEntity<MessageResponse>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<MessageResponse>(response, HttpStatus.OK);
     }
 }

@@ -36,7 +36,7 @@ public class User {
     private List<String> reviews = new ArrayList<>();
     @DBRef
     private Set<Role> roles = new HashSet<>();
-//    private java.awt.Image profileImage = null;
+//  private java.awt.Image profileImage = null;
 
     public User(String username, String email, String password){
         this.username = username;
