@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reviews")
@@ -22,7 +23,12 @@ public class ReviewController {
 
     @GetMapping
     public ResponseEntity<List<Review>> getAllReviews(){
-        return new ResponseEntity<List<Review>>(reviewService.allReviews(), HttpStatus.OK);
+        return new ResponseEntity<>(reviewService.allReviews(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{musicId}")
+    public ResponseEntity<Optional<List<Review>>> getReviewsByMusicId(@PathVariable String musicId){
+        return new ResponseEntity<>(reviewService.getReviewsByMusicId(musicId), HttpStatus.OK);
     }
 
     @PostMapping("/create")

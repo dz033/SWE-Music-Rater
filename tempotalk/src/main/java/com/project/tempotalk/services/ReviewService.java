@@ -13,6 +13,7 @@ import com.project.tempotalk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,11 @@ public class ReviewService {
     // Return all reviews in reviewRepository
     public List<Review> allReviews(){
         return reviewRepository.findAll();
+    }
+
+    // Return all reviews associated an album
+    public Optional<List<Review>> getReviewsByMusicId(String musicId){
+        return reviewRepository.findReviewsByMusicId(musicId);
     }
 
     // Create a review and add its ID to a User's and Album/Song's review lists
@@ -66,10 +72,23 @@ public class ReviewService {
         if (albumRepository.existsById(reviewRequest.getMusicId())){
             Optional<Album> album = albumRepository.findById(reviewRequest.getMusicId());
             if (album.isPresent()){
+                // Update review list in album
                 Album album1 = album.get();
                 List<String> albumReviews = album1.getReviews();
                 albumReviews.add(review.getId());
                 album1.setReviews(albumReviews);
+
+                // Update album score
+                List<Integer> scores = new ArrayList<>();
+                for (String id : album1.getReviews()){
+                    Optional<Review> r = reviewRepository.findById(id);
+                    if (r.isPresent()){
+                        Review curReview = r.get();
+                        scores.add(curReview.getScore());
+                    }
+                }
+                album1.calculateScore(scores);
+
                 albumRepository.save(album1);
             }
             else{
