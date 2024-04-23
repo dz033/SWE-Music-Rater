@@ -102,6 +102,18 @@ public class ReviewService {
                 List<String> songReviews = song1.getReviews();
                 songReviews.add(review.getId());
                 song1.setReviews(songReviews);
+
+                // Update song score
+                List<Integer> scores = new ArrayList<>();
+                for (String id : song1.getReviews()){
+                    Optional<Review> r = reviewRepository.findById(id);
+                    if (r.isPresent()){
+                        Review curReview = r.get();
+                        scores.add(curReview.getScore());
+                    }
+                }
+                song1.calculateScore(scores);
+
                 songRepository.save(song1);
             }
             else{

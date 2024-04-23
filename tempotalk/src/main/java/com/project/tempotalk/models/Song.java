@@ -29,4 +29,15 @@ public class Song {
         this.title = title;
         this.releaseDate = releaseDate;
     }
+
+    // Calculate the average score for this song
+    public void calculateScore(List<Integer> scores){
+        int numRatings = 0;
+        int total = 0;
+        for (int score : scores){
+            total += score;
+            numRatings++;
+        }
+        setScore(total / numRatings);
+    }
 }
