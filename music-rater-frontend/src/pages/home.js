@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ('./home.css');
+
 
 function Home() {
   const [albums, setAlbums] = useState([]);
@@ -17,6 +19,7 @@ function Home() {
 
   return (
     <div className="home">
+        <section className="featured-albums">
       <h1>Featured Albums</h1>
       <div className="album-grid">
         {albums.map(album => (
@@ -28,6 +31,15 @@ function Home() {
           </div>
         ))}
       </div>
+      </section>
+
+    <section className="new-discoveries">
+    <h1>New Discoveries</h1>
+    </section>
+
+    <section className="upcoming-releases">
+    <h1>Upcoming Releases</h1>
+    </section>
     </div>
   );
 }
