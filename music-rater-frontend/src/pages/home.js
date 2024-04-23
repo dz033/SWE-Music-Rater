@@ -17,8 +17,15 @@ function Home() {
       });
   }, []);
 
+  const featuredReviews = [
+    { id: 1, title: "Worst album ever", author: "who?", content: "Here's what's up with this album." },
+    { id: 2, title: "OMG im shocked", author: "ANON", content: "So good!" },
+    // Add more reviews as needed
+  ];
+
   return (
     <div className="home">
+        <div className= "left-column">
         <section className="featured-albums">
       <h1>Featured Albums</h1>
       <div className="album-grid">
@@ -41,7 +48,27 @@ function Home() {
     <h1>Upcoming Releases</h1>
     </section>
     </div>
+
+    <div className="right-column">
+    <section className="featured-reviews">
+      <h2>Featured Reviews</h2>
+      <div className="review-list">
+        {featuredReviews.map(review => (
+          <div key={review.id} className="review-item">
+            <h3>{review.title}</h3>
+            <p><strong>Author:</strong> {review.author}</p>
+            <p>{review.content}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+  </div>
   );
 }
+
+
+
+
 
 export default Home;

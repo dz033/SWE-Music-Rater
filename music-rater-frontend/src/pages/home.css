@@ -4,7 +4,20 @@
     text-align: left; 
     font-family: Ubuntu;
     color: #FFFFFF;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
   }
+
+  .left-column {
+    padding: 20px;
+    height: 100vh;
+  }
+
+.right-column {
+  padding: 20px;
+  background-color: #bada55 ; /* Light gray background color */
+}
 
   .album-grid {
     display: flex;
@@ -36,4 +49,12 @@
     margin-bottom: 100px; 
     text-decoration: underline;
 
+  }
+
+  .review-list {
+    margin-top: 20px;
+  }
+  
+  .review-item {
+    margin-bottom: 20px;
   }
