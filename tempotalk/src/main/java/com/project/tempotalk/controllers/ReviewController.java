@@ -2,7 +2,6 @@ package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.models.Review;
 import com.project.tempotalk.payload.request.ReviewRequest;
-import com.project.tempotalk.payload.request.SignupRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.services.ReviewService;
 import jakarta.validation.Valid;
