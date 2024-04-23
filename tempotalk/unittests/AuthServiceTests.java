@@ -56,7 +56,7 @@ public class AuthServiceTests{
     @Test
     void rolesSpecifiedUser(){
         Set<String> roles = new HashSet<>();
-        roles.add("User");
+        roles.add("user");
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         MessageResponse response = authService.registerUser(request);
         assertEquals("User registered successfully!", response.getMessage());
@@ -66,7 +66,7 @@ public class AuthServiceTests{
     @Test
     void rolesSpecifiedAdmin(){
         Set<String> roles = new HashSet<>();
-        roles.add("Admin");
+        roles.add("admin");
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         MessageResponse response = authService.registerUser(request);
         assertEquals("User registered successfully!", response.getMessage());

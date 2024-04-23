@@ -17,24 +17,18 @@ import java.util.Date;
 public class Review {
     @Id
     private String id;
-    @DocumentReference
-    private User creator;
-    private int score;
     private String body = "";
+    private int score;
+    private String userId;
+    private String musicId;
     @CreatedDate
     private Date creationDate;
 
-    public Review(int score){
-        this.score = score;
-    }
-    public Review(String body){
-        this.body = body;
-    }
-
-    public Review(String body, int score){
+    public Review(String body, int score, String userId, String musicId){
         this.body = body;
         this.score = score;
-        this.creator = null;
+        this.userId = userId;
+        this.musicId = musicId;
         this.creationDate = new Date();
     }
 }
