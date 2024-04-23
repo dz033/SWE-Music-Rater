@@ -1,0 +1,60 @@
+.home {
+    margin-top: 50px; 
+    margin-left: 50px;
+    text-align: left; 
+    font-family: Ubuntu;
+    color: #FFFFFF;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+
+  .left-column {
+    padding: 20px;
+    height: 100vh;
+  }
+
+.right-column {
+  padding: 20px;
+  background-color: #bbda55b2 ; /* Light gray background color */
+}
+
+  .album-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .album-item {
+    width: 200px; 
+    margin-right: 20px; 
+    margin-bottom: 20px; 
+  }
+  
+  .album-item img {
+    width: 100%; 
+  }
+
+  .featured-albums {
+    margin-bottom: 100px; 
+    text-decoration: underline;
+  }
+  
+  .new-discoveries {
+    margin-bottom: 100px; 
+    text-decoration: underline;
+
+  }
+  
+  .upcoming-releases {
+    margin-bottom: 100px; 
+    text-decoration: underline;
+
+  }
+
+  .review-list {
+    margin-top: 20px;
+  }
+  
+  .review-item {
+    margin-bottom: 20px;
+  }
