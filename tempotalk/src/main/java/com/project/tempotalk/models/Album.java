@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection="albums")
@@ -18,11 +19,15 @@ public class Album {
     private String id;
     private String title;
     @DocumentReference
-    private Artist artist;
+    private Artist artist = null;
     private String releaseDate;
-    private int score;
-    private List<String> tracklist;
-    private List<String> genres;
-    @DocumentReference
-    private List<Review> reviews;
+    private int score = 0;
+    private List<String> tracklist = new ArrayList<>();
+    private List<String> genres = new ArrayList<>();
+    private List<String> reviews = new ArrayList<>();
+
+    public Album(String title, String releaseDate){
+        this.title = title;
+        this.releaseDate = releaseDate;
+    }
 }
