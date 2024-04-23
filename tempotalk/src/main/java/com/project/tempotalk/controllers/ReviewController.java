@@ -36,9 +36,9 @@ public class ReviewController {
         MessageResponse response = reviewService.createReview(reviewRequest);
 
         if (!response.getMessage().equals("Review created successfully!")){
-            return new ResponseEntity<MessageResponse>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<MessageResponse>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
