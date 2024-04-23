@@ -36,9 +36,9 @@ public class UserController {
         MessageResponse response = userService.followUser(followRequest);
 
         if (!response.getMessage().equals("User followed successfully!")){
-            return new ResponseEntity<MessageResponse>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<MessageResponse>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

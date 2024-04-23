@@ -38,6 +38,12 @@ public class UserService {
         if (user.isPresent()){
             User follower = user.get();
             List<String> following = follower.getFollowing();
+
+            // Make sure the follower isn't already following the followee
+            if (following.contains(followRequest.getFolloweeId())){
+                return new MessageResponse("Error: User is already being followed");
+            }
+
             following.add(followRequest.getFolloweeId());
             follower.setFollowing(following);
             userRepository.save(follower);
