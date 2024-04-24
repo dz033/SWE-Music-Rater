@@ -7,6 +7,7 @@ import com.project.tempotalk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,5 +51,25 @@ public class UserService {
         }
 
         return new MessageResponse("User followed successfully!");
+    }
+
+    // Get followed users
+    public List<User> getFollowedUsers(String userId){
+        List<User> followedUsers = new ArrayList<>();
+        Optional<User> tempUser = userRepository.findById(userId);
+        if (tempUser.isPresent()){
+            User user = tempUser.get();
+            List<String> followingIds = user.getFollowing();
+
+
+            for (String id : followingIds){
+                Optional<User> curUser = userRepository.findById(id);
+                if (curUser.isPresent()){
+                    followedUsers.add(curUser.get());
+                }
+            }
+        }
+
+        return followedUsers;
     }
 }
