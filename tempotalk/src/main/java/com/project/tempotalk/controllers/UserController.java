@@ -41,4 +41,10 @@ public class UserController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/following/{userId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<User>> getFollowing(@PathVariable String userId){
+        return new ResponseEntity<>(userService.getFollowedUsers(userId), HttpStatus.OK);
+    }
 }
