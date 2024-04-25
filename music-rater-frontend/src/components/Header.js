@@ -10,6 +10,7 @@ function Header() {
         <div className="search-bar">Search</div>
         <nav>
           <ul className="nav-links">
+            <li><Link to="/home">Home</Link></li>
             <li><Link to="/new">New</Link></li>
             <li><Link to="/discover">Discover</Link></li>
             <li><Link to="/artist">Artists</Link></li>

@@ -7,6 +7,7 @@ import Discover from './pages/discover'
 import Home from './pages/home'
 import Profile from './pages/profile'
 import Song from './pages/song'
+import New from './pages/new'
 import Header from './components/Header';
 import './App.css';
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/discover" element={<Discover />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/song" element={<Song />} />
+            <Route path="/new" element={<New />} />
           </Routes>
       </div>
     </BrowserRouter>
