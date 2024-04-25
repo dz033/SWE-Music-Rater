@@ -26,4 +26,6 @@ public class TestController {
     public String adminAccess(){
         return "Admin Content";
     }
+
+    // This is simply for a test
 }
