@@ -7,7 +7,7 @@ import Discover from './pages/discover'
 import Home from './pages/home'
 import Profile from './pages/profile'
 import Song from './pages/song'
-// import Header from './components/Header';
+import Header from './components/Header';
 import './App.css';
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+      <Header />
         <Layout>
           <Routes>
             <Route index element={<Home />} />

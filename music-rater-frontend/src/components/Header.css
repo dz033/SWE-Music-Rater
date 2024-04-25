@@ -1,0 +1,13 @@
+.layout-container {
+    font-family: 'Garet ExtraBold', sans-serif; 
+    display: flex;
+    align-items: center;
+  }
+  
+a {
+  color: white;
+}
+
+  .logo {
+    margin-right: 1rem;
+  }
