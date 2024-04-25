@@ -1,8 +1,17 @@
 .new-page {
-    padding: 20px;
+  padding: 20px;
+  display: flex;
+  color: #FFFFFF;
 }
 
-.new-page h1 {
-    text-align: left;
-    color: #ffffff;
+.left-column {
+  padding: 20px;
+  height: 100%;
+  flex: 1;
+}
+
+.right-column {
+  padding: 20px;
+  flex: 1;
+  background-color: #ef92e3d0;
 }

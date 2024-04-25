@@ -1,7 +1,11 @@
+import "./discover.css"
+
 export default function Discover(){
     return(
         <>
-            <h1>Discover</h1>        
+        <div className="discover-page"></div>
+            <h1>Discover</h1>
+            <p>Randomize albums or carousel per genre type?</p>        
         </>
     )
 }
