@@ -12,7 +12,6 @@ import com.project.tempotalk.repositories.ReviewRepository;
 import com.project.tempotalk.repositories.SongRepository;
 import com.project.tempotalk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
