@@ -1,10 +1,16 @@
 package com.project.tempotalk.services;
 
+import com.project.tempotalk.models.Review;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.FollowRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.repositories.ReviewRepository;
 import com.project.tempotalk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,7 +20,13 @@ import java.util.Optional;
 @Service
 public class UserService {
     @Autowired
+    MongoTemplate mongoTemplate;
+
+    @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ReviewRepository reviewRepository;
 
     // Return a list of all users in userRepository
     public List<User> allUsers(){
@@ -71,5 +83,26 @@ public class UserService {
         }
 
         return followedUsers;
+    }
+
+    // Get a feed of reviews from other users that the requesting user follows
+    public List<Review> getUserFeed(String userId){
+        List<Review> feed = new ArrayList<>();
+
+        Optional<User> tempUser = userRepository.findById(userId);
+        if (tempUser.isPresent()){
+            List<String> following = tempUser.get().getFollowing();
+
+            // Create a new Criteria object and search for reviews with userId in following
+            Criteria criteria = new Criteria();
+            criteria.and("userId").in(following);
+
+            // Create a new Query object and sort by creation date (newest to oldest)
+            Query query = new Query(criteria);
+            query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "creationDate")));
+            feed = mongoTemplate.find(query, Review.class);
+        }
+
+        return feed;
     }
 }
