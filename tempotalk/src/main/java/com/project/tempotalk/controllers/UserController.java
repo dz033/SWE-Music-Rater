@@ -1,5 +1,6 @@
 package com.project.tempotalk.controllers;
 
+import com.project.tempotalk.models.Review;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.FollowRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
@@ -46,5 +47,11 @@ public class UserController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<User>> getFollowing(@PathVariable String userId){
         return new ResponseEntity<>(userService.getFollowedUsers(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/feed/{userId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<Review>> getFeed(@PathVariable String userId){
+        return new ResponseEntity<>(userService.getUserFeed(userId), HttpStatus.OK);
     }
 }
