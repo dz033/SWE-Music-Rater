@@ -12,6 +12,7 @@ import com.project.tempotalk.repositories.ReviewRepository;
 import com.project.tempotalk.repositories.SongRepository;
 import com.project.tempotalk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -191,5 +192,90 @@ public class ReviewService {
         }
 
         return new MessageResponse("Review updated successfully!");
+    }
+
+    // Delete a review, remove its ID from the associated User and Album/Song's reviews list, and recalculate Album/Song score
+    public MessageResponse deleteReview(String reviewId){
+        // Make sure that the review exists
+        if (!reviewRepository.existsById(reviewId)){
+            return new MessageResponse("Error: Review was not found");
+        }
+
+        // Delete all traces of the review we are deleting
+        Optional<Review> tempReview = reviewRepository.findById(reviewId);
+        if (tempReview.isPresent()){
+            Review review = tempReview.get();
+            String userId = review.getUserId();
+            String musicId = review.getMusicId();
+
+            // Remove the reviewId from associated User's reviews list
+            Optional<User> tempUser = userRepository.findById(userId);
+            if (tempUser.isPresent()){
+                User user = tempUser.get();
+                List<String> reviews = user.getReviews();
+                reviews.remove(reviewId);
+                user.setReviews(reviews);
+                userRepository.save(user);
+            }
+            else{
+                return new MessageResponse("Error: Review was not associated with a user");
+            }
+
+            // Remove the reviewId from associated Album/Song's reviews list
+            if (albumRepository.existsById(musicId)){
+                Optional<Album> tempAlbum = albumRepository.findById(musicId);
+                if (tempAlbum.isPresent()){
+                    Album album = tempAlbum.get();
+                    List<String> reviews = album.getReviews();
+                    reviews.remove(reviewId);
+                    album.setReviews(reviews);
+
+                    // Update album score
+                    List<Integer> scores = new ArrayList<>();
+                    for (String id : album.getReviews()){
+                        Optional<Review> r = reviewRepository.findById(id);
+                        if (r.isPresent()){
+                            Review curReview = r.get();
+                            scores.add(curReview.getScore());
+                        }
+                    }
+                    album.calculateScore(scores);
+
+                    albumRepository.save(album);
+                }
+            }
+            else if (songRepository.existsById(musicId)){
+                Optional<Song> tempSong = songRepository.findById(musicId);
+                if (tempSong.isPresent()){
+                    Song song = tempSong.get();
+                    List<String> reviews = song.getReviews();
+                    reviews.remove(reviewId);
+                    song.setReviews(reviews);
+
+                    // Update album score
+                    List<Integer> scores = new ArrayList<>();
+                    for (String id : song.getReviews()){
+                        Optional<Review> r = reviewRepository.findById(id);
+                        if (r.isPresent()){
+                            Review curReview = r.get();
+                            scores.add(curReview.getScore());
+                        }
+                    }
+                    song.calculateScore(scores);
+
+                    songRepository.save(song);
+                }
+            }
+            else{
+                return new MessageResponse("Error: Review was not associated with an album or song");
+            }
+
+            reviewRepository.deleteById(reviewId);
+        }
+        else{
+            return new MessageResponse("Error: Review was not found");
+        }
+
+        return new MessageResponse("Review deleted successfully!");
     }
 }
