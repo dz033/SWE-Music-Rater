@@ -6,7 +6,6 @@ import ('./home.css');
 function Home() {
   const [albums, setAlbums] = useState([]);
   
-
   useEffect(() => {
     // Fetch albums data from backend when component mounts
     axios.get('/api/albums')
