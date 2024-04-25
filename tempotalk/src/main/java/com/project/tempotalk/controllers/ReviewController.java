@@ -54,4 +54,16 @@ public class ReviewController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{reviewId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<MessageResponse> deleteReview(@PathVariable String reviewId){
+        MessageResponse response = reviewService.deleteReview(reviewId);
+
+        if (!response.getMessage().equals("Review deleted successfully!")){
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
