@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './song.css';
+
 
 function SongPage({ songId }) {
   const [song, setSong] = useState(null);
