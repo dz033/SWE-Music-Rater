@@ -1,6 +1,7 @@
 package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.models.Review;
+import com.project.tempotalk.payload.request.EditReviewRequest;
 import com.project.tempotalk.payload.request.ReviewRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.services.ReviewService;
@@ -36,6 +37,18 @@ public class ReviewController {
         MessageResponse response = reviewService.createReview(reviewRequest);
 
         if (!response.getMessage().equals("Review created successfully!")){
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/edit")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<?> editReview(@Valid @RequestBody EditReviewRequest editReviewRequest){
+        MessageResponse response = reviewService.updateReview(editReviewRequest);
+
+        if (!response.getMessage().equals("Review updated successfully!")){
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
