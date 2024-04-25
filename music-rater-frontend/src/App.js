@@ -15,12 +15,11 @@ function App() {
   // const REDIRECT_URL = "http://localhost:3000"
   // const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   // const RESPONSE_TYPE = "token"
-
   return (
     <BrowserRouter>
       <div className="App">
-      <Header />
-        <Layout>
+        <Header />
+        <Layout />
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
@@ -30,7 +29,6 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/song" element={<Song />} />
           </Routes>
-        </Layout>
       </div>
     </BrowserRouter>
   );
