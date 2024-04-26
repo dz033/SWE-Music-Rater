@@ -24,6 +24,7 @@ public class Song {
     private int score = 0;
     private List<String> genres = new ArrayList<>();
     private List<String> reviews = new ArrayList<>();
+    private String coverArt = null;
 
     public Song(String title, String releaseDate){
         this.title = title;
