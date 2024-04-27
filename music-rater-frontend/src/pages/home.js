@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ('./home.css');
 
-
+const API_DIR = "http://localhost:8080/";
 function Home() {
   const [albums, setAlbums] = useState([]);
   
   useEffect(() => {
-    axios.get('http://localhost:8080/api/albums')
+    axios.get(API_DIR + 'api/albums/')
       .then(response => {
         setAlbums(response.data);
       })

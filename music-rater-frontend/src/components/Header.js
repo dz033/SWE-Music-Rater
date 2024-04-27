@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./Header.css";
-
+import { SearchBar } from './SearchBar';
 
 function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <div className="search-bar">Search</div>
+        <div className="search-bar">
+          <SearchBar />
+          <div>SearchResults</div>
+        </div>
         <nav>
           <ul className="nav-links">
             <li><Link to="/home">Home</Link></li>
