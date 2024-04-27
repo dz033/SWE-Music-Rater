@@ -7,9 +7,13 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.project.tempotalk.exceptions.FileUploadException;
+import com.project.tempotalk.models.Album;
+import com.project.tempotalk.payload.request.ImageUploadRequest;
 import com.project.tempotalk.payload.response.ImageUploadResponse;
+import com.project.tempotalk.repositories.AlbumRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,16 +22,22 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 @Slf4j
 public class ImageServiceImpl implements ImageService{
+    @Autowired
+    AlbumRepository albumRepository;
+
     @Value("${aws.s3.bucketName}")
     private String bucketName;
     @Value("${aws.s3.accessKey}")
     private String accessKey;
     @Value("${aws.s3.secretKey}")
     private String secretKey;
+    @Value("${aws.s3.endpointUrl}")
+    private String endpointUrl;
 
     private AmazonS3 s3client;
 
@@ -41,23 +51,58 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public ImageUploadResponse uploadImage(MultipartFile multipartFile){
+    public ImageUploadResponse uploadAlbumImage(ImageUploadRequest imageUploadRequest){
+        if (!albumRepository.existsById(imageUploadRequest.getId())){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+
+        Optional<Album> tempAlbum = albumRepository.findById(imageUploadRequest.getId());
+        if (tempAlbum.isEmpty()){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+        Album album = tempAlbum.get();
+
+        MultipartFile file = imageUploadRequest.getFile();
         ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String todayDate = dateTimeFormatter.format(LocalDate.now());
+        String folder = "coverArt";
         String filePath = "";
         try {
             ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType(multipartFile.getContentType());
-            objectMetadata.setContentLength(multipartFile.getSize());
-            filePath = todayDate + "/" + multipartFile.getOriginalFilename();
-            s3client.putObject(bucketName, filePath, multipartFile.getInputStream(), objectMetadata);
+            objectMetadata.setContentType(file.getContentType());
+            objectMetadata.setContentLength(file.getSize());
+            filePath = folder + "/" + album.getId() + "_" + file.getOriginalFilename();
+            s3client.putObject(bucketName, filePath, file.getInputStream(), objectMetadata);
             imageUploadResponse.setFilePath(filePath);
             imageUploadResponse.setDateTime(LocalDateTime.now());
         } catch (IOException e){
             log.error("Error occurred ==> {}", e.getMessage());
             throw new FileUploadException("Error occurred in file upload ==> " + e.getMessage());
         }
+
+        album.setCoverArt(endpointUrl + filePath);
+        albumRepository.save(album);
+
         return imageUploadResponse;
+    }
+
+    @Override
+    public ImageUploadResponse uploadSongImage(ImageUploadRequest imageUploadRequest){
+        return new ImageUploadResponse();
+    }
+
+    @Override
+    public ImageUploadResponse uploadProfileImage(ImageUploadRequest imageUploadRequest){
+        return new ImageUploadResponse();
+    }
+
+    @Override
+    public ImageUploadResponse uploadArtistImage(ImageUploadRequest imageUploadRequest){
+        return new ImageUploadResponse();
     }
 }

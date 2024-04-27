@@ -36,7 +36,7 @@ public class User {
     private List<String> reviews = new ArrayList<>();
     @DBRef
     private Set<Role> roles = new HashSet<>();
-    private String profileImage = null;
+    private String profileImage = "https://tempotalk-images.s3.ap-northeast-2.amazonaws.com/profileImages/defaultProfilePicture.png";
 
     public User(String username, String email, String password){
         this.username = username;

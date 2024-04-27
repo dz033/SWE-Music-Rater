@@ -7,7 +7,7 @@ function Home() {
   const [albums, setAlbums] = useState([]);
   
   useEffect(() => {
-    axios.get(API_DIR + 'api/albums/')
+    axios.get(API_DIR + 'api/albums')
       .then(response => {
         setAlbums(response.data);
       })

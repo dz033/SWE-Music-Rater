@@ -1,5 +1,6 @@
 package com.project.tempotalk.controllers;
 
+import com.project.tempotalk.payload.request.ImageUploadRequest;
 import com.project.tempotalk.payload.response.ImageUploadResponse;
 import com.project.tempotalk.services.images.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
-    @PostMapping("/upload")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<ImageUploadResponse> uploadFile(MultipartFile file) {
-        return new ResponseEntity<>(imageService.uploadImage(file), HttpStatus.OK);
+    @PostMapping("/uploadAlbum")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ImageUploadResponse> uploadAlbumFile(ImageUploadRequest imageUploadRequest) {
+        return new ResponseEntity<>(imageService.uploadAlbumImage(imageUploadRequest), HttpStatus.OK);
     }
 }
