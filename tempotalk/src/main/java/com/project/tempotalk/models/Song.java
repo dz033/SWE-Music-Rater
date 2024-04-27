@@ -24,7 +24,7 @@ public class Song {
     private int score = 0;
     private List<String> genres = new ArrayList<>();
     private List<String> reviews = new ArrayList<>();
-    private String coverArt = null;
+    private String coverArt = "https://tempotalk-images.s3.ap-northeast-2.amazonaws.com/coverArt/defaultCoverArt.png";
 
     public Song(String title, String releaseDate){
         this.title = title;
