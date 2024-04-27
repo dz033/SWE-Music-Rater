@@ -78,9 +78,14 @@ def search_for_album(token, album_id):
 
 def parse_songs(token, album_id):
     tracks = albums_tracks(token, album_id)
-    song_ids = tracks["items"]
-
+    songs = tracks["items"]
     object_ids = []
+    for song in songs:
+        song_info = {
+            
+        }
+
+    
     return object_ids
     
 
@@ -94,8 +99,9 @@ def parse_albums(token, albums):
             "title": album_json['name'],
             "releaseDate": album_json["release_date"],
             "score": 0,
+            "tracklist": songs_object_ids,
             "genres": album_json["genres"],
-            "reviews": [],   
+            "reviews": [],
             "coverArt": album_json["images"]["url"],
             "_class": "com.project.tempotalk.models.Album"    
                 }
