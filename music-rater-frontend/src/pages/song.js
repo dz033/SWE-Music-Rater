@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./song.css";
 
-
-function SongPage({ songId }) {
+function Song({ songId }) {
   const [song, setSong] = useState(null);
-  const [comments, setComments] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   // Fetch song data 
   useEffect(() => {
     const fetchSong = async () => {
       try {
-        const response = await axios.get(`/api/songs/${songId}`);
+        const response = await axios.get('http://localhost:8080/api/songs/662651c863590b099f301503');
         setSong(response.data);
       } catch (error) {
         console.error('Error fetching song:', error);
@@ -20,18 +20,18 @@ function SongPage({ songId }) {
     fetchSong();
   }, [songId]);
 
-  // Fetch comments for the song
+  // Fetch review for the song
   useEffect(() => {
-    const fetchComments = async () => {
+    const fetchReviews = async () => {
       try {
-        const response = await axios.get(`/api/songs/${songId}/comments`);
-        setComments(response.data);
+        const response = await axios.get('http://localhost:8080/api/songs/${songId}/reviews');
+        setReviews(response.data);
       } catch (error) {
-        console.error('Error fetching comments:', error);
+        console.error('Error fetching reviews:', error);
       }
     };
 
-    fetchComments();
+    fetchReviews();
   }, [songId]);
 
   return (
@@ -46,11 +46,11 @@ function SongPage({ songId }) {
         </div>
       )}
 
-      <div className="comments-section">
-        <h2>Comments</h2>
+      <div className="review-section">
+        <h2>Review</h2>
         <ul>
-          {comments.map((comment) => (
-            <li key={comment.id}>{comment.text}</li>
+          {reviews.map((review) => (
+            <li key={review.id}>{review.text}</li>
           ))}
         </ul>
       </div>
@@ -58,4 +58,4 @@ function SongPage({ songId }) {
   );
 }
 
-export default SongPage;
+export default Song;
