@@ -18,8 +18,7 @@ public class Album {
     @Id
     private String id;
     private String title;
-    @DocumentReference
-    private Artist artist = null;
+    private String artist = "";
     private String releaseDate;
     private int score = 0;
     private List<String> tracklist = new ArrayList<>();
