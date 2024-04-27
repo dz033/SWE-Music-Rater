@@ -33,7 +33,7 @@ public class ArtistController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<MessageResponse> createArtist(@Valid @RequestBody ArtistRequest artistRequest){
+    public ResponseEntity<MessageResponse> createArtist(@RequestBody ArtistRequest artistRequest){
         MessageResponse response = artistService.createArtist(artistRequest);
 
         if (!response.getMessage().equals("Artist created successfully!")){
