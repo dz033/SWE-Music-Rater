@@ -8,9 +8,13 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.project.tempotalk.exceptions.FileUploadException;
 import com.project.tempotalk.models.Album;
+import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.ImageUploadRequest;
 import com.project.tempotalk.payload.response.ImageUploadResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
+import com.project.tempotalk.repositories.ArtistRepository;
+import com.project.tempotalk.repositories.SongRepository;
+import com.project.tempotalk.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +33,15 @@ import java.util.Optional;
 public class ImageServiceImpl implements ImageService{
     @Autowired
     AlbumRepository albumRepository;
+
+    @Autowired
+    SongRepository songRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    ArtistRepository artistRepository;
 
     @Value("${aws.s3.bucketName}")
     private String bucketName;
@@ -93,7 +106,43 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     public ImageUploadResponse uploadSongImage(ImageUploadRequest imageUploadRequest){
-        return new ImageUploadResponse();
+        if (!songRepository.existsById(imageUploadRequest.getId())){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+
+        Optional<Song> tempSong = songRepository.findById(imageUploadRequest.getId());
+        if (tempSong.isEmpty()){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+        Song song = tempSong.get();
+
+        MultipartFile file = imageUploadRequest.getFile();
+        ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+        String folder = "coverArt";
+        String filePath = "";
+        try {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(file.getContentType());
+            objectMetadata.setContentLength(file.getSize());
+            filePath = folder + "/" + song.getId() + "_" + file.getOriginalFilename();
+            s3client.putObject(bucketName, filePath, file.getInputStream(), objectMetadata);
+            imageUploadResponse.setFilePath(filePath);
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+        } catch (IOException e){
+            log.error("Error occurred ==> {}", e.getMessage());
+            throw new FileUploadException("Error occurred in file upload ==> " + e.getMessage());
+        }
+
+        song.setCoverArt(endpointUrl + filePath);
+        songRepository.save(song);
+
+        return imageUploadResponse;
     }
 
     @Override

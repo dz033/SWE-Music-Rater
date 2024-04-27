@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -24,5 +23,11 @@ public class ImageController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ImageUploadResponse> uploadAlbumFile(ImageUploadRequest imageUploadRequest) {
         return new ResponseEntity<>(imageService.uploadAlbumImage(imageUploadRequest), HttpStatus.OK);
+    }
+
+    @PostMapping("/uploadSong")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ImageUploadResponse> uploadSongFile(ImageUploadRequest imageUploadRequest) {
+        return new ResponseEntity<>(imageService.uploadSongImage(imageUploadRequest), HttpStatus.OK);
     }
 }
