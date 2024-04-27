@@ -16,7 +16,7 @@ function Profile() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('/api/user/profile');
+        const response = await axios.get('http://localhost:8080/api/users/moderator');
         setUser(response.data);
         setLoading(false);
       } catch (error) {
