@@ -7,7 +7,7 @@ function Home() {
   const [albums, setAlbums] = useState([]);
   
   useEffect(() => {
-    axios.get('/api/albums/{title}')
+    axios.get('http://localhost:8080/api/albums')
       .then(response => {
         setAlbums(response.data);
       })
