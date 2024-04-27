@@ -20,7 +20,7 @@ public class Artist {
     private List<String> genres = new ArrayList<>();
     private List<String> discography = new ArrayList<>();
     private List<String> singles = new ArrayList<>();
-//  private Image image;
+    private String artistImage = null;
 
     public Artist(String name){
         this.name = name;

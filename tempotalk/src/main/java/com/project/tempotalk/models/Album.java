@@ -25,6 +25,7 @@ public class Album {
     private List<String> tracklist = new ArrayList<>();
     private List<String> genres = new ArrayList<>();
     private List<String> reviews = new ArrayList<>();
+    private String coverArt = null;
 
     public Album(String title, String releaseDate){
         this.title = title;

@@ -1,5 +1,6 @@
 package com.project.tempotalk.controllers;
 
+import com.project.tempotalk.models.Review;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.FollowRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
@@ -42,9 +43,27 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("/unfollow")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<MessageResponse> unfollow(@Valid @RequestBody FollowRequest followRequest){
+        MessageResponse response = userService.unfollowUser(followRequest);
+
+        if (!response.getMessage().equals("User unfollowed successfully!")){
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @GetMapping("/following/{userId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<User>> getFollowing(@PathVariable String userId){
         return new ResponseEntity<>(userService.getFollowedUsers(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/feed/{userId}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<List<Review>> getFeed(@PathVariable String userId){
+        return new ResponseEntity<>(userService.getUserFeed(userId), HttpStatus.OK);
     }
 }
