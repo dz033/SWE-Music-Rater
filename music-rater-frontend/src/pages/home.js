@@ -7,10 +7,9 @@ function Home() {
   const [albums, setAlbums] = useState([]);
   
   useEffect(() => {
-    axios.get('http://localhost:8080/api/albums')
+    axios.get('/api/albums/{title}')
       .then(response => {
         setAlbums(response.data);
-        console.log(response);
       })
       .catch(error => {
         console.error('Error fetching albums:', error);

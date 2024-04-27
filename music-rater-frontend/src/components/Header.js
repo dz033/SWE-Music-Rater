@@ -14,6 +14,8 @@ function Header() {
             <li><Link to="/new">New</Link></li>
             <li><Link to="/discover">Discover</Link></li>
             <li><Link to="/profile">Profile</Link></li>
+            <Link to="/signin">Sign In</Link>
+
           </ul>
         </nav>
       </div>
