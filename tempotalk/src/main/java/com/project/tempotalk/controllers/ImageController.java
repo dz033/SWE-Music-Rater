@@ -38,7 +38,7 @@ public class ImageController {
     }
 
     @PostMapping("/uploadArtist")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ImageUploadResponse> uploadArtistFile(ImageUploadRequest imageUploadRequest) {
         return new ResponseEntity<>(imageService.uploadArtistImage(imageUploadRequest), HttpStatus.OK);
     }
