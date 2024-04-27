@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.project.tempotalk.exceptions.FileUploadException;
 import com.project.tempotalk.models.Album;
+import com.project.tempotalk.models.Artist;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.ImageUploadRequest;
@@ -187,6 +188,42 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     public ImageUploadResponse uploadArtistImage(ImageUploadRequest imageUploadRequest){
-        return new ImageUploadResponse();
+        if (!artistRepository.existsById(imageUploadRequest.getId())){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+
+        Optional<Artist> tempArtist = artistRepository.findById(imageUploadRequest.getId());
+        if (tempArtist.isEmpty()){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+        Artist artist = tempArtist.get();
+
+        MultipartFile file = imageUploadRequest.getFile();
+        ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+        String folder = "artistImages";
+        String filePath = "";
+        try {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(file.getContentType());
+            objectMetadata.setContentLength(file.getSize());
+            filePath = folder + "/" + artist.getId() + "_" + file.getOriginalFilename();
+            s3client.putObject(bucketName, filePath, file.getInputStream(), objectMetadata);
+            imageUploadResponse.setFilePath(filePath);
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+        } catch (IOException e){
+            log.error("Error occurred ==> {}", e.getMessage());
+            throw new FileUploadException("Error occurred in file upload ==> " + e.getMessage());
+        }
+
+        artist.setArtistImage(endpointUrl + filePath);
+        artistRepository.save(artist);
+
+        return imageUploadResponse;
     }
 }
