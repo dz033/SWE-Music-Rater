@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.project.tempotalk.exceptions.FileUploadException;
 import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Song;
+import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.ImageUploadRequest;
 import com.project.tempotalk.payload.response.ImageUploadResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
@@ -145,7 +146,43 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     public ImageUploadResponse uploadProfileImage(ImageUploadRequest imageUploadRequest){
-        return new ImageUploadResponse();
+        if (!userRepository.existsById(imageUploadRequest.getId())){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+
+        Optional<User> tempUser = userRepository.findById(imageUploadRequest.getId());
+        if (tempUser.isEmpty()){
+            ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+            imageUploadResponse.setFilePath("Image was not uploaded: no file path created");
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+            return imageUploadResponse;
+        }
+        User user = tempUser.get();
+
+        MultipartFile file = imageUploadRequest.getFile();
+        ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
+        String folder = "profileImages";
+        String filePath = "";
+        try {
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentType(file.getContentType());
+            objectMetadata.setContentLength(file.getSize());
+            filePath = folder + "/" + user.getId() + "_" + file.getOriginalFilename();
+            s3client.putObject(bucketName, filePath, file.getInputStream(), objectMetadata);
+            imageUploadResponse.setFilePath(filePath);
+            imageUploadResponse.setDateTime(LocalDateTime.now());
+        } catch (IOException e){
+            log.error("Error occurred ==> {}", e.getMessage());
+            throw new FileUploadException("Error occurred in file upload ==> " + e.getMessage());
+        }
+
+        user.setProfileImage(endpointUrl + filePath);
+        userRepository.save(user);
+
+        return imageUploadResponse;
     }
 
     @Override

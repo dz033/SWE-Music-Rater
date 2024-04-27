@@ -30,4 +30,10 @@ public class ImageController {
     public ResponseEntity<ImageUploadResponse> uploadSongFile(ImageUploadRequest imageUploadRequest) {
         return new ResponseEntity<>(imageService.uploadSongImage(imageUploadRequest), HttpStatus.OK);
     }
+
+    @PostMapping("/uploadProfile")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<ImageUploadResponse> uploadProfileFile(ImageUploadRequest imageUploadRequest) {
+        return new ResponseEntity<>(imageService.uploadProfileImage(imageUploadRequest), HttpStatus.OK);
+    }
 }
