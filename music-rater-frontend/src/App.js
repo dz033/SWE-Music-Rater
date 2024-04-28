@@ -10,7 +10,7 @@ import Song from './pages/song'
 import New from './pages/new'
 import Header from './components/Header';
 import './App.css';
-import Signin from './signin';
+// import Signin from './signin';
 
 function App() {
   // const CLIENT_ID = "9ae889ff3843458cbf365530b585f9a3"
@@ -31,7 +31,6 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/song" element={<Song />} />
             <Route path="/new" element={<New />} />
-            <Route path="/signin" element={<Signin />} />
           </Routes>
       </div>
     </BrowserRouter>

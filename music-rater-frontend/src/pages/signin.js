@@ -1,10 +1,9 @@
 import "./signin.css"
 
-export default function SignIn() {
+export default function Signin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
 
   const handleSignIn = async (e) => {
       e.preventDefault();
@@ -36,12 +35,3 @@ export default function SignIn() {
       </div>
     );
   }
-export default function Signin(){
-  return(
-      <>
-      <div className="signinpage"></div>
-          <h1>Sign in</h1>
-          <p>Randomize albums or carousel per genre type?</p>        
-      </>
-  )
-}
