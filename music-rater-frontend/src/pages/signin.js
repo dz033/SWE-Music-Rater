@@ -1,6 +1,4 @@
-import React, { useState} from 'react';
-import axios from 'axios';
-function SignIn() {
+export default function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -8,7 +6,7 @@ function SignIn() {
     const handleSignIn = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('http://localhost:8080/api/auth/signin', { username, password });
+          const response = await axios.post('/api/auth/signin', { username, password });
           const { token, username, roles } = response.data;
           localStorage.setItem('token', token);
           console.log('Sign In Successful:', response.data);
@@ -35,4 +33,3 @@ function SignIn() {
         </div>
       );
     }
-    export default SignIn;
