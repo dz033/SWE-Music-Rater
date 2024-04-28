@@ -36,6 +36,11 @@ public class AlbumController {
         return new ResponseEntity<>(albumService.getRandomAlbums(21), HttpStatus.OK);
     }
 
+    @GetMapping("/newReleases")
+    public ResponseEntity<List<Album>> getNewReleases(){
+        return new ResponseEntity<>(albumService.getNewAlbums(21), HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MessageResponse> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
