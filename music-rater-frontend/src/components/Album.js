@@ -14,6 +14,7 @@ export const Album = () => {
           console.error('Error fetching album data:', error);
         }
       };
+      
     
     
 
