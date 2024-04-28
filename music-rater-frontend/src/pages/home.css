@@ -9,25 +9,22 @@
     grid-gap: 20px;
   }
 
-  .left-column {
-    padding: 20px;
-    height: 100vh;
-  }
-
-.right-column {
-  padding: 20px;
-  background-color: #ef92e3d0 ; 
+.album-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
 }
 
-  .album-grid {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .album-grid .album-item img {
-    width: 50%; /* Adjust the size as needed */
-    height: auto;
-  }
+.album-grid .album-item {
+  margin-right: 10px; 
+  display: inline-block;
+}
+
+.album-carousel {
+  overflow-x: auto;
+  display:inline-block;
+  transform: scale(0.75);
+}
 
   .featured-albums {
     margin-bottom: 100px; 
@@ -52,13 +49,4 @@
   
   .review-item {
     margin-bottom: 20px;
-  }
-
-  .album-item {
-    margin-bottom: 20px;
-  }
-  
-  .album-item img {
-    width: 50px; /* Adjust the size as needed */
-    height: auto;
   }
