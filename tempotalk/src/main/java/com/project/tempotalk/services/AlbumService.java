@@ -5,10 +5,12 @@ import com.project.tempotalk.payload.request.AlbumRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.aggregation.SampleOperation;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,6 +45,18 @@ public class AlbumService {
         randomAlbums = output.getMappedResults();
 
         return  randomAlbums;
+    }
+
+    // Get the most newly released albums in the database
+    public List<Album> getNewAlbums(int numAlbums){
+        List<Album> newAlbums;
+
+        Query query = new Query();
+        query.limit(numAlbums);
+        query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "releaseDate")));
+        newAlbums = mongoTemplate.find(query, Album.class);
+
+        return  newAlbums;
     }
 
     // Create a new album object and store it in our "albums" collection
