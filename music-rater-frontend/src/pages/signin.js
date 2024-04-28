@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import "./signin.css"
 
 export default function Signin() {
@@ -36,7 +36,7 @@ export default function Signin() {
       </div>
     );
   }
-=======
+
 export default function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -72,4 +72,4 @@ export default function SignIn() {
         </div>
       );
     }
->>>>>>> 7621e5911fcbaaad30b73e12ca5734b29bb97ac7
+
