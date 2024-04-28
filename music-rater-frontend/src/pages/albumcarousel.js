@@ -9,21 +9,27 @@ function AlbumCarousel({ albums }) {
     setIndex(selectedIndex);
   };
 
+  const albumsPerSlide = 3;
+  const groupedAlbums = [];
+  for (let i = 0; i < albums.length; i += albumsPerSlide) {
+    groupedAlbums.push(albums.slice(i, i + albumsPerSlide));
+  }
+
   return (
     <div className="album-carousel">
     <Carousel activeIndex={index} onSelect={handleSelect}>
-      {albums.map((album, idx) => (
+    {groupedAlbums.map((albumGroup, idx) => (
         <Carousel.Item key={idx}>
-          <img
-            src={album.coverArt}
-            alt={album.title}
-          />
-          <Carousel.Caption>
-            <h3>{album.title}</h3>
-            {/* Add more details here if needed */}
-          </Carousel.Caption>
+            <div className="album-group">
+            {albumGroup.map((album, albumIdx) => (
+                <div key={albumIdx} className="album-item">
+                  <img src={album.coverArt} alt={album.title} />
+                  <h5>{album.title}</h5>
+                </div>
+                ))}
+                </div>
         </Carousel.Item>
-      ))}
+    ))}
     </Carousel>
     </div>
 

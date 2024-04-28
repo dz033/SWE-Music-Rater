@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     axios.get(API_DIR + 'api/albums')
       .then(response => {
-        setAlbums(response.data.slice(0, 10));
+        setAlbums(response.data.slice(0, 21));
       })
       .catch(error => {
         console.error('Error fetching albums:', error);
@@ -25,6 +25,7 @@ function Home() {
       <AlbumCarousel albums={albums} />
    </section> 
 
+
    <section className="new-discoveries">
           <h1>New Discoveries</h1>
           <Album />
@@ -37,8 +38,6 @@ function Home() {
       </div>
   );
 }
-
-
 
 
 
