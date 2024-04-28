@@ -1,4 +1,6 @@
-export default function SignIn() {
+import React, { useState} from 'react';
+import axios from 'axios';
+function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -6,7 +8,7 @@ export default function SignIn() {
     const handleSignIn = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('/api/auth/signin', { username, password });
+          const response = await axios.post('http://localhost:8080/api/auth/signin', { username, password });
           const { token, username, roles } = response.data;
           localStorage.setItem('token', token);
           console.log('Sign In Successful:', response.data);
@@ -33,3 +35,4 @@ export default function SignIn() {
         </div>
       );
     }
+    export default SignIn;
