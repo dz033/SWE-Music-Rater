@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ('./home.css');
+import { Album } from '../components/Album';
 
 const API_DIR = "http://localhost:8080/";
 function Home() {
@@ -36,6 +37,7 @@ function Home() {
 
     <section className="new-discoveries">
     <h1>New Discoveries</h1>
+    <Album />
     </section>
 
     <section className="upcoming-releases">
