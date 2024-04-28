@@ -24,14 +24,9 @@
     flex-wrap: wrap;
   }
   
-  .album-item {
-    width: 200px; 
-    margin-right: 20px; 
-    margin-bottom: 20px; 
-  }
-  
-  .album-item img {
-    width: 100%; 
+  .album-grid .album-item img {
+    width: 50%; /* Adjust the size as needed */
+    height: auto;
   }
 
   .featured-albums {
@@ -57,4 +52,13 @@
   
   .review-item {
     margin-bottom: 20px;
+  }
+
+  .album-item {
+    margin-bottom: 20px;
+  }
+  
+  .album-item img {
+    width: 50px; /* Adjust the size as needed */
+    height: auto;
   }

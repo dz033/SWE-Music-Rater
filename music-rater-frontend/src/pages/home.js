@@ -10,7 +10,7 @@ function Home() {
   useEffect(() => {
     axios.get(API_DIR + 'api/albums')
       .then(response => {
-        setAlbums(response.data);
+        setAlbums(response.data.slice(0, 10));
       })
       .catch(error => {
         console.error('Error fetching albums:', error);
@@ -30,8 +30,11 @@ function Home() {
       <h1>Featured Albums</h1>
       <div className="album-grid">
             {albums.map(album => (
-              <h3 key={album.id}>{album.title}</h3>
-            ))}
+              <div key={album.id}>
+              <img src={album.coverArt} alt={album.title} />
+              <h3>{album.title}</h3> 
+              </div>
+              ))}
           </div>
         </section>
 
