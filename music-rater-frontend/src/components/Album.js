@@ -7,7 +7,7 @@ export const Album = () => {
       }, []);
       const fetchAlbumData = async () => {
         try {
-          const response = await fetch('http://localhost:8080/api/album');
+          const response = await fetch('http://localhost:8080/api/albums');
           const data = await response.json();
           setAlbumData(data); 
         } catch (error) {
