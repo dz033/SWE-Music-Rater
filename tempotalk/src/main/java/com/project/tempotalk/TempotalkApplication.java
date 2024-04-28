@@ -9,5 +9,5 @@ public class TempotalkApplication {
 		SpringApplication.run(TempotalkApplication.class, args);
 	}
 
-}
+} 
  
