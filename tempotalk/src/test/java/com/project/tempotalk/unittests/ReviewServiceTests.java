@@ -47,18 +47,13 @@ public class ReviewServiceTests {
     @Mock
     ReviewRepository reviewRepository;
 
-    @Mock
-    List<String> musicReviews;
-
-    @Mock
-    List<String> userReviews;
-
     @InjectMocks
     ReviewService reviewService;
 
     private Album album;
     private User user;
     private Review review;
+    private List<String> userReviews;
 
     @BeforeEach
     public void init(){
@@ -90,7 +85,7 @@ public class ReviewServiceTests {
     }
 
     @Test
-    public void ReviewService_CreateReview_ReviewSuccessfullyCreatedResponse(){
+    public void ReviewService_CreateReview_ReviewAlreadyCreatedResponse(){
         ReviewRequest reviewRequest = new ReviewRequest("body", 100, "userId", "musicId");
         album.setReviews(new ArrayList<>(List.of("reviewId1")));
         user.setReviews(userReviews);
@@ -103,7 +98,7 @@ public class ReviewServiceTests {
     }
 
     @Test
-    public void ReviewService_CreateReview_ReviewAlreadyCreatedResponse (){
+    public void ReviewService_CreateReview_ReviewSuccessfullyCreatedResponse (){
         ReviewRequest reviewRequest = new ReviewRequest("body", 100, "userId", "musicId");
         album.setReviews(new ArrayList<>(List.of("reviewId")));
         user.setReviews(userReviews);
