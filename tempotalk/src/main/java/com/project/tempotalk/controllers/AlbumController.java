@@ -26,7 +26,12 @@ public class AlbumController {
         return new ResponseEntity<List<Album>>(albumService.allAlbums(), HttpStatus.OK);
     }
 
-    @GetMapping("/{title}")
+    @GetMapping("/{albumId}")
+    public ResponseEntity<Optional<Album>> getAlbumById(@PathVariable String albumId){
+        return new ResponseEntity<>(albumService.albumById(albumId), HttpStatus.OK);
+    }
+
+    @GetMapping("/title/{title}")
     public ResponseEntity<Optional<List<Album>>> getAlbumsByName(@PathVariable String title){
         return new ResponseEntity<Optional<List<Album>>>(albumService.albumsByTitle(title), HttpStatus.OK);
     }
