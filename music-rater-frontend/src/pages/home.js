@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const API_DIR = "http://localhost:8080/";
 function Home() {
-  const [featuredAlbums, setFeaturedAlbums] = useState([]);
+  // const [featuredAlbums, setFeaturedAlbums] = useState([]);
   const [newDiscoveries, setNewDiscoveries] = useState([]);
   const [newReleases, setnewReleases] = useState([]);
 
@@ -32,14 +32,12 @@ function Home() {
   }, []);
 
   return (
-    /*<div className="home">
+  <div className="home">
         <section className="featured-albums">
       <h1>Featured Albums</h1>
-      <AlbumCarousel albums={albums} />
-   </section>  */
+      <AlbumCarousel albums={newDiscoveries} />
+   </section>  
 
-
-   <div className="discoveries">
     <section className="discoveries">
           <h1>Discoveries</h1>
           <AlbumCarousel albums={newDiscoveries} />    

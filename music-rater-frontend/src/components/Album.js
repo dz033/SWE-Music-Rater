@@ -4,10 +4,10 @@ import axios from 'axios';
 const API_DIR = "http://localhost:8080/";
 
 function Album({id}) {
-  const [oneAlbum, setoneAlbum] = useState(null);
+  const [oneAlbum, setoneAlbum] = useState([]);
 
   useEffect(() => {
-    axios.get(API_DIR + 'api/albums/${title}')
+    axios.get(API_DIR + 'api/albums/${id}')
       .then(response => {
         console.log("API Response:", response.data);
         const oneAlbumData = response.data;
