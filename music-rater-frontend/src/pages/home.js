@@ -3,6 +3,7 @@ import axios from 'axios';
 import './home.css';
 import { Album } from '../components/Album';
 import AlbumCarousel from './albumcarousel';
+import { Link } from 'react-router-dom';
 
 const API_DIR = "http://localhost:8080/";
 function Home() {
