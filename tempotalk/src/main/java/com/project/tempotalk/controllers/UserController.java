@@ -27,7 +27,12 @@ public class UserController {
         return new ResponseEntity<>(userService.allUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/{userId}")
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable String userId){
+        return new ResponseEntity<>(userService.userById(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/username/{username}")
     public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable String username){
         return new ResponseEntity<>(userService.userByUsername(username), HttpStatus.OK);
     }

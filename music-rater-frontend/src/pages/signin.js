@@ -1,11 +1,15 @@
 
 import "./signin.css"
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const API_DIR = "http://localhost:8080/";
 export default function Signin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+
   const handleSignIn = async () => {
     try {
       console.log("test");
@@ -28,6 +32,8 @@ export default function Signin() {
       //console.log(JSON.stringify(data));
       // Handle successful sign-in, e.g., store user data in state or local storage
       console.log('Sign-in successful!', data);
+      navigate("/profile");
+
     } catch (error) {
       setError('Sign-in failed. Please check your credentials and try again.');
       console.error('Error signing in:', error);

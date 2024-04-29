@@ -33,6 +33,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // Return a User object by their userId, if they exist
+    public Optional<User> userById(String userId){
+        return userRepository.findById(userId);
+    }
+
     // Return a User object by their username, if they exist
     public Optional<User> userByUsername(String username){
         return userRepository.findByUsername(username);
