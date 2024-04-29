@@ -4,6 +4,7 @@ import com.project.tempotalk.models.Review;
 import com.project.tempotalk.payload.request.EditReviewRequest;
 import com.project.tempotalk.payload.request.ReviewRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.ReviewResponse;
 import com.project.tempotalk.services.ReviewService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,16 @@ public class ReviewController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> createReview(@Valid @RequestBody ReviewRequest reviewRequest){
-        MessageResponse response = reviewService.createReview(reviewRequest);
+        ReviewResponse response = reviewService.createReview(reviewRequest);
 
-        if (!response.getMessage().equals("Review created successfully!")){
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        if (response.getReview() == null && response.getMessage().equals("Error: User has already created a review for this music")){
+            return new ResponseEntity<>(response.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        if (response.getReview() == null){
+            return new ResponseEntity<>(response.getMessage(), HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response.getReview(), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
