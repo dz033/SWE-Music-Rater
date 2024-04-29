@@ -7,19 +7,29 @@ export default function Signin() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignIn = async (e) => {
-      e.preventDefault();
-      try {
-        const response = axios.post(API_DIR + 'api/auth/signin', {"username": username, "password": password });
-        console.log(response)
-        const { token, username, roles } = response.data;
-        
-        localStorage.setItem('token', token);
-        console.log('Sign In Successful:', response.data);
-      } catch (error) {
-        setError(error.response.data.message);
-        console.error('Sign In Error:', error.response.data.message);
+  const handleSignIn = async () => {
+    try {
+      const response = await fetch(API_DIR + 'api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Sign-in failed');
       }
+
+      // Assuming the server responds with some data upon successful sign-in
+      const data = await response.json();
+      console.log(data);
+      // Handle successful sign-in, e.g., store user data in state or local storage
+      console.log('Sign-in successful!', data);
+    } catch (error) {
+      setError('Sign-in failed. Please check your credentials and try again.');
+      console.error('Error signing in:', error);
+    }
     };
     return (
       <div>
