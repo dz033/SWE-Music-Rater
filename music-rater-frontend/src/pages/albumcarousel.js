@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import { Link } from 'react-router-dom';
+
 import './home.css'
 
 function AlbumCarousel({ albums }) {
@@ -17,22 +19,23 @@ function AlbumCarousel({ albums }) {
 
   return (
     <div className="album-carousel">
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-    {groupedAlbums.map((albumGroup, idx) => (
-        <Carousel.Item key={idx}>
+      <Carousel activeIndex={index} onSelect={handleSelect}>
+        {groupedAlbums.map((albumGroup, idx) => (
+          <Carousel.Item key={idx}>
             <div className="album-group">
-            {albumGroup.map((album, albumIdx) => (
+              {albumGroup.map((album, albumIdx) => (
                 <div key={albumIdx} className="album-item">
-                  <img src={album.coverArt} alt={album.title} />
-                  <h5>{album.title}</h5>
+                  <Link to={`/album/${album.id}`}>
+                    <img src={album.coverArt} alt={album.title} />
+                    <h5>{album.title}</h5>
+                  </Link>
                 </div>
-                ))}
-                </div>
-        </Carousel.Item>
-    ))}
-    </Carousel>
+              ))}
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
     </div>
-
   );
 }
 

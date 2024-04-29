@@ -3,20 +3,18 @@ import React, { useState, useEffect } from 'react';
 export const Album = () => {
     const [albumData, setAlbumData] = useState(null);
     useEffect(() => {
-        fetchAlbumData(); 
-      }, []);
       const fetchAlbumData = async () => {
-        try {
-          const response = await fetch('http://localhost:8080/api/albums');
-          const data = await response.json();
-          setAlbumData(data); 
-        } catch (error) {
-          console.error('Error fetching album data:', error);
-        }
+          try {
+              const response = await fetch('http://localhost:8080/api/albums');
+              const data = await response.json();
+              setAlbumData(data);
+          } catch (error) {
+              console.error('Error fetching album data:', error);
+          }
       };
-      
-    
-    
+
+      fetchAlbumData();
+  }, []);
 
       return (
         <div className="album">
@@ -34,4 +32,5 @@ export const Album = () => {
     
 };
 
+export default Album;
 
