@@ -17,7 +17,7 @@ import java.util.Date;
 public class Review {
     @Id
     private String id;
-    private String body = "";
+    private String body;
     private int score;
     private String userId;
     private String musicId;
