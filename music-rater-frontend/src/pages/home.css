@@ -37,11 +37,13 @@
   width: 100%;
   overflow-x: auto;
   display:inline-block;
-  display: flex;
+  display: flex;  
   justify-content: space-between;
   margin-right: 50px;
   margin-top: 0;
   gap: 5px;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
 }
 
 .featured-albums h1,

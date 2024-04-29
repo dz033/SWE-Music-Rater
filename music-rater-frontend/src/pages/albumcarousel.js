@@ -3,7 +3,6 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 
 import './home.css'
-
 function AlbumCarousel({ albums }) {
   const [index, setIndex] = useState(0);
   const carouselRef = useRef(null);
