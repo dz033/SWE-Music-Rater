@@ -89,7 +89,8 @@ public class ReviewService {
         }
 
         // Create a new review object
-        Review review = new Review(reviewRequest.getBody(), reviewRequest.getRating(), reviewRequest.getUserId(), reviewRequest.getMusicId());
+        Review review = new Review(reviewRequest.getBody(), reviewRequest.getRating(),
+                                    reviewRequest.getUserId(), reviewRequest.getMusicId());
         reviewRepository.save(review);
 
         // Find user who made the review and add the new review ID to their list of reviews
