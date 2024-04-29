@@ -7,7 +7,7 @@ function Album({id}) {
   const [oneAlbum, setoneAlbum] = useState([]);
 
   useEffect(() => {
-    axios.get(API_DIR + 'api/albums/${id}')
+    axios.get(API_DIR + 'api/albums/' + id)
       .then(response => {
         console.log("API Response:", response.data);
         const oneAlbumData = response.data;
@@ -16,7 +16,7 @@ function Album({id}) {
       .catch(error => {
         console.error('Error fetching album:', error);
       });
-    }, [id]);
+    }, id);
 
     console.log("oneAlbum state:", oneAlbum);
 
