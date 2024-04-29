@@ -8,15 +8,18 @@
 */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
 
 function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const userData = useLocation().state
   useEffect(() => {
+    console.log(userData)
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/users/moderator');
+        const response = await axios.get(`http://localhost:8080/api/users/${userData.id}`);
         setUser(response.data);
         setLoading(false);
       } catch (error) {
@@ -40,13 +43,13 @@ function Profile() {
       <div className="profile-reviews">
         <h2>Reviews</h2>
         <ul>
-          {user.reviews.map(review => (
+          {user.reviews ? user.reviews.map(review => (
             <li key={review.id}>
               <p>{review.title}</p>
               <p>Artist: {review.artist}</p>
               <p>Album: {review.album}</p>
-            </li>
-          ))}
+            </li> 
+          )):<></>}
         </ul>
       </div>
       <div className="profile-liked-albums">

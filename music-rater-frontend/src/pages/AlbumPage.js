@@ -14,7 +14,9 @@ return (
     <div className = "album-page">
       <h2></h2>
       <Album id={id} /> {/* Pass the id to the Album component */}
+      
       <Review music_id = {id} />
+
     </div>
   );
 }
