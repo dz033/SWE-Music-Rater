@@ -38,9 +38,14 @@ public class ReviewService {
         return reviewRepository.findAll();
     }
 
-    // Return all reviews associated an album
+    // Return all reviews associated with an album or song
     public Optional<List<Review>> getReviewsByMusicId(String musicId){
         return reviewRepository.findReviewsByMusicId(musicId);
+    }
+
+    // Return all reviews associated with a user
+    public Optional<List<Review>> getReviewsByUserId(String userId){
+        return reviewRepository.findReviewsByUserId(userId);
     }
 
     // Create a review and add its ID to a User's and Album/Song's review lists

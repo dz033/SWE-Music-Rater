@@ -29,8 +29,13 @@ public class ReviewController {
     }
 
     @GetMapping("/{musicId}")
-    public ResponseEntity<Optional<List<Review>>> getReviewsByMusicId(@PathVariable String musicId){
+    public ResponseEntity<Optional<List<Review>>> getMusicReviews(@PathVariable String musicId){
         return new ResponseEntity<>(reviewService.getReviewsByMusicId(musicId), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<Optional<List<Review>>> getUserReviews(@PathVariable String userId){
+        return new ResponseEntity<>(reviewService.getReviewsByUserId(userId), HttpStatus.OK);
     }
 
     @PostMapping("/create")
