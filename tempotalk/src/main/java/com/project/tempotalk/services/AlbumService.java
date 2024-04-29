@@ -30,6 +30,9 @@ public class AlbumService {
         return albumRepository.findAll();
     }
 
+    // Retrieve and return an album based on its ID
+    public Optional<Album> albumById(String albumId){ return albumRepository.findById(albumId); }
+
     // Return a list of all albums that exist by a title, if there are any
     public Optional<List<Album>> albumsByTitle(String title){
         return albumRepository.findAlbumByTitle(title);
@@ -61,7 +64,7 @@ public class AlbumService {
 
     // Create a new album object and store it in our "albums" collection
     public MessageResponse createAlbum(AlbumRequest albumRequest){
-        Album album = new Album(albumRequest.getTitle(), albumRequest.getReleaseDate());
+        Album album = new Album(albumRequest.getTitle(), albumRequest.getArtist(), albumRequest.getReleaseDate(), albumRequest.getGenres());
         albumRepository.save(album);
         return new MessageResponse("Album created successfully!");
     }
