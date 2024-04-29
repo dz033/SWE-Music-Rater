@@ -7,6 +7,7 @@ import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.EditReviewRequest;
 import com.project.tempotalk.payload.request.ReviewRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.ReviewResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
 import com.project.tempotalk.repositories.ReviewRepository;
 import com.project.tempotalk.repositories.SongRepository;
@@ -43,13 +44,43 @@ public class ReviewService {
     }
 
     // Create a review and add its ID to a User's and Album/Song's review lists
-    public MessageResponse createReview(ReviewRequest reviewRequest){
-        // Check to make sure both user and album/song specified in the review request exist
-        if (!userRepository.existsById(reviewRequest.getUserId())){
-            return new MessageResponse("Error: User not found");
+    public ReviewResponse createReview(ReviewRequest reviewRequest){
+        // Check to make sure user specified in the review request exist
+        Optional<User> tempUser = userRepository.findById(reviewRequest.getUserId());
+        if (tempUser.isEmpty()){
+            return new ReviewResponse("Error: User not found");
         }
-        else if (!(albumRepository.existsById(reviewRequest.getMusicId()) || songRepository.existsById(reviewRequest.getMusicId()))){
-            return new MessageResponse("Error: Album or song not found");
+        User user = tempUser.get();
+        List<String> userReviews = user.getReviews();
+        List<String> musicReviews;
+        Album album = null;
+        Song song = null;
+
+        // Make sure that the album/song being reviewed exists
+        if (albumRepository.existsById(reviewRequest.getMusicId())){
+            Optional<Album> tempAlbum = albumRepository.findById(reviewRequest.getMusicId());
+            if (tempAlbum.isEmpty()){
+                return new ReviewResponse("Error: Album not found");
+            }
+            album = tempAlbum.get();
+            musicReviews = album.getReviews();
+        }
+        else if (songRepository.existsById(reviewRequest.getMusicId())){
+            Optional<Song> tempSong = songRepository.findById(reviewRequest.getMusicId());
+            if (tempSong.isEmpty()){
+                return new ReviewResponse("Error: Song not found");
+            }
+            song = tempSong.get();
+            musicReviews = song.getReviews();
+        }else{
+            return new ReviewResponse("Error: no album or song was found");
+        }
+
+        // Check to make sure the user hasn't already created a review for this album/song
+        for (String id : userReviews){
+            if (musicReviews.contains(id)){
+                return new ReviewResponse("Error: User has already created a review for this music");
+            }
         }
 
         // Create a new review object
@@ -57,72 +88,45 @@ public class ReviewService {
         reviewRepository.save(review);
 
         // Find user who made the review and add the new review ID to their list of reviews
-        Optional<User> user = userRepository.findById(reviewRequest.getUserId());
-        if (user.isPresent()){
-            User user1 = user.get();
-            List<String> userReviews = user1.getReviews();
-            userReviews.add(review.getId());
-            user1.setReviews(userReviews);
-            userRepository.save(user1);
-        }
-        else{
-            return new MessageResponse("Error: Review was not associated with a user");
-        }
+        userReviews.add(review.getId());
+        user.setReviews(userReviews);
+        userRepository.save(user);
 
         // Find the album or song associated with the review and add the new review ID to their list of reviews
-        if (albumRepository.existsById(reviewRequest.getMusicId())){
-            Optional<Album> album = albumRepository.findById(reviewRequest.getMusicId());
-            if (album.isPresent()){
-                // Update review list in album
-                Album album1 = album.get();
-                List<String> albumReviews = album1.getReviews();
-                albumReviews.add(review.getId());
-                album1.setReviews(albumReviews);
+        if (album != null){
+            musicReviews.add(review.getId());
+            album.setReviews(musicReviews);
 
-                // Update album score
-                List<Integer> scores = new ArrayList<>();
-                for (String id : album1.getReviews()){
-                    Optional<Review> r = reviewRepository.findById(id);
-                    if (r.isPresent()){
-                        Review curReview = r.get();
-                        scores.add(curReview.getScore());
-                    }
+            // Update album score
+            List<Integer> scores = new ArrayList<>();
+            for (String id : album.getReviews()){
+                Optional<Review> r = reviewRepository.findById(id);
+                if (r.isPresent()){
+                    Review curReview = r.get();
+                    scores.add(curReview.getScore());
                 }
-                album1.calculateScore(scores);
-
-                albumRepository.save(album1);
             }
-            else{
-                return new MessageResponse("Error: Review was not associated with an album");
-            }
+            album.calculateScore(scores);
+            albumRepository.save(album);
         }
-        else if (songRepository.existsById(reviewRequest.getMusicId())){
-            Optional<Song> song = songRepository.findById(reviewRequest.getMusicId());
-            if (song.isPresent()){
-                Song song1 = song.get();
-                List<String> songReviews = song1.getReviews();
-                songReviews.add(review.getId());
-                song1.setReviews(songReviews);
+        else {
+            musicReviews.add(review.getId());
+            song.setReviews(musicReviews);
 
-                // Update song score
-                List<Integer> scores = new ArrayList<>();
-                for (String id : song1.getReviews()){
-                    Optional<Review> r = reviewRepository.findById(id);
-                    if (r.isPresent()){
-                        Review curReview = r.get();
-                        scores.add(curReview.getScore());
-                    }
+            // Update song score
+            List<Integer> scores = new ArrayList<>();
+            for (String id : song.getReviews()){
+                Optional<Review> r = reviewRepository.findById(id);
+                if (r.isPresent()){
+                    Review curReview = r.get();
+                    scores.add(curReview.getScore());
                 }
-                song1.calculateScore(scores);
-
-                songRepository.save(song1);
             }
-            else{
-                return new MessageResponse("Error: Review was not associated with an album or song");
-            }
+            song.calculateScore(scores);
+            songRepository.save(song);
         }
 
-        return new MessageResponse("Review created successfully!");
+        return new ReviewResponse(review,"Review created successfully!");
     }
 
     // Update a review and update the score of the Album/Song it is associated with
