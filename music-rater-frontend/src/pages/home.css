@@ -32,6 +32,28 @@
   margin-left: 100px;
   justify-content: center;
 }
+.album-page{
+  color: white;
+}
+
+.album {
+  flex-direction: row;
+  justify-content: space-around;
+  content { 
+    display: flex;
+    align-items: left;
+    
+  }
+  img{
+    width: 400px;
+    height: auto;
+  
+    /* align-items: left; */
+  
+  }
+} 
+
+
 
 .album-carousel .album-group {
   width: 100%;

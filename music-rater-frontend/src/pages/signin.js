@@ -6,9 +6,9 @@ export default function Signin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const handleSignIn = async () => {
     try {
+      console.log("test");
       const response = await fetch(API_DIR + 'api/auth/signin', {
         method: 'POST',
         headers: {
@@ -22,8 +22,10 @@ export default function Signin() {
       }
 
       // Assuming the server responds with some data upon successful sign-in
-      const data = await response.json();
-      console.log(data);
+      const data = response.json()
+      
+      console.log("look here: ", data);
+      //console.log(JSON.stringify(data));
       // Handle successful sign-in, e.g., store user data in state or local storage
       console.log('Sign-in successful!', data);
     } catch (error) {
@@ -34,7 +36,7 @@ export default function Signin() {
     return (
       <div>
         <h1>Sign in</h1>
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={handleSignIn()}>
           <div>
             <label>Username:</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
