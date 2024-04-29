@@ -18,17 +18,19 @@ function Album({id}) {
       });
     }, id);
 
-    console.log("oneAlbum state:", oneAlbum);
+
 
       return (
         <div className="album">
             {oneAlbum && (
                 <>
-            <img src={oneAlbum.cover} alt={oneAlbum.title} />
-            <p>{oneAlbum.title}</p>
-            <p>{oneAlbum.artist}</p>
-             <p>Release Date: {oneAlbum.releaseDate}</p>
-            <p>Score: {oneAlbum.score}/5</p>
+            <h1>{oneAlbum.title}</h1>
+            <content>
+              <img src={oneAlbum.coverArt} alt={oneAlbum.title} />
+              <p>Artist: {oneAlbum.artist} <br></br></p>
+              <p>Release Date: {oneAlbum.releaseDate}</p>
+              <p>Score: {oneAlbum.score}/100</p>
+            </content>
         </>
             )}
         </div>

@@ -10,8 +10,11 @@ export default function Signin() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault()
+    console.log('uytjhgnb')
     try {
+      console.log("test");
       const response = await fetch(API_DIR + 'api/auth/signin', {
         method: 'POST',
         headers: {
@@ -25,21 +28,29 @@ export default function Signin() {
       }
 
       // Assuming the server responds with some data upon successful sign-in
-      const data = await response.json();
-      console.log(data);
+      const data = await response.json()
+      
+      console.log("look here: ", data);
+      //console.log(JSON.stringify(data));
       // Handle successful sign-in, e.g., store user data in state or local storage
       console.log('Sign-in successful!', data);
-      navigate("/profile");
+      navigate("/profile", {state: data});
 
     } catch (error) {
       setError('Sign-in failed. Please check your credentials and try again.');
       console.error('Error signing in:', error);
     }
     };
+
+    const handleKeyDown = (e) =>{
+      if (e.key != "Enter"){
+        return
+      }
+    }
     return (
       <div>
         <h1>Sign in</h1>
-        <form onSubmit={handleSignIn}>
+        <form onSubmit={handleSignIn} onKeyDown={handleKeyDown} >
           <div>
             <label>Username:</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
