@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export const Album = () => {
-    const [albumData, setAlbumData] = useState(null);
-    useEffect(() => {
-        fetchAlbumData(); 
-      }, []);
-      const fetchAlbumData = async () => {
-        try {
-          const response = await fetch('http://localhost:8080/api/albums');
-          const data = await response.json();
-          setAlbumData(data); 
-        } catch (error) {
-          console.error('Error fetching album data:', error);
-        }
-      };
-      
-    
-    
+const API_DIR = "http://localhost:8080/";
+
+function Album({id}) {
+  const [oneAlbum, setoneAlbum] = useState([]);
+
+  useEffect(() => {
+    axios.get(API_DIR + 'api/albums/${id}')
+      .then(response => {
+        console.log("API Response:", response.data);
+        const oneAlbumData = response.data;
+        setoneAlbum(oneAlbumData);
+      })
+      .catch(error => {
+        console.error('Error fetching album:', error);
+      });
+    }, [id]);
+
+    console.log("oneAlbum state:", oneAlbum);
 
       return (
         <div className="album">
-            {albumData && (
+            {oneAlbum && (
                 <>
-                    <img src={albumData.cover} alt={albumData.title} />
-                    <p>{albumData.title}</p>
-                    <p>{albumData.artist}</p>
-                    <p>Release Date: {albumData.releaseDate}</p>
-                    <p>Score: {albumData.score}/5</p>
-                </>
+            <img src={oneAlbum.cover} alt={oneAlbum.title} />
+            <p>{oneAlbum.title}</p>
+            <p>{oneAlbum.artist}</p>
+             <p>Release Date: {oneAlbum.releaseDate}</p>
+            <p>Score: {oneAlbum.score}/5</p>
+        </>
             )}
         </div>
     );
-    
 };
 
-
+export default Album;

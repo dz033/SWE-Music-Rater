@@ -3,36 +3,49 @@ import axios from 'axios';
 import './home.css';
 import { Album } from '../components/Album';
 import AlbumCarousel from './albumcarousel';
+import { Link } from 'react-router-dom';
 
 const API_DIR = "http://localhost:8080/";
 function Home() {
-  const [albums, setAlbums] = useState([]);
+  // const [featuredAlbums, setFeaturedAlbums] = useState([]);
+  const [newDiscoveries, setNewDiscoveries] = useState([]);
+  const [newReleases, setnewReleases] = useState([]);
 
   useEffect(() => {
-    axios.get(API_DIR + 'api/albums')
+    axios.get(API_DIR + 'api/albums/discovery')
       .then(response => {
-        setAlbums(response.data.slice(0, 21));
+        const discoveries = response.data;
+        setNewDiscoveries(discoveries);
       })
       .catch(error => {
         console.error('Error fetching albums:', error);
       });
+
+    axios.get(API_DIR + 'api/albums/newReleases')
+      .then(response => {
+        const releases = response.data;
+        setnewReleases(releases);
+      })
+      .catch(error => {
+        console.error('Error fetching upcoming releases:', error);
+      });
   }, []);
 
   return (
-    <div className="home">
+  <div className="home">
         <section className="featured-albums">
       <h1>Featured Albums</h1>
-      <AlbumCarousel albums={albums} />
-   </section> 
+      <AlbumCarousel albums={newDiscoveries} />
+   </section>  
 
-
-   <section className="new-discoveries">
-          <h1>New Discoveries</h1>
-          <Album />
+    <section className="discoveries">
+          <h1>Discoveries</h1>
+          <AlbumCarousel albums={newDiscoveries} />    
         </section>
 
-        <section className="upcoming-releases">
-          <h1>Upcoming Releases</h1>
+        <section className="new-releases">
+          <h1>New Releases</h1>
+          <AlbumCarousel albums={newReleases} />
         </section>
 
       </div>
