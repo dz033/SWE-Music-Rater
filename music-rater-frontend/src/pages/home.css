@@ -37,21 +37,43 @@
 }
 
 .album {
-  flex-direction: row;
-  justify-content: space-around;
-  content { 
-    display: flex;
-    align-items: left;
-    
-  }
-  img{
-    width: 400px;
-    height: auto;
-  
-    /* align-items: left; */
-  
+  content{
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    gap: 4vmin; 
+    position: absolute;
+    margin-left: 130px;
+    margin-top: 50px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    img{
+      width: 500px;
+      height: auto;
+
+    }
   }
 } 
+.review {
+  h1 {
+    margin: 0 auto; /* Center the container horizontally */
+    margin-left: 325px;
+    margin-top: 50px;
+
+  }
+}
+
+.review-item{
+  border: 2px solid rgb(202, 87, 156);
+  padding: 10px;
+  width: 30%;
+  align-content: middle;
+  text-align: left;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-right: 250px;
+
+}
 
 
 
