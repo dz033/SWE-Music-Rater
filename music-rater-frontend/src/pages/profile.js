@@ -9,6 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import './home.css';
+import Review from '../components/Review';
 
 
 function Profile() {
@@ -37,22 +39,17 @@ function Profile() {
   return (
     <div className="profile">
       <div className="profile-header">
-        <img src={user.photoUrl} alt="User" className="profile-photo" />
-        <h1>{user.name}</h1>
+        <img src={user.profileImage} alt="User" className="profile-photo" />
+        <h1>{user.username}</h1>
       </div>
-      <div className="profile-reviews">
-        <h2>Reviews</h2>
+      <div>
+        {/* <h2>Reviews</h2> */}
         <ul>
-          {user.reviews ? user.reviews.map(review => (
-            <li key={review.id}>
-              <p>{review.title}</p>
-              <p>Artist: {review.artist}</p>
-              <p>Album: {review.album}</p>
-            </li> 
-          )):<></>}
+          {<Review id={`users/${userData.id}`}/>}
         </ul>
       </div>
-      <div className="profile-liked-albums">
+      
+      {/* <div className="profile-liked-albums">
         <h2>Liked Albums</h2>
         <ul>
           {user.likedAlbums.map(album => (
@@ -62,8 +59,10 @@ function Profile() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
+    
+    
   );
 }
 

@@ -4,11 +4,11 @@ import '../pages/home.css'
 
 const API_DIR = "http://localhost:8080/";
 
-function Review({music_id}) {
+function Review({id}) {
   const [reviews, setReview] = useState([]);
 
   useEffect(() => {
-    axios.get(API_DIR + 'api/reviews/' + music_id)
+    axios.get(API_DIR + 'api/reviews/' + id)
       .then(response => {
         console.log("review Response:", response.data);
         const reviewsData = response.data;
@@ -17,7 +17,7 @@ function Review({music_id}) {
       .catch(error => {
         console.error('Error fetching album:', error);
       });
-    }, music_id);
+    }, id);
     
 
     return (
