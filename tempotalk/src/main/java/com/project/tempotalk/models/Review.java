@@ -28,5 +28,6 @@ public class Review {
         this.score = score;
         this.userId = userId;
         this.musicId = musicId;
+        this.creationDate = new Date();
     }
 }

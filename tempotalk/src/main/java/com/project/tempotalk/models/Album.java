@@ -34,6 +34,11 @@ public class Album {
 
     // Calculate the average score for this album
     public void calculateScore(List<Integer> scores){
+        if (scores.isEmpty()){
+            setScore(0);
+            return;
+        }
+
         int numRatings = 0;
         int total = 0;
         for (int score : scores){
