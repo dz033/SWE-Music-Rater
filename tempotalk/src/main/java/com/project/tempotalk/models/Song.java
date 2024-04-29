@@ -32,6 +32,11 @@ public class Song {
 
     // Calculate the average score for this song
     public void calculateScore(List<Integer> scores){
+        if (scores.isEmpty()){
+            setScore(0);
+            return;
+        }
+
         int numRatings = 0;
         int total = 0;
         for (int score : scores){
