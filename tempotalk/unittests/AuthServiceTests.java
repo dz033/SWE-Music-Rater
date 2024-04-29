@@ -17,9 +17,6 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-
-
-
 //David
 @Service
 public class AuthServiceTests{
@@ -34,9 +31,8 @@ public class AuthServiceTests{
 
     @Test
     void duplicateUsernameError(){
-        
         Set<String> roles = new HashSet<>();
-        roles.add("User");
+        roles.add("user");
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         when(userRepositoryMock.existsByUsername()).thenReturn(true);
         MessageResponse response = authService.registerUser(request);
@@ -46,7 +42,7 @@ public class AuthServiceTests{
     @Test
     void duplicateEmailError(){
         Set<String> roles = new HashSet<>();
-        roles.add("User");
+        roles.add("user");
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         when(userRepositoryMock.existsByEmail()).thenReturn(true);
         MessageResponse response = authService.registerUser(request);
@@ -60,7 +56,6 @@ public class AuthServiceTests{
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         MessageResponse response = authService.registerUser(request);
         assertEquals("User registered successfully!", response.getMessage());
-        
     }
 
     @Test
@@ -70,7 +65,6 @@ public class AuthServiceTests{
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         MessageResponse response = authService.registerUser(request);
         assertEquals("User registered successfully!", response.getMessage());
-        
     }
 
     @Test
@@ -79,6 +73,5 @@ public class AuthServiceTests{
         SignupRequest request = new SignupRequest("bobjoe", "bobjoe@gmail.com", roles, "password");
         MessageResponse response = authService.registerUser(request);
         assertEquals("User registered successfully!", response.getMessage());
-        
     }
 }
