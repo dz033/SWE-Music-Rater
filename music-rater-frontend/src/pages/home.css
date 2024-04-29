@@ -4,43 +4,52 @@
     text-align: left; 
     font-family: Ubuntu;
     color: #FFFFFF;
-    display: grid;
-    grid-gap: 20px;
   }
 
-.album-container {
+/*.album-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
+}  */ 
+
+.album-cover img {
+  width: 400px; /* Adjust the width of the album cover */
+  height: 400px;
+  margin-left: 120px;
+  justify-content: center;
 }
 
-.album-grid .album-item {
-  margin-right: 10px; 
-  display: inline-block;
-  margin-right: 20px;
+.album-item {
+  display: block;
+  font-size: 24px;
+  color: #FFFFFF;
+  width: 20px;
+}
+
+.album-title {
+  white-space: nowrap; 
+  color: #FFFFFF;
+  margin-left: 100px;
+  justify-content: center;
 }
 
 .album-carousel .album-group {
+  width: 100%;
   overflow-x: auto;
   display:inline-block;
-  transform: scale(0.75);
   display: flex;
   justify-content: space-between;
-  margin-right: 20px;
+  margin-right: 50px;
+  margin-top: 0;
+  gap: 5px;
 }
 
-  .featured-albums {
-    margin-bottom: 100px; 
-    text-decoration: underline;
-  }
-  
-  .new-discoveries {
-    margin-bottom: 100px; 
-    text-decoration: underline;
-
-  }
-  
-  .upcoming-releases {
-    margin-bottom: 100px; 
-    text-decoration: underline;
-  }
+.featured-albums h1,
+.discoveries h1,
+.new-releases h1 {
+  text-decoration: underline;
+  margin-left: 100px;
+  display: inline-block;
+  margin-bottom: 40px;
+  margin-top: 100px;
+}

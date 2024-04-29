@@ -1,15 +1,17 @@
 import logo from './logo.svg';
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './components/Layout';
-import Album from './pages/album'
-import Artist from './pages/artist'
-import Discover from './pages/discover'
-import Home from './pages/home'
-import Profile from './pages/profile'
-import Song from './pages/song'
-import New from './pages/new'
+import AlbumPage from './pages/AlbumPage';
+import Artist from './pages/artist';
+import Discover from './pages/discover';
+import Home from './pages/home';
+import Profile from './pages/profile';
+import Song from './pages/song';
+import New from './pages/new';
 import Header from './components/Header';
 import './App.css';
+import Signin from './pages/signin';
+
 // import Signin from './signin';
 
 function App() {
@@ -25,12 +27,13 @@ function App() {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/album" element={<Album />} />
+            <Route path="/album/:id" element={<AlbumPage />} />
             <Route path="/artist" element={<Artist />} />
             <Route path="/discover" element={<Discover />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/song" element={<Song />} />
             <Route path="/new" element={<New />} />
+            <Route path="/signin" element={<Signin/>} />
           </Routes>
       </div>
     </BrowserRouter>
