@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../pages/home.css'
 
 const API_DIR = "http://localhost:8080/";
 
@@ -18,18 +19,21 @@ function Album({id}) {
       });
     }, id);
 
-
+const getColor = (score) =>{
+    const scaling = (score/100) *120;
+    return scaling
+}
 
       return (
         <div className="album">
             {oneAlbum && (
-                <>
-            <h1>{oneAlbum.title}</h1>
+                <>  
+            <h1>Album: {oneAlbum.title}</h1>
             <content>
-              <img src={oneAlbum.coverArt} alt={oneAlbum.title} />
-              <p>Artist: {oneAlbum.artist} <br></br></p>
-              <p>Release Date: {oneAlbum.releaseDate}</p>
-              <p>Score: {oneAlbum.score}/100</p>
+              <img src={oneAlbum.coverArt} alt={oneAlbum.title} class="left-aligned-image" />
+              <h1>Artist: {oneAlbum.artist} <br /> 
+              Release Date: {oneAlbum.releaseDate}<br />
+              Score: {oneAlbum.score}<br /></h1>
             </content>
         </>
             )}
