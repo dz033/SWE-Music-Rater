@@ -42,8 +42,5 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.creationDate = new Date();
-        this.following = new ArrayList<>();
-        this.reviews = new ArrayList<>();
     }
 }
