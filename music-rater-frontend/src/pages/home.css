@@ -1,6 +1,6 @@
 .home {
-    margin-top: 50px; 
-    margin-left: 50px;
+    margin-top: 0px; 
+    margin-left: 0px;
     text-align: left; 
     font-family:'Lucida Grande', verdana;
     color: #FFFFFF;
@@ -54,6 +54,8 @@
     }
   }
 } 
+
+
 .album-page .review{
   position: absolute;
   top: 18%;
@@ -89,9 +91,12 @@
 .album-carousel {
   /* border: 2px solid rgb(0, 104, 40); */
   position: sticky;
-  left: 2%
+  left: 0%;
+  height: 150%;
+  width: auto;
 
 }
+
 
 .album-carousel .album-group {
   /* border: 2px solid rgb(163, 0, 0); */
@@ -108,8 +113,13 @@
 }
 
 .album-carousel .album-item{
-  /* border: 2px solid rgb(0, 104, 40); */
+  /* border: 2px solid rgb(0, 104, 40);
+  width: 100%;
+  height: auto;
+  margin-right: 15px; */
 }
+
+
 
 .featured-albums h1,
 .discoveries h1,
