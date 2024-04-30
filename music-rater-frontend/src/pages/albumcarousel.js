@@ -38,8 +38,9 @@ function AlbumCarousel({ albums }) {
                   <Link to={`/album/${album.id}`}>
                   <div className="album-cover">
                     <img src={album.coverArt} alt={album.title} />
-                    </div>
                     <h5 className="album-title">{album.title}</h5>
+                    </div>
+                    
                   </Link>
                 </div>
               ))}

@@ -48,16 +48,14 @@ export default function Signin() {
       }
     }
     return (
-      <div>
+      <div class="signin-object">
         <h1>Sign in</h1>
         <form onSubmit={handleSignIn} onKeyDown={handleKeyDown} >
           <div>
-            <label>Username:</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <input placeholder='Enter Username' type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
           <div>
-            <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input placeholder='Enter Password' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <button type="submit">Sign In</button>
         </form>

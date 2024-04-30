@@ -10,7 +10,6 @@ function Review({id}) {
   useEffect(() => {
     axios.get(API_DIR + 'api/reviews/' + id)
       .then(response => {
-        console.log("review Response:", response.data);
         const reviewsData = response.data;
         setReview(reviewsData);
       })

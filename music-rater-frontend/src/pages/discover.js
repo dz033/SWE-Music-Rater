@@ -39,7 +39,7 @@ export default function Discover() {
     return (
         <>
             <div className="discover-page"></div>
-            <h1>Discover</h1>
+            <h1 style={{ fontFamily: 'Arial, sans-serif', color: 'white' }}>Discover</h1>
             <h2 style={{ fontFamily: 'Arial, sans-serif', color: 'white' }}>What is your preferred record?</h2>
 
            

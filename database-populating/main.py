@@ -163,7 +163,6 @@ def parse_multiple_artists(token, artist_list):
             parse_artist(token, artist.lower())
         f.close()
 
-artist_list = ["reol", "jj lin", "jay chou", "taylor swift", "mariah carey", "elton john", "the beatles", "michael jackson", 
-               "kanye west", "ac/dc", "prince", "coldplay", "bruno mars", "ed sheeran", "le sserafim", "maroon 5", "the weeknd", "G.E.M", 
-               "billie eilish", "yoasobi", "(g)i-dle", "imagine dragons", "the chainsmokers", "bol4", "one ok rock", "maneskin", "beyonce"]
+artist_list = ["lofi girl", "ABBA", "2pac", "avicii", "jay chou"]
+
 parse_multiple_artists(token, artist_list)
