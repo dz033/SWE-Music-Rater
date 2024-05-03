@@ -1,7 +1,9 @@
 package com.project.tempotalk.services;
 
 import com.project.tempotalk.models.Playlist;
+import com.project.tempotalk.models.Song;
 import com.project.tempotalk.models.User;
+import com.project.tempotalk.payload.request.EditPlaylistRequest;
 import com.project.tempotalk.payload.request.PlaylistRequest;
 import com.project.tempotalk.payload.response.PlaylistResponse;
 import com.project.tempotalk.repositories.PlaylistRepository;
@@ -61,5 +63,43 @@ public class PlaylistService {
         userRepository.save(user);
 
         return new PlaylistResponse(playlist, "Playlist created successfully!");
+    }
+
+    public PlaylistResponse addSong(EditPlaylistRequest editPlaylistRequest){
+        Optional<Song> tempSong = songRepository.findById(editPlaylistRequest.getSongId());
+        if (tempSong.isEmpty()){
+            return new PlaylistResponse("Song could not be found");
+        }
+
+        Optional<Playlist> tempPlaylist = playlistRepository.findById(editPlaylistRequest.getPlaylistId());
+        if (tempPlaylist.isEmpty()) {
+            return new PlaylistResponse("Playlist could not be found");
+        }
+        Playlist playlist = tempPlaylist.get();
+        List<String> playlistTracks = playlist.getTracks();
+        playlistTracks.add(editPlaylistRequest.getSongId());
+        playlist.setTracks(playlistTracks);
+        playlistRepository.save(playlist);
+
+        return new PlaylistResponse(playlist,"Song added successfully!");
+    }
+
+    public PlaylistResponse removeSong(EditPlaylistRequest editPlaylistRequest){
+        Optional<Song> tempSong = songRepository.findById(editPlaylistRequest.getSongId());
+        if (tempSong.isEmpty()){
+            return new PlaylistResponse("Song could not be found");
+        }
+
+        Optional<Playlist> tempPlaylist = playlistRepository.findById(editPlaylistRequest.getPlaylistId());
+        if (tempPlaylist.isEmpty()){
+            return new PlaylistResponse("Playlist could not be found");
+        }
+        Playlist playlist = tempPlaylist.get();
+        List<String> playlistTracks = playlist.getTracks();
+        playlistTracks.remove(editPlaylistRequest.getSongId());
+        playlist.setTracks(playlistTracks);
+        playlistRepository.save(playlist);
+
+        return new PlaylistResponse(playlist,"Song removed successfully!");
     }
 }

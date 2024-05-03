@@ -1,6 +1,7 @@
 package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.models.Playlist;
+import com.project.tempotalk.payload.request.EditPlaylistRequest;
 import com.project.tempotalk.payload.request.PlaylistRequest;
 import com.project.tempotalk.payload.response.PlaylistResponse;
 import com.project.tempotalk.services.PlaylistService;
@@ -38,6 +39,30 @@ public class PlaylistController {
         PlaylistResponse response = playlistService.createPlaylist(playlistRequest);
 
         if (!response.getMessage().equals("Playlist created successfully!")){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/add")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<PlaylistResponse> addSongToPlaylist(@Valid @RequestBody EditPlaylistRequest editPlaylistRequest){
+        PlaylistResponse response = playlistService.addSong(editPlaylistRequest);
+
+        if (!response.getMessage().equals("Song added successfully!")){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/remove")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<PlaylistResponse> removeSongToPlaylist(@Valid @RequestBody EditPlaylistRequest editPlaylistRequest){
+        PlaylistResponse response = playlistService.removeSong(editPlaylistRequest);
+
+        if (!response.getMessage().equals("Song removed successfully!")){
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
