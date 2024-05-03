@@ -34,6 +34,7 @@ public class User {
     private Date creationDate;
     private List<String> following = new ArrayList<>();
     private List<String> reviews = new ArrayList<>();
+    private List<String> playlists = new ArrayList<>();
     @DBRef
     private Set<Role> roles = new HashSet<>();
     private String profileImage = "https://tempotalk-images.s3.ap-northeast-2.amazonaws.com/profileImages/defaultProfilePicture.png";
