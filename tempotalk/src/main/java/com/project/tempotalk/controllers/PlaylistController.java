@@ -1,5 +1,6 @@
 package com.project.tempotalk.controllers;
 
+import com.project.tempotalk.models.Playlist;
 import com.project.tempotalk.payload.request.PlaylistRequest;
 import com.project.tempotalk.payload.response.PlaylistResponse;
 import com.project.tempotalk.services.PlaylistService;
@@ -10,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/playlists")
@@ -17,6 +21,16 @@ public class PlaylistController {
 
     @Autowired
     PlaylistService playlistService;
+
+    @GetMapping()
+    public ResponseEntity<List<Playlist>> getAllPlaylists(){
+        return new ResponseEntity<>(playlistService.allPlaylists(), HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Optional<List<Playlist>>> getPlaylistByOwnerId(@PathVariable String userId){
+        return new ResponseEntity<>(playlistService.getPlaylistsByUserId(userId), HttpStatus.OK);
+    }
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
