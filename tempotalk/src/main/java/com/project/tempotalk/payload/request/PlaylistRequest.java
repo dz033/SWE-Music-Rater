@@ -16,10 +16,4 @@ public class PlaylistRequest {
         this.name = name;
         this.creatorId = creatorId;
     }
-
-//    public PlaylistRequest(String name, String description, String creatorId){
-//        this.name = name;
-//        this.description = description;
-//        this.creatorId = creatorId;
-//    }
 }
