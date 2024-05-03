@@ -25,6 +25,16 @@ public class PlaylistService {
     @Autowired
     UserRepository userRepository;
 
+    // Get all playlists in the database
+    public List<Playlist> allPlaylists(){
+        return playlistRepository.findAll();
+    }
+
+    // Get all playlists associated with a userId
+    public Optional<List<Playlist>> getPlaylistsByUserId(String userId){
+        return playlistRepository.findPlaylistsByOwnerId(userId);
+    }
+
     // Create a Playlist and assign it to the user who created it
     public PlaylistResponse createPlaylist(PlaylistRequest playlistRequest){
         // Find User who is creating the new playlist
