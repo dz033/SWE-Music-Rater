@@ -54,12 +54,6 @@ public class AlbumController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AlbumResponse> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
-        AlbumResponse response = albumService.createAlbum(albumRequest);
-
-        if (!response.getMessage().equals("Album created successfully!")){
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(albumService.createAlbum(albumRequest), HttpStatus.OK);
     }
 }
