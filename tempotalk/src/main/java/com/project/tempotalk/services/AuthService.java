@@ -5,8 +5,8 @@ import com.project.tempotalk.models.Role;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.LoginRequest;
 import com.project.tempotalk.payload.request.SignupRequest;
+import com.project.tempotalk.payload.response.AuthResponse;
 import com.project.tempotalk.payload.response.JwtResponse;
-import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.repositories.RoleRepository;
 import com.project.tempotalk.repositories.UserRepository;
 import com.project.tempotalk.security.jwt.JwtUtils;
@@ -16,7 +16,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,13 +52,13 @@ public class AuthService {
         return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles);
     }
 
-    public MessageResponse registerUser(SignupRequest signupRequest){
+    public AuthResponse registerUser(SignupRequest signupRequest){
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
-            return new MessageResponse("Error: Username is already taken!");
+            return new AuthResponse("Error: Username is already taken!");
         }
 
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
-            return new MessageResponse("Error: Email is already in use!");
+            return new AuthResponse("Error: Email is already in use!");
         }
 
         // Create new user's account
@@ -94,6 +93,6 @@ public class AuthService {
         user.setRoles(roles);
         userRepository.save(user);
 
-        return new MessageResponse("User registered successfully!");
+        return new AuthResponse(user,"User registered successfully!");
     }
 }

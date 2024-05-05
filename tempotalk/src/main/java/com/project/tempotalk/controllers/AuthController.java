@@ -2,8 +2,8 @@ package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.payload.request.LoginRequest;
 import com.project.tempotalk.payload.request.SignupRequest;
+import com.project.tempotalk.payload.response.AuthResponse;
 import com.project.tempotalk.payload.response.JwtResponse;
-import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +19,18 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticate(@Valid @RequestBody LoginRequest loginRequest){
-        return new ResponseEntity<JwtResponse>(authService.authenticateUser(loginRequest), HttpStatus.OK);
+    public ResponseEntity<JwtResponse> authenticate(@Valid @RequestBody LoginRequest loginRequest){
+        return new ResponseEntity<>(authService.authenticateUser(loginRequest), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> register(@Valid @RequestBody SignupRequest signupRequest){
-        MessageResponse response = authService.registerUser(signupRequest);
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody SignupRequest signupRequest){
+        AuthResponse response = authService.registerUser(signupRequest);
 
-        if (!response.getMessage().equals("User registered successfully!")){
-            return new ResponseEntity<MessageResponse>(response, HttpStatus.BAD_REQUEST);
+        if (response.getUser() == null){
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<MessageResponse>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
