@@ -2,7 +2,7 @@ package com.project.tempotalk.services;
 
 import com.project.tempotalk.models.Album;
 import com.project.tempotalk.payload.request.AlbumRequest;
-import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.AlbumResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.aggregation.SampleOperation;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,11 +31,25 @@ public class AlbumService {
     }
 
     // Retrieve and return an album based on its ID
-    public Optional<Album> albumById(String albumId){ return albumRepository.findById(albumId); }
+    public AlbumResponse albumById(String albumId){
+        Optional<Album> tempAlbum = albumRepository.findById(albumId);
+        if (tempAlbum.isEmpty()){
+            return new AlbumResponse("Error: album was not found");
+        }
+        return new AlbumResponse(tempAlbum.get(), "Album was found successfully");
+    }
 
     // Return a list of all albums that exist by a title, if there are any
-    public Optional<List<Album>> albumsByTitle(String title){
-        return albumRepository.findAlbumByTitle(title);
+    public List<Album> albumsByTitle(String title){
+        List<Album> albums = new ArrayList<>();
+
+        Optional<List<Album>> tempAlbums = albumRepository.findAlbumByTitle(title);
+        if (tempAlbums.isEmpty()){
+            return albums;
+        }
+        albums = tempAlbums.get();
+
+        return albums;
     }
 
     // Randomly select albums from the database
@@ -46,7 +61,7 @@ public class AlbumService {
         AggregationResults<Album> output = mongoTemplate.aggregate(aggregation, "albums", Album.class);
         randomAlbums = output.getMappedResults();
 
-        return  randomAlbums;
+        return randomAlbums;
     }
 
     // Get the most newly released albums in the database
@@ -58,13 +73,13 @@ public class AlbumService {
         query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "releaseDate")));
         newAlbums = mongoTemplate.find(query, Album.class);
 
-        return  newAlbums;
+        return newAlbums;
     }
 
     // Create a new album object and store it in our "albums" collection
-    public MessageResponse createAlbum(AlbumRequest albumRequest){
+    public AlbumResponse createAlbum(AlbumRequest albumRequest){
         Album album = new Album(albumRequest.getTitle(), albumRequest.getArtist(), albumRequest.getReleaseDate(), albumRequest.getGenres());
         albumRepository.save(album);
-        return new MessageResponse("Album created successfully!");
+        return new AlbumResponse(album,"Album created successfully!");
     }
 }
