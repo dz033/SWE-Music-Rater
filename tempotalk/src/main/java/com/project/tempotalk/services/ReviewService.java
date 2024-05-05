@@ -6,7 +6,6 @@ import com.project.tempotalk.models.Song;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.EditReviewRequest;
 import com.project.tempotalk.payload.request.ReviewRequest;
-import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.payload.response.ReviewResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
 import com.project.tempotalk.repositories.ReviewRepository;
@@ -68,7 +67,7 @@ public class ReviewService {
     // Return all reviews associated with an album or song
     public List<ReviewResponse> getReviewsByMusicId(String musicId){
         List<ReviewResponse> responses = new ArrayList<>();
-        Optional<List<Review>> tempReviews = reviewRepository.findReviewsByMusicId(musicId);;
+        Optional<List<Review>> tempReviews = reviewRepository.findReviewsByMusicId(musicId);
 
         if (tempReviews.isEmpty()){
             return responses;
