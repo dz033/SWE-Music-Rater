@@ -34,18 +34,126 @@ public class ReviewService {
     SongRepository songRepository;
 
     // Return all reviews in reviewRepository
-    public List<Review> allReviews(){
-        return reviewRepository.findAll();
+    public List<ReviewResponse> allReviews(){
+        List<ReviewResponse> responses = new ArrayList<>();
+        List<Review> reviews = reviewRepository.findAll();
+
+        for (Review review : reviews){
+            Optional<User> tempUser = userRepository.findById(review.getUserId());
+            Optional<Album> tempAlbum = albumRepository.findById(review.getMusicId());
+            Optional<Song> tempSong = songRepository.findById(review.getMusicId());
+
+            if (tempUser.isEmpty()){
+                ReviewResponse response = new ReviewResponse("User not found");
+                responses.add(response);
+                continue;
+            }
+            User user = tempUser.get();
+
+            if (tempAlbum.isPresent()){
+                Album album = tempAlbum.get();
+                ReviewResponse response = new ReviewResponse(review, user, album, "Review found successfully");
+                responses.add(response);
+            }
+            else if (tempSong.isPresent()){
+                Song song = tempSong.get();
+                ReviewResponse response = new ReviewResponse(review, user, song, "Review found successfully");
+                responses.add(response);
+            }
+        }
+
+        return responses;
     }
 
     // Return all reviews associated with an album or song
-    public Optional<List<Review>> getReviewsByMusicId(String musicId){
-        return reviewRepository.findReviewsByMusicId(musicId);
+    public List<ReviewResponse> getReviewsByMusicId(String musicId){
+        List<ReviewResponse> responses = new ArrayList<>();
+        Optional<List<Review>> tempReviews = reviewRepository.findReviewsByMusicId(musicId);;
+
+        if (tempReviews.isEmpty()){
+            return responses;
+        }
+        List<Review> reviews = tempReviews.get();
+
+        Optional<Album> tempAlbum = albumRepository.findById(musicId);
+        Optional<Song> tempSong = songRepository.findById(musicId);
+        Album album = null;
+        Song song = null;
+        if (tempAlbum.isEmpty() && tempSong.isEmpty()){
+            ReviewResponse response = new ReviewResponse("Album or song not found");
+            responses.add(response);
+            return responses;
+        }
+
+        if (tempAlbum.isPresent()){
+            album = tempAlbum.get();
+        }
+        else{
+            song = tempSong.get();
+        }
+
+        for (Review review : reviews){
+            Optional<User> tempUser = userRepository.findById(review.getUserId());
+
+            if (tempUser.isEmpty()){
+                ReviewResponse response = new ReviewResponse("User not found");
+                responses.add(response);
+                continue;
+            }
+            User user = tempUser.get();
+
+            if (album != null){
+                ReviewResponse response = new ReviewResponse(review, user, album, "Review found successfully");
+                responses.add(response);
+            }
+            else{
+                ReviewResponse response = new ReviewResponse(review, user, song, "Review found successfully");
+                responses.add(response);
+            }
+        }
+
+        return responses;
     }
 
     // Return all reviews associated with a user
-    public Optional<List<Review>> getReviewsByUserId(String userId){
-        return reviewRepository.findReviewsByUserId(userId);
+    public List<ReviewResponse> getReviewsByUserId(String userId){
+        List<ReviewResponse> responses = new ArrayList<>();
+        Optional<List<Review>> tempReviews = reviewRepository.findReviewsByUserId(userId);
+
+        if (tempReviews.isEmpty()){
+            return responses;
+        }
+        List<Review> reviews = tempReviews.get();
+
+        Optional<User> tempUser = userRepository.findById(userId);
+        if (tempUser.isEmpty()){
+            ReviewResponse response = new ReviewResponse("User was not found");
+            responses.add(response);
+            return responses;
+        }
+        User user = tempUser.get();
+
+        for (Review review : reviews){
+            Optional<Album> tempAlbum = albumRepository.findById(review.getMusicId());
+            Optional<Song> tempSong = songRepository.findById(review.getMusicId());
+
+            if (tempAlbum.isEmpty() && tempSong.isEmpty()){
+                ReviewResponse response = new ReviewResponse("Album or song not found");
+                responses.add(response);
+                continue;
+            }
+
+            if (tempAlbum.isPresent()){
+                ReviewResponse response = new ReviewResponse(review, user, tempAlbum.get(), "Review found successfully");
+                responses.add(response);
+            }
+            else {
+                ReviewResponse response = new ReviewResponse(review, user, tempSong.get(), "Review found successfully");
+                responses.add(response);
+            }
+        }
+
+        return responses;
     }
 
     // Create a review and add its ID to a User's and Album/Song's review lists
@@ -114,6 +222,8 @@ public class ReviewService {
             }
             album.calculateScore(scores);
             albumRepository.save(album);
+
+            return new ReviewResponse(review, user, album, "Review created successfully!");
         }
         else {
             musicReviews.add(review.getId());
@@ -130,32 +240,37 @@ public class ReviewService {
             }
             song.calculateScore(scores);
             songRepository.save(song);
-        }
 
-        return new ReviewResponse(review,"Review created successfully!");
+            return new ReviewResponse(review, user, song, "Review created successfully!");
+        }
     }
 
     // Update a review and update the score of the Album/Song it is associated with
-    public MessageResponse updateReview(EditReviewRequest editReviewRequest){
+    public ReviewResponse updateReview(EditReviewRequest editReviewRequest){
         // Check to make sure both the review and the album/song specified in the request exist
         if (!reviewRepository.existsById(editReviewRequest.getReviewId())){
-            return new MessageResponse("Error: Review was not found");
+            return new ReviewResponse("Error: Review was not found");
         }
         else if (!(albumRepository.existsById(editReviewRequest.getMusicId()) || songRepository.existsById(editReviewRequest.getMusicId()))){
-            return new MessageResponse("Error: Album or song was not found");
+            return new ReviewResponse("Error: Album or song was not found");
         }
 
         // Find user who made the review and add the new review ID to their list of reviews
         Optional<Review> tempReview = reviewRepository.findById(editReviewRequest.getReviewId());
-        if (tempReview.isPresent()){
-            Review review = tempReview.get();
-            review.setBody(editReviewRequest.getBody());
-            review.setScore(editReviewRequest.getRating());
-            reviewRepository.save(review);
+        if (tempReview.isEmpty()){
+            return new ReviewResponse("Error: Review was not found");
         }
-        else{
-            return new MessageResponse("Error: Review was not found");
+        Review review = tempReview.get();
+
+        Optional<User> tempUser = userRepository.findById(review.getUserId());
+        if (tempUser.isEmpty()){
+            return new ReviewResponse("Error: User not found");
         }
+        User user = tempUser.get();
+
+        review.setBody(editReviewRequest.getBody());
+        review.setScore(editReviewRequest.getRating());
+        reviewRepository.save(review);
 
         // Find Album or Song that the updated review was associated with and recalculate its score
         if (albumRepository.existsById(editReviewRequest.getMusicId())){
@@ -173,11 +288,12 @@ public class ReviewService {
                     }
                 }
                 album.calculateScore(scores);
-
                 albumRepository.save(album);
+
+                return new ReviewResponse(review, user, album, "Review updated successfully!");
             }
         }
-        else if (songRepository.existsById(editReviewRequest.getMusicId())){
+        else {
             Optional<Song> tempSong = songRepository.findById(editReviewRequest.getMusicId());
             if (tempSong.isPresent()){
                 Song song = tempSong.get();
@@ -192,99 +308,86 @@ public class ReviewService {
                     }
                 }
                 song.calculateScore(scores);
-
                 songRepository.save(song);
+
+                return new ReviewResponse(review, user, song, "Review updated successfully!");
             }
         }
-        else{
-            return new MessageResponse("Error: Review was not associated with an album or song");
-        }
-
-        return new MessageResponse("Review updated successfully!");
+        return new ReviewResponse("Error: Review was not associated with an album or song");
     }
 
     // Delete a review, remove its ID from the associated User and Album/Song's reviews list, and recalculate Album/Song score
-    public MessageResponse deleteReview(String reviewId){
-        // Make sure that the review exists
-        if (!reviewRepository.existsById(reviewId)){
-            return new MessageResponse("Error: Review was not found");
-        }
-
+    public ReviewResponse deleteReview(String reviewId){
         // Delete all traces of the review we are deleting
         Optional<Review> tempReview = reviewRepository.findById(reviewId);
-        if (tempReview.isPresent()){
-            Review review = tempReview.get();
-            String userId = review.getUserId();
-            String musicId = review.getMusicId();
-
-            // Remove the reviewId from associated User's reviews list
-            Optional<User> tempUser = userRepository.findById(userId);
-            if (tempUser.isPresent()){
-                User user = tempUser.get();
-                List<String> reviews = user.getReviews();
-                reviews.remove(reviewId);
-                user.setReviews(reviews);
-                userRepository.save(user);
-            }
-            else{
-                return new MessageResponse("Error: Review was not associated with a user");
-            }
-
-            // Remove the reviewId from associated Album/Song's reviews list
-            if (albumRepository.existsById(musicId)){
-                Optional<Album> tempAlbum = albumRepository.findById(musicId);
-                if (tempAlbum.isPresent()){
-                    Album album = tempAlbum.get();
-                    List<String> reviews = album.getReviews();
-                    reviews.remove(reviewId);
-                    album.setReviews(reviews);
-
-                    // Update album score
-                    List<Integer> scores = new ArrayList<>();
-                    for (String id : album.getReviews()){
-                        Optional<Review> r = reviewRepository.findById(id);
-                        if (r.isPresent()){
-                            Review curReview = r.get();
-                            scores.add(curReview.getScore());
-                        }
-                    }
-                    album.calculateScore(scores);
-
-                    albumRepository.save(album);
-                }
-            }
-            else if (songRepository.existsById(musicId)){
-                Optional<Song> tempSong = songRepository.findById(musicId);
-                if (tempSong.isPresent()){
-                    Song song = tempSong.get();
-                    List<String> reviews = song.getReviews();
-                    reviews.remove(reviewId);
-                    song.setReviews(reviews);
-
-                    // Update album score
-                    List<Integer> scores = new ArrayList<>();
-                    for (String id : song.getReviews()){
-                        Optional<Review> r = reviewRepository.findById(id);
-                        if (r.isPresent()){
-                            Review curReview = r.get();
-                            scores.add(curReview.getScore());
-                        }
-                    }
-                    song.calculateScore(scores);
-
-                    songRepository.save(song);
-                }
-            }
-            else{
-                return new MessageResponse("Error: Review was not associated with an album or song");
-            }
-
-            reviewRepository.deleteById(reviewId);
+        if (tempReview.isEmpty()){
+            return new ReviewResponse("Error: Review was not found");
         }
-        else{
-            return new MessageResponse("Error: Review was not found");
-        }
+        Review review = tempReview.get();
+        String userId = review.getUserId();
+        String musicId = review.getMusicId();
 
-        return new MessageResponse("Review deleted successfully!");
+        // Remove the reviewId from associated User's reviews list
+        Optional<User> tempUser = userRepository.findById(userId);
+        if (tempUser.isEmpty()){
+            return new ReviewResponse("Error: Review was not associated with a user");
+        }
+        User user = tempUser.get();
+        List<String> userReviews = user.getReviews();
+        userReviews.remove(reviewId);
+        user.setReviews(userReviews);
+        userRepository.save(user);
+
+        // Remove the reviewId from associated Album/Song's reviews list
+        if (albumRepository.existsById(musicId)){
+            Optional<Album> tempAlbum = albumRepository.findById(musicId);
+            if (tempAlbum.isPresent()){
+                Album album = tempAlbum.get();
+                List<String> albumReviews = album.getReviews();
+                albumReviews.remove(reviewId);
+                album.setReviews(albumReviews);
+
+                // Update album score
+                List<Integer> scores = new ArrayList<>();
+                for (String id : album.getReviews()){
+                    Optional<Review> r = reviewRepository.findById(id);
+                    if (r.isPresent()){
+                        Review curReview = r.get();
+                        scores.add(curReview.getScore());
+                    }
+                }
+                album.calculateScore(scores);
+
+                albumRepository.save(album);
+                reviewRepository.deleteById(reviewId);
+                return new ReviewResponse(review, user, album, "Review deleted successfully!");
+            }
+        }
+        else if (songRepository.existsById(musicId)){
+            Optional<Song> tempSong = songRepository.findById(musicId);
+            if (tempSong.isPresent()){
+                Song song = tempSong.get();
+                List<String> songReviews = song.getReviews();
+                songReviews.remove(reviewId);
+                song.setReviews(songReviews);
+
+                // Update album score
+                List<Integer> scores = new ArrayList<>();
+                for (String id : song.getReviews()){
+                    Optional<Review> r = reviewRepository.findById(id);
+                    if (r.isPresent()){
+                        Review curReview = r.get();
+                        scores.add(curReview.getScore());
+                    }
+                }
+                song.calculateScore(scores);
+
+                songRepository.save(song);
+
+                reviewRepository.deleteById(reviewId);
+                return new ReviewResponse(review, user, song, "Review deleted successfully!");
+            }
+        }
+        return new ReviewResponse("Error: Review was not associated with an album or song");
     }
 }
