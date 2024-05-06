@@ -4,6 +4,8 @@ import com.project.tempotalk.models.Review;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.FollowRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.ReviewResponse;
+import com.project.tempotalk.payload.response.UserResponse;
 import com.project.tempotalk.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +30,37 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Optional<User>> getUserById(@PathVariable String userId){
-        return new ResponseEntity<>(userService.userById(userId), HttpStatus.OK);
+    public ResponseEntity<UserResponse> getUserById(@PathVariable String userId){
+        UserResponse response = userService.userById(userId);
+
+        if (response.getUser() == null){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/username/{username}")
-    public ResponseEntity<Optional<User>> getUserByUsername(@PathVariable String username){
-        return new ResponseEntity<>(userService.userByUsername(username), HttpStatus.OK);
+    public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username){
+        UserResponse response = userService.userByUsername(username);
+
+        if (response.getUser() == null){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/follow")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<MessageResponse> follow(@Valid @RequestBody FollowRequest followRequest){
-        MessageResponse response = userService.followUser(followRequest);
+    public ResponseEntity<UserResponse> follow(@Valid @RequestBody FollowRequest followRequest){
+        UserResponse response = userService.followUser(followRequest);
 
-        if (!response.getMessage().equals("User followed successfully!")){
+        if (response.getMessage().equals("Error: User is already being followed")){
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        else if (response.getUser() == null){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -51,11 +68,14 @@ public class UserController {
 
     @PutMapping("/unfollow")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<MessageResponse> unfollow(@Valid @RequestBody FollowRequest followRequest){
-        MessageResponse response = userService.unfollowUser(followRequest);
+    public ResponseEntity<UserResponse> unfollow(@Valid @RequestBody FollowRequest followRequest){
+        UserResponse response = userService.unfollowUser(followRequest);
 
-        if (!response.getMessage().equals("User unfollowed successfully!")){
+        if (response.getMessage().equals("Error: User wasn't being followed")){
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+        else if (response.getUser() == null){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -63,13 +83,19 @@ public class UserController {
 
     @GetMapping("/following/{userId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<User>> getFollowing(@PathVariable String userId){
-        return new ResponseEntity<>(userService.getFollowedUsers(userId), HttpStatus.OK);
+    public ResponseEntity<UserResponse> getFollowing(@PathVariable String userId){
+        UserResponse response = userService.getFollowedUsers(userId);
+
+        if (response.getUser() == null){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/feed/{userId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<Review>> getFeed(@PathVariable String userId){
+    public ResponseEntity<List<ReviewResponse>> getFeed(@PathVariable String userId){
         return new ResponseEntity<>(userService.getUserFeed(userId), HttpStatus.OK);
     }
 }
