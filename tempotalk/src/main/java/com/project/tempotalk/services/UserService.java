@@ -8,7 +8,6 @@ import com.project.tempotalk.payload.request.FollowRequest;
 import com.project.tempotalk.payload.response.ReviewResponse;
 import com.project.tempotalk.payload.response.UserResponse;
 import com.project.tempotalk.repositories.AlbumRepository;
-import com.project.tempotalk.repositories.ReviewRepository;
 import com.project.tempotalk.repositories.SongRepository;
 import com.project.tempotalk.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,6 @@ package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
-import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.services.SongService;
 import jakarta.validation.Valid;
