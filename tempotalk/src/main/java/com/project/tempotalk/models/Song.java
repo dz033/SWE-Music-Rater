@@ -25,9 +25,11 @@ public class Song {
     private List<String> reviews = new ArrayList<>();
     private String coverArt = "https://tempotalk-images.s3.ap-northeast-2.amazonaws.com/coverArt/defaultCoverArt.png";
 
-    public Song(String title, String releaseDate){
+    public Song(String title, String artist, String releaseDate, List<String> genres){
         this.title = title;
+        this.artist = artist;
         this.releaseDate = releaseDate;
+        this.genres = genres;
     }
 
     // Calculate the average score for this song
