@@ -22,7 +22,8 @@ public class Artist {
     private List<String> singles = new ArrayList<>();
     private String artistImage = "https://tempotalk-images.s3.ap-northeast-2.amazonaws.com/artistImages/defaultProfilePicture.png";
 
-    public Artist(String name){
+    public Artist(String name, List<String> genres){
         this.name = name;
+        this.genres = genres;
     }
 }
