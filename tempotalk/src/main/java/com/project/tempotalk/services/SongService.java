@@ -3,6 +3,7 @@ package com.project.tempotalk.services;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class SongService {
     }
 
     // Create a new Song object and store it in our "songs" collection
-    public MessageResponse createSong(SongRequest songRequest){
-        Song song = new Song(songRequest.getTitle(), songRequest.getReleaseDate());
+    public SongResponse createSong(SongRequest songRequest){
+        Song song = new Song(songRequest.getTitle(), songRequest.getArtist(), songRequest.getReleaseDate(), songRequest.getGenres());
         songRepository.save(song);
-        return new MessageResponse("Song created successfully!");
+        return new SongResponse(song,"Song created successfully!");
     }
 }

@@ -3,6 +3,7 @@ package com.project.tempotalk.controllers;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
 import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.services.SongService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +34,7 @@ public class SongController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<MessageResponse> createSong(@Valid @RequestBody SongRequest songRequest){
-        MessageResponse response = songService.createSong(songRequest);
-
-        if (!response.getMessage().equals("Song created successfully!")){
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity<SongResponse> createSong(@Valid @RequestBody SongRequest songRequest){
+        return new ResponseEntity<>(songService.createSong(songRequest), HttpStatus.OK);
     }
 }
