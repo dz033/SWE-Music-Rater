@@ -5,7 +5,6 @@ import com.project.tempotalk.models.Review;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.FollowRequest;
-import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.payload.response.ReviewResponse;
 import com.project.tempotalk.payload.response.UserResponse;
 import com.project.tempotalk.repositories.AlbumRepository;

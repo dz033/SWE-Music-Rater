@@ -1,9 +1,7 @@
 package com.project.tempotalk.controllers;
 
-import com.project.tempotalk.models.Review;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.FollowRequest;
-import com.project.tempotalk.payload.response.MessageResponse;
 import com.project.tempotalk.payload.response.ReviewResponse;
 import com.project.tempotalk.payload.response.UserResponse;
 import com.project.tempotalk.services.UserService;
@@ -15,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
