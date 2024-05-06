@@ -3,7 +3,6 @@ package com.project.tempotalk.controllers;
 import com.project.tempotalk.models.Artist;
 import com.project.tempotalk.payload.request.ArtistRequest;
 import com.project.tempotalk.payload.response.ArtistResponse;
-import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.services.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

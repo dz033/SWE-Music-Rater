@@ -1,9 +1,7 @@
 package com.project.tempotalk.services;
 
-import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
-import com.project.tempotalk.payload.response.AlbumResponse;
 import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;

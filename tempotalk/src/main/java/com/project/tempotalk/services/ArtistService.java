@@ -1,10 +1,8 @@
 package com.project.tempotalk.services;
 
 import com.project.tempotalk.models.Artist;
-import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.ArtistRequest;
 import com.project.tempotalk.payload.response.ArtistResponse;
-import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
