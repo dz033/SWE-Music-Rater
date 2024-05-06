@@ -1,7 +1,9 @@
 package com.project.tempotalk.services;
 
+import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
+import com.project.tempotalk.payload.response.AlbumResponse;
 import com.project.tempotalk.payload.response.SongResponse;
 import com.project.tempotalk.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,15 @@ public class SongService {
     // Return a list of all songs in songRepository
     public List<Song> allSongs(){
         return songRepository.findAll();
+    }
+
+    // Retrieve and return a song based on its ID
+    public SongResponse songById(String songId){
+        Optional<Song> tempSong = songRepository.findById(songId);
+        if (tempSong.isEmpty()){
+            return new SongResponse("Error: Song was not found");
+        }
+        return new SongResponse(tempSong.get(), "Song was found successfully");
     }
 
     // Return a list of all songs that exist by a title, if there are any

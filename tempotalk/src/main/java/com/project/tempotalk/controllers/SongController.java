@@ -26,7 +26,18 @@ public class SongController {
         return new ResponseEntity<>(songService.allSongs(), HttpStatus.OK);
     }
 
-    @GetMapping("/{title}")
+    @GetMapping("/{songId}")
+    public ResponseEntity<SongResponse> getSongById(@PathVariable String songId){
+        SongResponse response = songService.songById(songId);
+
+        if (response.getSong() == null){
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/title/{title}")
     public ResponseEntity<Optional<List<Song>>> getSongsByTitle(@PathVariable String title){
         return new ResponseEntity<>(songService.songsByTitle(title), HttpStatus.OK);
     }
