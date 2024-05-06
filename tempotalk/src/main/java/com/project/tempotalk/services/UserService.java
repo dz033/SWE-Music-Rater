@@ -36,9 +36,6 @@ public class UserService {
     @Autowired
     SongRepository songRepository;
 
-    @Autowired
-    ReviewRepository reviewRepository;
-
     // Return a list of all users in userRepository
     public List<User> allUsers(){
         return userRepository.findAll();
@@ -149,7 +146,6 @@ public class UserService {
     // Get a feed of reviews from other users that the requesting user follows
     public List<ReviewResponse> getUserFeed(String userId){
         List<ReviewResponse> feed = new ArrayList<>();
-        List<Review> reviews = new ArrayList<>();
 
         Optional<User> tempUser = userRepository.findById(userId);
         if (tempUser.isEmpty()){
@@ -167,7 +163,7 @@ public class UserService {
         // Create a new Query object and sort by creation date (newest to oldest)
         Query query = new Query(criteria);
         query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "creationDate")));
-        reviews = mongoTemplate.find(query, Review.class);
+        List<Review> reviews = mongoTemplate.find(query, Review.class);
 
         for (Review review : reviews){
             Optional<Album> tempAlbum = albumRepository.findById(review.getMusicId());
