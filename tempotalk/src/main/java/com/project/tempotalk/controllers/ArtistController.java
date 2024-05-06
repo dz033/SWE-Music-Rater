@@ -2,7 +2,7 @@ package com.project.tempotalk.controllers;
 
 import com.project.tempotalk.models.Artist;
 import com.project.tempotalk.payload.request.ArtistRequest;
-import com.project.tempotalk.payload.response.MessageResponse;
+import com.project.tempotalk.payload.response.ArtistResponse;
 import com.project.tempotalk.services.ArtistService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,7 @@ public class ArtistController {
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<MessageResponse> createArtist(@RequestBody ArtistRequest artistRequest){
-        MessageResponse response = artistService.createArtist(artistRequest);
-
-        if (!response.getMessage().equals("Artist created successfully!")){
-            return new ResponseEntity<MessageResponse>(response, HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<MessageResponse>(response, HttpStatus.OK);
+    public ResponseEntity<ArtistResponse> createArtist(@Valid @RequestBody ArtistRequest artistRequest){
+        return new ResponseEntity<>(artistService.createArtist(artistRequest), HttpStatus.OK);
     }
 }
