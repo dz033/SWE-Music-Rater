@@ -1,5 +1,6 @@
 package com.project.tempotalk.services;
 
+import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
 import com.project.tempotalk.payload.response.SongResponse;
@@ -7,6 +8,7 @@ import com.project.tempotalk.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +32,16 @@ public class SongService {
     }
 
     // Return a list of all songs that exist by a title, if there are any
-    public Optional<List<Song>> songsByTitle(String title){
-        return songRepository.findSongsByTitle(title);
+    public List<Song> songsByTitle(String title){
+        List<Song> songs = new ArrayList<>();
+
+        Optional<List<Song>> tempSongs = songRepository.findSongsByTitle(title);
+        if (tempSongs.isEmpty()){
+            return songs;
+        }
+        songs = tempSongs.get();
+
+        return songs;
     }
 
     // Create a new Song object and store it in our "songs" collection
