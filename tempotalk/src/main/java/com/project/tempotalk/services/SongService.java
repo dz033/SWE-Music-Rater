@@ -1,6 +1,5 @@
 package com.project.tempotalk.services;
 
-import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
 import com.project.tempotalk.payload.response.SongResponse;
