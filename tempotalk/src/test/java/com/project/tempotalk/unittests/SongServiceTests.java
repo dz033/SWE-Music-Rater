@@ -1,6 +1,5 @@
 package com.project.tempotalk.unittests;
 
-import com.project.tempotalk.models.Album;
 import com.project.tempotalk.models.Song;
 import com.project.tempotalk.payload.request.SongRequest;
 import com.project.tempotalk.payload.response.SongResponse;
