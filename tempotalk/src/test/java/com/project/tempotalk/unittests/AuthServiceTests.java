@@ -26,7 +26,7 @@ import static com.project.tempotalk.models.ERole.ROLE_USER;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-//David
+//Emilio and David
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceTests{
 
