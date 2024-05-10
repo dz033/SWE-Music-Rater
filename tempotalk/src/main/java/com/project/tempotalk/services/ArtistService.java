@@ -7,6 +7,7 @@ import com.project.tempotalk.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +29,16 @@ public class ArtistService {
         return new ArtistResponse(tempArtist.get(), "Artist was found successfully");
     }
 
-    public Optional<List<Artist>> artistsByName(String name){
-        return artistRepository.findArtistByName(name);
+    public List<Artist> artistsByName(String name){
+        List<Artist> artists = new ArrayList<>();
+
+        Optional<List<Artist>> tempArtists = artistRepository.findArtistByName("name");
+        if (tempArtists.isEmpty()){
+            return artists;
+        }
+        artists = tempArtists.get();
+
+        return artists;
     }
 
     // Create a new Artist object and store it in our "artists" collection
