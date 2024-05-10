@@ -38,7 +38,7 @@ public class SongController {
     }
 
     @GetMapping("/title/{title}")
-    public ResponseEntity<Optional<List<Song>>> getSongsByTitle(@PathVariable String title){
+    public ResponseEntity<List<Song>> getSongsByTitle(@PathVariable String title){
         return new ResponseEntity<>(songService.songsByTitle(title), HttpStatus.OK);
     }
 
