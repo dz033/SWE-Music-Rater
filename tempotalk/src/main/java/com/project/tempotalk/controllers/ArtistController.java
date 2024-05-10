@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -38,8 +37,8 @@ public class ArtistController {
     }
 
     @GetMapping("/username/{name}")
-    public ResponseEntity<Optional<List<Artist>>> getArtistsByName(@PathVariable String name){
-        return new ResponseEntity<Optional<List<Artist>>>(artistService.artistsByName(name), HttpStatus.OK);
+    public ResponseEntity<List<Artist>> getArtistsByName(@PathVariable String name){
+        return new ResponseEntity<>(artistService.artistsByName(name), HttpStatus.OK);
     }
 
     @PostMapping("/create")
