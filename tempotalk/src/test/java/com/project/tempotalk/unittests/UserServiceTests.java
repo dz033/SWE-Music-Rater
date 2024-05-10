@@ -106,7 +106,7 @@ public class UserServiceTests {
     public void UserService_GetUserFeed_UserNotFound(){
         when(userRepository.findById(Mockito.any(String.class))).thenReturn(Optional.empty());
         List<ReviewResponse> feed = userService.getUserFeed("userId");
-        assertThat(feed.get(0).getMessage()).isEqualTo("User was not found");
+        assertThat(feed.getFirst().getMessage()).isEqualTo("User was not found");
     }
 
     @Test

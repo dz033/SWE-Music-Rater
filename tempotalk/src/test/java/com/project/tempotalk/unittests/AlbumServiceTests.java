@@ -34,7 +34,7 @@ public class AlbumServiceTests {
 
     @BeforeEach
     public void init(){
-        album = new Album("title","artist","releaseDate",new ArrayList<String>());
+        album = new Album("title","artist","releaseDate",new ArrayList<>());
         albums = new ArrayList<>();
         albums.add(album);
     }
