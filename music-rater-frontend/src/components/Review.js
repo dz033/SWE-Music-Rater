@@ -5,13 +5,15 @@ import '../pages/home.css'
 const API_DIR = "http://localhost:8080/";
 
 function Review({id}) {
-  const [reviews, setReview] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     axios.get(API_DIR + 'api/reviews/' + id)
       .then(response => {
+        console.log("API Response:", response.data);
         const reviewsData = response.data;
-        setReview(reviewsData);
+        //console.log("DATA BEING PROCESSED:", reviewsData)
+        setReviews(reviewsData);
       })
       .catch(error => {
         console.error('Error fetching album:', error);
@@ -23,11 +25,11 @@ function Review({id}) {
         <div className="review">
           <h1>Reviews:</h1>
           <div className="review-list">
-            {reviews.map(review => (
-              <div key={review.id} className="review-item">
-                <p>Score: {review.score}</p>
-                <p>{review.body}</p>
-                <p>Date: {review.creationDate.slice(0, 10)}</p>
+            {reviews.map(r => (
+              <div key={r.review.id} className="review-item">
+                <p>Score: {r.review.score}</p>
+                <p>{r.review.body}</p>
+                <p>Date: {r.review.creationDate.slice(0, 10)}</p>
 
               </div>
             ))}

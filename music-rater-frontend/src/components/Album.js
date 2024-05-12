@@ -10,8 +10,9 @@ function Album({id}) {
   useEffect(() => {
     axios.get(API_DIR + 'api/albums/' + id)
       .then(response => {
-        console.log("API Response:", response.data);
+        //console.log("API Response:", response.data);
         const oneAlbumData = response.data;
+        console.log("DATA BEING PROCESSED:", oneAlbumData)
         setoneAlbum(oneAlbumData);
       })
       .catch(error => {
@@ -28,12 +29,12 @@ const getColor = (score) =>{
         <div className="album">
             {oneAlbum && (
                 <>  
-            <h1>Album: {oneAlbum.title}</h1>
+            <h1>Album: {oneAlbum.album.title}</h1>
             <content>
-              <img src={oneAlbum.coverArt} alt={oneAlbum.title} class="left-aligned-image" />
-              <h1>Artist: {oneAlbum.artist} <br /> 
-              Release Date: {oneAlbum.releaseDate}<br />
-              Score: {oneAlbum.score}<br /></h1>
+              <img src={oneAlbum.album.coverArt} alt={oneAlbum.album.title} class="left-aligned-image" />
+              <h1>Artist: {oneAlbum.album.artist} <br /> 
+              Release Date: {oneAlbum.album.releaseDate}<br />
+              Score: {oneAlbum.album.score}<br /></h1>
             </content>
         </>
             )}
