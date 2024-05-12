@@ -20,11 +20,13 @@ public class ArtistController {
     @Autowired
     ArtistService artistService;
 
+    // Endpoint for getting all artists in the database
     @GetMapping()
     public ResponseEntity<List<Artist>> getAllArtists(){
         return new ResponseEntity<>(artistService.allArtists(), HttpStatus.OK);
     }
 
+    // Endpoint for getting one artist from the database, based on their ID
     @GetMapping("/{artistId}")
     public ResponseEntity<ArtistResponse> getArtistById(@PathVariable String artistId){
         ArtistResponse response = artistService.artistById(artistId);
@@ -36,11 +38,13 @@ public class ArtistController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for getting a list of artists from the database, based on their name
     @GetMapping("/username/{name}")
     public ResponseEntity<List<Artist>> getArtistsByName(@PathVariable String name){
         return new ResponseEntity<>(artistService.artistsByName(name), HttpStatus.OK);
     }
 
+    // Endpoint for creating a new artist object in the database
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ArtistResponse> createArtist(@Valid @RequestBody ArtistRequest artistRequest){
