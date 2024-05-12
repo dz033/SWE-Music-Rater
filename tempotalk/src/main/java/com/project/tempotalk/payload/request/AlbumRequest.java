@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// Request object for AlbumController endpoints
 @Data
 @AllArgsConstructor
 public class AlbumRequest {

@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// Request object for SongController endpoints
 @Data
 @AllArgsConstructor
 public class SongRequest {

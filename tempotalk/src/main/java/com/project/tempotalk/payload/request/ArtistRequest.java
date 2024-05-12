@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// Request object for ArtistController endpoints
 @Data
 @AllArgsConstructor
 public class ArtistRequest {
