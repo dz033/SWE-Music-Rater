@@ -35,7 +35,7 @@ public class ArtistService {
     public List<Artist> artistsByName(String name){
         List<Artist> artists = new ArrayList<>();
 
-        Optional<List<Artist>> tempArtists = artistRepository.findArtistByName("name");
+        Optional<List<Artist>> tempArtists = artistRepository.findArtistByName(name);
         if (tempArtists.isEmpty()){
             return artists;
         }
