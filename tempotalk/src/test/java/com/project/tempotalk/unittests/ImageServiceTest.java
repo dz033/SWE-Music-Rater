@@ -1,8 +1,6 @@
 package com.project.tempotalk.unittests;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.project.tempotalk.models.User;
 import com.project.tempotalk.payload.request.ImageUploadRequest;
 import com.project.tempotalk.payload.response.ImageUploadResponse;
@@ -16,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
