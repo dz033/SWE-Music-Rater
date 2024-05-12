@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+// Repository for getting Albums from the "albums" collection
 @Repository
 public interface AlbumRepository extends MongoRepository<Album, String> {
     Optional<List<Album>> findAlbumByTitle(String title);
