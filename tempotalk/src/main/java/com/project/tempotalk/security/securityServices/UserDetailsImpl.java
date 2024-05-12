@@ -7,11 +7,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+// Implementation of UserDetails model
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
     private String id;
