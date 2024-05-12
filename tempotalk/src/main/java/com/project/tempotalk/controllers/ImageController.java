@@ -19,24 +19,28 @@ public class ImageController {
     @Autowired
     ImageService imageService;
 
+    // Endpoint for uploading an album cover image
     @PostMapping("/uploadAlbum")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ImageUploadResponse> uploadAlbumFile(ImageUploadRequest imageUploadRequest) {
         return new ResponseEntity<>(imageService.uploadAlbumImage(imageUploadRequest), HttpStatus.OK);
     }
 
+    // Endpoint for uploading a song cover image
     @PostMapping("/uploadSong")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ImageUploadResponse> uploadSongFile(ImageUploadRequest imageUploadRequest) {
         return new ResponseEntity<>(imageService.uploadSongImage(imageUploadRequest), HttpStatus.OK);
     }
 
+    // Endpoint for uploading a profile image
     @PostMapping("/uploadProfile")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ImageUploadResponse> uploadProfileFile(ImageUploadRequest imageUploadRequest) {
         return new ResponseEntity<>(imageService.uploadProfileImage(imageUploadRequest), HttpStatus.OK);
     }
 
+    // Endpoint for uploading an artist image
     @PostMapping("/uploadArtist")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ImageUploadResponse> uploadArtistFile(ImageUploadRequest imageUploadRequest) {
