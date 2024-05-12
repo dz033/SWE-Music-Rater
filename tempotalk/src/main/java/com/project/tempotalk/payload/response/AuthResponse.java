@@ -4,6 +4,7 @@ import com.project.tempotalk.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// Response object for AuthController endpoints
 @Data
 @AllArgsConstructor
 public class AuthResponse {

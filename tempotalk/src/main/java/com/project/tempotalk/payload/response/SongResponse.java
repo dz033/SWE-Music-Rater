@@ -4,6 +4,7 @@ import com.project.tempotalk.models.Song;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// Response object for SongController endpoints
 @Data
 @AllArgsConstructor
 public class SongResponse {

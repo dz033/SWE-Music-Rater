@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+// Request object for ImageController endpoints
 @Data
 @AllArgsConstructor
 public class ImageUploadRequest {

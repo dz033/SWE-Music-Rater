@@ -4,6 +4,7 @@ import com.project.tempotalk.models.Album;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// Response object for AlbumController endpoints
 @Data
 @AllArgsConstructor
 public class AlbumResponse {

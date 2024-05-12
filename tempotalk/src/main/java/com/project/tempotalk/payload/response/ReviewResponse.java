@@ -6,6 +6,7 @@ import com.project.tempotalk.models.Song;
 import com.project.tempotalk.models.User;
 import lombok.Data;
 
+// Response object for ReviewController endpoints
 @Data
 public class ReviewResponse {
     private Review review = null;

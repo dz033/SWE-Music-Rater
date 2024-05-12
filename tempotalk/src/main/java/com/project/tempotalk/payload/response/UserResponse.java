@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.util.List;
 
+// Response object for UserController endpoints
 @Data
 @AllArgsConstructor
 public class UserResponse {

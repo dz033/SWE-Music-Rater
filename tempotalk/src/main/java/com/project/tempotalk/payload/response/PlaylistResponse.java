@@ -4,6 +4,7 @@ import com.project.tempotalk.models.Playlist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// Response object for PlaylistController endpoints
 @Data
 @AllArgsConstructor
 public class PlaylistResponse {

@@ -4,6 +4,7 @@ import com.project.tempotalk.models.Artist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+// Response object for ArtistController endpoints
 @Data
 @AllArgsConstructor
 public class ArtistResponse {
