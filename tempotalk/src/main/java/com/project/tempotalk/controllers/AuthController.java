@@ -18,11 +18,13 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
+    // Endpoint for authenticating a user who is trying to sign in
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> authenticate(@Valid @RequestBody LoginRequest loginRequest){
         return new ResponseEntity<>(authService.authenticateUser(loginRequest), HttpStatus.OK);
     }
 
+    // Endpoint for registering a new user
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody SignupRequest signupRequest){
         AuthResponse response = authService.registerUser(signupRequest);
