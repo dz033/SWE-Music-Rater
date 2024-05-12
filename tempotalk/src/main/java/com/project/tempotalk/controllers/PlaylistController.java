@@ -23,16 +23,19 @@ public class PlaylistController {
     @Autowired
     PlaylistService playlistService;
 
+    // Endpoint for getting all playlists in the database
     @GetMapping()
     public ResponseEntity<List<Playlist>> getAllPlaylists(){
         return new ResponseEntity<>(playlistService.allPlaylists(), HttpStatus.OK);
     }
 
+    // Endpoint for getting a list of playlists in the database, based on their owner ID
     @GetMapping("/user/{userId}")
     public ResponseEntity<Optional<List<Playlist>>> getPlaylistByOwnerId(@PathVariable String userId){
         return new ResponseEntity<>(playlistService.getPlaylistsByUserId(userId), HttpStatus.OK);
     }
 
+    // Endpoint for creating a new playlist object in the database
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<PlaylistResponse> createPlaylist(@Valid @RequestBody PlaylistRequest playlistRequest){
@@ -45,6 +48,7 @@ public class PlaylistController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for adding a song to a playlist
     @PutMapping("/add")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<PlaylistResponse> addSongToPlaylist(@Valid @RequestBody EditPlaylistRequest editPlaylistRequest){
@@ -57,6 +61,7 @@ public class PlaylistController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for removing a song from a playlist
     @PutMapping("/remove")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<PlaylistResponse> removeSongToPlaylist(@Valid @RequestBody EditPlaylistRequest editPlaylistRequest){
