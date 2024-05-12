@@ -21,11 +21,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    // Endpoint for getting all users in the database
     @GetMapping()
     public ResponseEntity<List<User>> getAllUsers(){
         return new ResponseEntity<>(userService.allUsers(), HttpStatus.OK);
     }
 
+    // Endpoint for getting one user in the database, based on their user ID
     @GetMapping("/{userId}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable String userId){
         UserResponse response = userService.userById(userId);
@@ -37,6 +39,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for getting a list of users in the database, based on their username
     @GetMapping("/username/{username}")
     public ResponseEntity<UserResponse> getUserByUsername(@PathVariable String username){
         UserResponse response = userService.userByUsername(username);
@@ -48,6 +51,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for following a user in the database
     @PutMapping("/follow")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<UserResponse> follow(@Valid @RequestBody FollowRequest followRequest){
@@ -63,6 +67,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for unfollowing a user in the database
     @PutMapping("/unfollow")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<UserResponse> unfollow(@Valid @RequestBody FollowRequest followRequest){
@@ -78,6 +83,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for getting a list of the users who are being followed by a given user
     @GetMapping("/following/{userId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<UserResponse> getFollowing(@PathVariable String userId){
@@ -90,6 +96,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for getting a user's feed of their followed users reviews
     @GetMapping("/feed/{userId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<ReviewResponse>> getFeed(@PathVariable String userId){
