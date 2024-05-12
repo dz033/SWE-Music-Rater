@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Service layer for interacting with Users
 @Service
 public class UserService {
     @Autowired
@@ -125,6 +126,8 @@ public class UserService {
     // Get followed users
     public UserResponse getFollowedUsers(String userId){
         List<User> followedUsers = new ArrayList<>();
+
+        // If user was not found then return an appropriate UserResponse
         Optional<User> tempUser = userRepository.findById(userId);
         if (tempUser.isEmpty()){
             return new UserResponse("Error: User was not found");
@@ -132,6 +135,7 @@ public class UserService {
         User user = tempUser.get();
         List<String> followingIds = user.getFollowing();
 
+        // Find each User by their ID and add them to followedUsers array
         for (String id : followingIds){
             Optional<User> curUser = userRepository.findById(id);
             if (curUser.isPresent()){
@@ -146,6 +150,7 @@ public class UserService {
     public List<ReviewResponse> getUserFeed(String userId){
         List<ReviewResponse> feed = new ArrayList<>();
 
+        // If User was not found then return feed with one ReviewResponse indicating the user was not found
         Optional<User> tempUser = userRepository.findById(userId);
         if (tempUser.isEmpty()){
             ReviewResponse response = new ReviewResponse("User was not found");
@@ -164,23 +169,27 @@ public class UserService {
         query.with(Sort.by(new Sort.Order(Sort.Direction.DESC, "creationDate")));
         List<Review> reviews = mongoTemplate.find(query, Review.class);
 
+        // For each review create an appropriate ReviewResponse and add it to the feed array
         for (Review review : reviews){
             Optional<Album> tempAlbum = albumRepository.findById(review.getMusicId());
             Optional<Song> tempSong = songRepository.findById(review.getMusicId());
             Optional<User> tempCurUser = userRepository.findById(review.getUserId());
 
+            // If user wasn't found then create and add an appropriate ReviewResponse
             if(tempCurUser.isEmpty()){
                 ReviewResponse response = new ReviewResponse("User not found");
                 feed.add(response);
                 continue;
             }
 
+            // If an album and song weren't found then create and add an appropriate ReviewResponse
             if (tempAlbum.isEmpty() && tempSong.isEmpty()){
                 ReviewResponse response = new ReviewResponse("Album or song not found");
                 feed.add(response);
                 continue;
             }
 
+            // Determine if the review was associated with an album or a song and add an appropriate ReviewResponse to feed
             if (tempAlbum.isPresent()){
                 ReviewResponse response = new ReviewResponse(review, tempCurUser.get(), tempAlbum.get(), "Review found successfully");
                 feed.add(response);

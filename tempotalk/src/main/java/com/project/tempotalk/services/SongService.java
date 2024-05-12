@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Service layer for interacting with Songs
 @Service
 public class SongService {
     @Autowired

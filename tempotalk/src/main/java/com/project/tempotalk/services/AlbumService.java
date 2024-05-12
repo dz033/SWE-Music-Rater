@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Service layer for interacting with Albums
 @Service
 public class AlbumService {
     @Autowired

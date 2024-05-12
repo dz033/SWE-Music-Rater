@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Service layer for interacting with Playlists
 @Service
 public class PlaylistService {
 
@@ -65,16 +66,21 @@ public class PlaylistService {
         return new PlaylistResponse(playlist, "Playlist created successfully!");
     }
 
+    // Returns a PlaylistResponse indicating whether a song was successfully added to a playlist
     public PlaylistResponse addSong(EditPlaylistRequest editPlaylistRequest){
+        // If song isn't found, then indicate that the song wasn't added to the playlist
         Optional<Song> tempSong = songRepository.findById(editPlaylistRequest.getSongId());
         if (tempSong.isEmpty()){
             return new PlaylistResponse("Song could not be found");
         }
 
+        // If playlist isn't found, then indicate that the song wasn't added to the playlist
         Optional<Playlist> tempPlaylist = playlistRepository.findById(editPlaylistRequest.getPlaylistId());
         if (tempPlaylist.isEmpty()) {
             return new PlaylistResponse("Playlist could not be found");
         }
+
+        // Update playlist to include the newly added song
         Playlist playlist = tempPlaylist.get();
         List<String> playlistTracks = playlist.getTracks();
         playlistTracks.add(editPlaylistRequest.getSongId());
@@ -84,16 +90,21 @@ public class PlaylistService {
         return new PlaylistResponse(playlist,"Song added successfully!");
     }
 
+    // Returns a PlaylistResponse indicating whether a song was successfully removed to a playlist
     public PlaylistResponse removeSong(EditPlaylistRequest editPlaylistRequest){
+        // Indicate if the song being removed wasn't found
         Optional<Song> tempSong = songRepository.findById(editPlaylistRequest.getSongId());
         if (tempSong.isEmpty()){
             return new PlaylistResponse("Song could not be found");
         }
 
+        // Indicate if the playlist being updated wasn't found
         Optional<Playlist> tempPlaylist = playlistRepository.findById(editPlaylistRequest.getPlaylistId());
         if (tempPlaylist.isEmpty()){
             return new PlaylistResponse("Playlist could not be found");
         }
+
+        // Update playlist to not include the song being removed
         Playlist playlist = tempPlaylist.get();
         List<String> playlistTracks = playlist.getTracks();
         playlistTracks.remove(editPlaylistRequest.getSongId());

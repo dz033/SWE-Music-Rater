@@ -4,6 +4,7 @@ import com.project.tempotalk.payload.request.ImageUploadRequest;
 import com.project.tempotalk.payload.response.ImageUploadResponse;
 import org.springframework.web.multipart.MultipartFile;
 
+// Interface for our ImageServiceImpl class
 public interface ImageService {
     ImageUploadResponse uploadAlbumImage(ImageUploadRequest imageUploadRequest);
     ImageUploadResponse uploadSongImage(ImageUploadRequest imageUploadRequest);

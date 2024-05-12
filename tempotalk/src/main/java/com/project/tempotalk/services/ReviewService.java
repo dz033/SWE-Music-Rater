@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Service layer for interacting with Reviews
 @Service
 public class ReviewService {
     @Autowired
@@ -37,11 +38,13 @@ public class ReviewService {
         List<ReviewResponse> responses = new ArrayList<>();
         List<Review> reviews = reviewRepository.findAll();
 
-        for (Review review : reviews){
+        // For each review, create a new ReviewResponse and add it to the responses list
+         for (Review review : reviews){
             Optional<User> tempUser = userRepository.findById(review.getUserId());
             Optional<Album> tempAlbum = albumRepository.findById(review.getMusicId());
             Optional<Song> tempSong = songRepository.findById(review.getMusicId());
 
+            // If the user was not found then return an appropriate ReviewResponse
             if (tempUser.isEmpty()){
                 ReviewResponse response = new ReviewResponse("User not found");
                 responses.add(response);
@@ -49,6 +52,7 @@ public class ReviewService {
             }
             User user = tempUser.get();
 
+            // Determine if the music being reviewed is an album or a song and return an appropriate response
             if (tempAlbum.isPresent()){
                 Album album = tempAlbum.get();
                 ReviewResponse response = new ReviewResponse(review, user, album, "Review found successfully");
@@ -69,11 +73,13 @@ public class ReviewService {
         List<ReviewResponse> responses = new ArrayList<>();
         Optional<List<Review>> tempReviews = reviewRepository.findReviewsByMusicId(musicId);
 
+        // If no reviews were found, then return an empty list of responses
         if (tempReviews.isEmpty()){
             return responses;
         }
         List<Review> reviews = tempReviews.get();
 
+        // If no album or songs were found then return an appropriate ReviewResponse
         Optional<Album> tempAlbum = albumRepository.findById(musicId);
         Optional<Song> tempSong = songRepository.findById(musicId);
         Album album = null;
@@ -91,9 +97,11 @@ public class ReviewService {
             song = tempSong.get();
         }
 
+        // For all reviews in reviews create an appropriate ReviewResponse and add it to responses
         for (Review review : reviews){
             Optional<User> tempUser = userRepository.findById(review.getUserId());
 
+            // If user was not found then return an appropriate ReviewResponse
             if (tempUser.isEmpty()){
                 ReviewResponse response = new ReviewResponse("User not found");
                 responses.add(response);
@@ -101,6 +109,7 @@ public class ReviewService {
             }
             User user = tempUser.get();
 
+            // Determine if the review is associated with an album or a song and return an appropriate response
             if (album != null){
                 ReviewResponse response = new ReviewResponse(review, user, album, "Review found successfully");
                 responses.add(response);
@@ -119,11 +128,13 @@ public class ReviewService {
         List<ReviewResponse> responses = new ArrayList<>();
         Optional<List<Review>> tempReviews = reviewRepository.findReviewsByUserId(userId);
 
+        // If no reviews were found, then return an empty list of responses
         if (tempReviews.isEmpty()){
             return responses;
         }
         List<Review> reviews = tempReviews.get();
 
+        // If no user was found then return an appropriate ReviewResponse
         Optional<User> tempUser = userRepository.findById(userId);
         if (tempUser.isEmpty()){
             ReviewResponse response = new ReviewResponse("User was not found");
@@ -132,16 +143,19 @@ public class ReviewService {
         }
         User user = tempUser.get();
 
+        // For each review add and appropriate ReviewResponse to responses
         for (Review review : reviews){
             Optional<Album> tempAlbum = albumRepository.findById(review.getMusicId());
             Optional<Song> tempSong = songRepository.findById(review.getMusicId());
 
+            // If no album or song was found add an appropriate ReviewResponse to responses
             if (tempAlbum.isEmpty() && tempSong.isEmpty()){
                 ReviewResponse response = new ReviewResponse("Album or song not found");
                 responses.add(response);
                 continue;
             }
 
+            // Determine if the review was associated with an album or a song and create an appropriate ReviewResponse
             if (tempAlbum.isPresent()){
                 ReviewResponse response = new ReviewResponse(review, user, tempAlbum.get(), "Review found successfully");
                 responses.add(response);
@@ -261,6 +275,7 @@ public class ReviewService {
         }
         Review review = tempReview.get();
 
+        // If user was not found then return an appropriate ReviewResponse
         Optional<User> tempUser = userRepository.findById(review.getUserId());
         if (tempUser.isEmpty()){
             return new ReviewResponse("Error: User not found");

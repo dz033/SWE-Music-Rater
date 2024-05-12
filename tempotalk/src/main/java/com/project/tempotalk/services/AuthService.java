@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// Service layer for AuthController
 @Service
 public class AuthService {
     @Autowired
@@ -37,6 +38,7 @@ public class AuthService {
     @Autowired
     JwtUtils jwtUtils;
 
+    // Returns a JWT token which indicates whether a user was successfully authenticated or not
     public JwtResponse authenticateUser(LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -52,11 +54,14 @@ public class AuthService {
         return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles);
     }
 
+    // Returns an AuthResponse indicating whether a not was successfully registered
     public AuthResponse registerUser(SignupRequest signupRequest){
+        // If inputted username already exists, then don't register user
         if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return new AuthResponse("Error: Username is already taken!");
         }
 
+        // If inputted email already exists, then don't register user
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return new AuthResponse("Error: Email is already in use!");
         }
@@ -69,6 +74,7 @@ public class AuthService {
         Set<String> strRoles = signupRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
+        // Set a newly registered user's roles
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));

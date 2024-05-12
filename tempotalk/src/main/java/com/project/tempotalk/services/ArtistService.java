@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Service layer for interacting with Artists
 @Service
 public class ArtistService {
     @Autowired
     ArtistRepository artistRepository;
 
+    // Return a list of all artists in the database
     public List<Artist> allArtists(){
         return artistRepository.findAll();
     }
@@ -29,6 +31,7 @@ public class ArtistService {
         return new ArtistResponse(tempArtist.get(), "Artist was found successfully");
     }
 
+    // Return a list of artists from our database, based on their name
     public List<Artist> artistsByName(String name){
         List<Artist> artists = new ArrayList<>();
 
