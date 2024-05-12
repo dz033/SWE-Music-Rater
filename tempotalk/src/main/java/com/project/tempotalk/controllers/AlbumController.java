@@ -16,19 +16,19 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/albums")
-class AlbumController {
+public class AlbumController {
     @Autowired
     AlbumService albumService;
 
     // Endpoint for getting all albums in the database
     @GetMapping()
-    ResponseEntity<List<Album>> getAllAlbums(){
+    public ResponseEntity<List<Album>> getAllAlbums(){
         return new ResponseEntity<>(albumService.allAlbums(), HttpStatus.OK);
     }
 
     // Endpoint for getting one album from the database by their ID
     @GetMapping("/{albumId}")
-    ResponseEntity<AlbumResponse> getAlbumById(@PathVariable String albumId){
+    public ResponseEntity<AlbumResponse> getAlbumById(@PathVariable String albumId){
         AlbumResponse response = albumService.albumById(albumId);
 
         if (response.getAlbum() == null){
@@ -40,26 +40,26 @@ class AlbumController {
 
     // Endpoint for getting a list of albums from the database by their name
     @GetMapping("/title/{title}")
-    ResponseEntity<List<Album>> getAlbumsByName(@PathVariable String title){
+    public ResponseEntity<List<Album>> getAlbumsByName(@PathVariable String title){
         return new ResponseEntity<>(albumService.albumsByTitle(title), HttpStatus.OK);
     }
 
     // Endpoint for getting discovery albums
     @GetMapping("/discovery")
-    ResponseEntity<List<Album>> getDiscoveryAlbums(){
+    public ResponseEntity<List<Album>> getDiscoveryAlbums(){
         return new ResponseEntity<>(albumService.getRandomAlbums(21), HttpStatus.OK);
     }
 
     // Endpoint for getting the most recently released albums in the database
     @GetMapping("/newReleases")
-    ResponseEntity<List<Album>> getNewReleases(){
+    public ResponseEntity<List<Album>> getNewReleases(){
         return new ResponseEntity<>(albumService.getNewAlbums(21), HttpStatus.OK);
     }
 
     // Endpoint for creating a new album object in the database
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    ResponseEntity<AlbumResponse> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
+    public ResponseEntity<AlbumResponse> createAlbum(@Valid @RequestBody AlbumRequest albumRequest){
         return new ResponseEntity<>(albumService.createAlbum(albumRequest), HttpStatus.OK);
     }
 }
