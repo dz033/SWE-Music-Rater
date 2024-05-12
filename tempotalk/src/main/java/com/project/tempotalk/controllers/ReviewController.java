@@ -20,21 +20,25 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
+    // Endpoint for getting all reviews in the database
     @GetMapping
     public ResponseEntity<List<ReviewResponse>> getAllReviews(){
         return new ResponseEntity<>(reviewService.allReviews(), HttpStatus.OK);
     }
 
+    // Endpoint for getting a list of reviews in the database, based on their music ID
     @GetMapping("/{musicId}")
     public ResponseEntity<List<ReviewResponse>> getMusicReviews(@PathVariable String musicId){
         return new ResponseEntity<>(reviewService.getReviewsByMusicId(musicId), HttpStatus.OK);
     }
 
+    // Endpoint for getting a list of reviews in the database, based on their user ID
     @GetMapping("/users/{userId}")
     public ResponseEntity<List<ReviewResponse>> getUserReviews(@PathVariable String userId){
         return new ResponseEntity<>(reviewService.getReviewsByUserId(userId), HttpStatus.OK);
     }
 
+    // Endpoint for creating a new review object in the database
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ReviewResponse> createReview(@Valid @RequestBody ReviewRequest reviewRequest){
@@ -50,6 +54,7 @@ public class ReviewController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for editing a review in the database
     @PutMapping("/edit")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ReviewResponse> editReview(@Valid @RequestBody EditReviewRequest editReviewRequest){
@@ -62,6 +67,7 @@ public class ReviewController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    // Endpoint for deleting a review in the database
     @DeleteMapping("/delete/{reviewId}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ReviewResponse> deleteReview(@PathVariable String reviewId){
