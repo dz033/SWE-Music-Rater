@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+// Define our Review model and map it to the "reviews" collection in our database
 @Document(collection="reviews")
 @Data
 @AllArgsConstructor

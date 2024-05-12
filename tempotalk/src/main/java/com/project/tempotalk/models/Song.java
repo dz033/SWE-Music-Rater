@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.ArrayList;
 import java.util.List;
 
+// Define our Song model and map it to the "songs" collection in our database
 @Document(collection="songs")
 @Data
 @AllArgsConstructor

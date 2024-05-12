@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 
+// Define our User model and map it to the "users" collection in our database
 @Document(collection="users")
 @Data
 @AllArgsConstructor
