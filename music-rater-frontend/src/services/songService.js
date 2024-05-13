@@ -4,13 +4,7 @@ import AuthService from "./authService";
 const API_URL = "http://localhost:8080/api/songs/";
 
 const getSongByTitle = async (title) => {
-    //const token = AuthService.getCurrentUser()?.accessToken;
     const token = AuthService.getAccessToken();
-
-
-    // const userData = JSON.parse(localStorage.getItem('user'));
-    // const token = userData.token;
-    //console.log("reviewing user token", token)
     try {
       // Send a POST request to create a review
       const response = await axios.get(API_URL + "title/" + title, {
@@ -42,10 +36,6 @@ const getSongByTitle = async (title) => {
     //const token = AuthService.getCurrentUser()?.accessToken;
     const token = AuthService.getAccessToken();
 
-
-    // const userData = JSON.parse(localStorage.getItem('user'));
-    // const token = userData.token;
-    //console.log("reviewing user token", token)
     try {
       // Send a POST request to create a review
       const response = await axios.get(API_URL + id, {

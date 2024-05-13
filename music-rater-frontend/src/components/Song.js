@@ -78,15 +78,6 @@ function Song({id}) {
           </>
         )}
       </div>
-        // <div className="song">
-        //     <h1>Song: {song.title} </h1>
-        //     <img src={song.coverArt} className="song-image" />
-        //     <h1>
-        //       Artist: {song.artist} <br />
-        //       Release Date: {song.releaseDate}<br />
-        //       Score: {song.score}<br />
-        //     </h1>
-        // </div>
       );
 };
 
