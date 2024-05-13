@@ -63,6 +63,7 @@ public class ImageServiceTest {
         assertThat(response.getDateTime()).isNotNull();
     }
 
+    // Tests for when an image is uploaded successfully (will implement later, currently having issues with mocking the AmazonS3 client)
 //    @Test
 //    public void ImageService_UploadProfileImage_UploadSuccessful() throws IOException {
 //        ImageUploadRequest request = new ImageUploadRequest(file, "id");
