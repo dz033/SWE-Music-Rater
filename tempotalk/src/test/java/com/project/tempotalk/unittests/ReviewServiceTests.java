@@ -70,7 +70,7 @@ public class ReviewServiceTests {
         userReviews = new ArrayList<>(Arrays.asList("reviewId1", "reviewId2"));
     }
 
-
+    // Tests for when a user creating a new review was not found
     @Test
     public void ReviewService_CreateReview_UserNotFoundResponse(){
         ReviewRequest reviewRequest = new ReviewRequest("body", 100, "userId", "musicId");
@@ -80,6 +80,7 @@ public class ReviewServiceTests {
         assertThat(response.getMessage()).isEqualTo("Error: User not found");
     }
 
+    // Tests for when a song or album being reviewed were not found
     @Test
     public void ReviewService_CreateReview_MusicNotFoundResponse(){
         ReviewRequest reviewRequest = new ReviewRequest("body", 100, "userId", "musicId");
@@ -91,6 +92,7 @@ public class ReviewServiceTests {
         assertThat(response.getMessage()).isEqualTo("Error: no album or song was found");
     }
 
+    // Tests for when a review by a given user already exists for an album or song
     @Test
     public void ReviewService_CreateReview_ReviewAlreadyCreatedResponse(){
         ReviewRequest reviewRequest = new ReviewRequest("body", 100, "userId", "musicId");
@@ -104,6 +106,7 @@ public class ReviewServiceTests {
         assertThat(response.getMessage()).isEqualTo("Error: User has already created a review for this music");
     }
 
+    // Tests for when a review is successfully created
     @Test
     public void ReviewService_CreateReview_ReviewSuccessfullyCreatedResponse (){
         ReviewRequest reviewRequest = new ReviewRequest("body", 100, "userId", "musicId");
@@ -118,6 +121,7 @@ public class ReviewServiceTests {
         assertThat(response.getMessage()).isEqualTo("Review created successfully!");
     }
 
+    // Tests for when a review being updated was not found during the first search
     @Test
     public void ReviewService_UpdateReview_ReviewNotFound(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -130,6 +134,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a review being updated was not found during the second search
     @Test
     public void ReviewService_UpdateReview_ReviewNotFound2(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -144,6 +149,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when an album or song associated with the updated review was not found during the first search
     @Test
     public void ReviewService_UpdateReview_MusicNotFound(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -158,6 +164,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when an album or song associated with the updated review was not found during the second search
     @Test
     public void ReviewService_UpdateReview_MusicNotFound2(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -174,6 +181,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a user associated with the updated review was not found
     @Test
     public void ReviewService_UpdateReview_UserNotFound(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -189,6 +197,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a review for an album is updated successfully
     @Test
     public void ReviewService_UpdateReview_Success(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -208,6 +217,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a review for a song is updated successfully
     @Test
     public void ReviewService_UpdateReview_Success2(){
         EditReviewRequest request = new EditReviewRequest("body", 100, "reviewId", "musicId");
@@ -227,6 +237,7 @@ public class ReviewServiceTests {
         assertThat(response.getAlbum()).isNull();
     }
 
+    // Tests for when a review being deleted was not found
     @Test
     public void ReviewService_DeleteReview_ReviewNotFound(){
         when(reviewRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
@@ -238,6 +249,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a user associated with a review being deleted was not found
     @Test
     public void ReviewService_DeleteReview_UserNotFound(){
         when(reviewRepository.findById(Mockito.anyString())).thenReturn(Optional.of(review));
@@ -250,6 +262,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when an album or song associated with a review being deleted was not found
     @Test
     public void ReviewService_DeleteReview_MusicNotFound(){
         when(reviewRepository.findById(Mockito.anyString())).thenReturn(Optional.of(review));
@@ -263,6 +276,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a review for an album is deleted successfully
     @Test
     public void ReviewService_DeleteReview_Success(){
         when(reviewRepository.findById(Mockito.anyString())).thenReturn(Optional.of(review));
@@ -278,6 +292,7 @@ public class ReviewServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a review for a song is deleted successfully
     @Test
     public void ReviewService_DeleteReview_Success2(){
         when(reviewRepository.findById(Mockito.anyString())).thenReturn(Optional.of(review));

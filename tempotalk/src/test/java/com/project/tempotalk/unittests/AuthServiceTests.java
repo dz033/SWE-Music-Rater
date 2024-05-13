@@ -67,6 +67,7 @@ public class AuthServiceTests{
         adminUser.setRoles(roles);
     }
 
+    // Tests for when a registering user submits an already existent username
     @Test
     void AuthService_RegisterUser_DuplicateUsernameError(){
         Set<String> roles = new HashSet<>();
@@ -77,6 +78,7 @@ public class AuthServiceTests{
         assertEquals("Error: Username is already taken!", response.getMessage());
     }
 
+    // Tests for when a registering user submits an already existent email
     @Test
     void AuthService_RegisterUser_DuplicateEmailError(){
         Set<String> roles = new HashSet<>();
@@ -86,7 +88,8 @@ public class AuthServiceTests{
         AuthResponse response = authService.registerUser(request);
         assertEquals("Error: Email is already in use!", response.getMessage());
     }
-    
+
+    // Tests for when a registering user is given the "user" role
     @Test
     void AuthService_RegisterUser_RolesSpecifiedUser(){
         Set<String> roles = new HashSet<>();
@@ -101,6 +104,7 @@ public class AuthServiceTests{
         assertNotNull(response.getUser());
     }
 
+    // Tests for when a registering user is given the "admin" role
     @Test
     void AuthService_RegisterUser_RolesSpecifiedAdmin(){
         Set<String> roles = new HashSet<>();
@@ -115,6 +119,7 @@ public class AuthServiceTests{
         assertNotNull(response.getUser());
     }
 
+    // Tests for when a registering user was not given any roles
     @Test
     void AuthService_RegisterUser_RolesUnspecified(){
         SignupRequest request = new SignupRequest("test", "test@gmail.com", null, "password");

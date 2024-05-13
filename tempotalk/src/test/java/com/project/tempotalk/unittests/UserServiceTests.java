@@ -63,6 +63,7 @@ public class UserServiceTests {
         song = new Song("song", "artist", "releaseDate", new ArrayList<>());
     }
 
+    // Tests for when a user being followed was not found
     @Test
     public void UserService_FollowUser_FollowedNotFound(){
         FollowRequest followRequest = new FollowRequest("followerId", "followeeId");
@@ -72,6 +73,7 @@ public class UserServiceTests {
         assertThat(response.getMessage()).isEqualTo("Error: The user being followed was not found");
     }
 
+    // Tests for when a user trying to follow another user was not found
     @Test
     public void UserService_FollowUser_FollowingNotFound(){
         FollowRequest followRequest = new FollowRequest("followerId", "followeeId");
@@ -82,6 +84,7 @@ public class UserServiceTests {
         assertThat(response.getMessage()).isEqualTo("Error: The following user was not found");
     }
 
+    // Tests for when a user is already following the user they indicated they wanted to follow
     @Test
     public void UserService_FollowUser_AlreadyFollowing(){
         follower.getFollowing().add(followed.getId());
@@ -93,6 +96,7 @@ public class UserServiceTests {
         assertThat(response.getMessage()).isEqualTo("Error: User is already being followed");
     }
 
+    // Tests for when a user successfully follows another user
     @Test
     public void UserService_FollowUser_FollowedSuccessfully(){
         FollowRequest followRequest = new FollowRequest("followerId", "followeeId");
@@ -104,6 +108,7 @@ public class UserServiceTests {
         assertThat(response.getMessage()).isEqualTo("User followed successfully!");
     }
 
+    // Tests for when a user trying to view their feed was not found
     @Test
     public void UserService_GetUserFeed_UserNotFound(){
         when(userRepository.findById(Mockito.any(String.class))).thenReturn(Optional.empty());
@@ -111,6 +116,7 @@ public class UserServiceTests {
         assertThat(feed.getFirst().getMessage()).isEqualTo("User was not found");
     }
 
+    // Tests for when a user successfully gets their feed
     @Test
     public void UserService_GetUserFeed_Success(){
         List<Review> reviews = new ArrayList<>();

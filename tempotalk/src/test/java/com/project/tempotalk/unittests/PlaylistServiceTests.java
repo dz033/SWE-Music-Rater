@@ -52,6 +52,7 @@ public class PlaylistServiceTests {
         song = new Song("title", "artist", "releaseDate",new ArrayList<>());
     }
 
+    // Tests for when a user was not found when creating a new playlist
     @Test
     public void PlaylistService_CreatePlaylist_UserNotFound(){
         PlaylistRequest request = new PlaylistRequest("name","description", "creatorId");
@@ -61,6 +62,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNull();
     }
 
+    // Tests for when a new playlist is created successfully
     @Test
     public void PlaylistService_CreatePlaylist_Success(){
         PlaylistRequest request = new PlaylistRequest("name","description", "creatorId");
@@ -72,6 +74,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNotNull();
     }
 
+    // Tests for when a song being added to a playlist was not found
     @Test
     public void PlaylistService_AddSong_SongNotFound(){
         EditPlaylistRequest request = new EditPlaylistRequest("songId", "playlistId");
@@ -81,6 +84,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNull();
     }
 
+    // Tests for when a playlist having a song added to was not found
     @Test
     public void PlaylistService_AddSong_PlaylistNotFound(){
         EditPlaylistRequest request = new EditPlaylistRequest("songId", "playlistId");
@@ -91,6 +95,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNull();
     }
 
+    // Tests for when a song is successfully added to a playlist
     @Test
     public void PlaylistService_AddSong_Success(){
         EditPlaylistRequest request = new EditPlaylistRequest("songId", "playlistId");
@@ -102,6 +107,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNotNull();
     }
 
+    // Tests for when a song being removed from a playlist was not found
     @Test
     public void PlaylistService_RemoveSong_SongNotFound(){
         EditPlaylistRequest request = new EditPlaylistRequest("songId", "playlistId");
@@ -111,6 +117,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNull();
     }
 
+    // Tests for when a playlist having a song removed from it was not found
     @Test
     public void PlaylistService_RemoveSong_PlaylistNotFound(){
         EditPlaylistRequest request = new EditPlaylistRequest("songId", "playlistId");
@@ -121,6 +128,7 @@ public class PlaylistServiceTests {
         assertThat(response.getPlaylist()).isNull();
     }
 
+    // Tests for when a song is successfully removed from a playlist
     @Test
     public void PlaylistService_RemoveSong_Success(){
         EditPlaylistRequest request = new EditPlaylistRequest("songId", "playlistId");

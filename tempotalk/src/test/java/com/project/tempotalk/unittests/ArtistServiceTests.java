@@ -41,6 +41,7 @@ public class ArtistServiceTests {
         artists.add(artist);
     }
 
+    // Tests for when an artist is not found by ID
     @Test
     public void ArtistService_ArtistById_NotFound(){
         when(artistRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
@@ -49,6 +50,7 @@ public class ArtistServiceTests {
         assertThat(response.getArtist()).isNull();
     }
 
+    // Tests for when an artist is found successfully by ID
     @Test
     public void ArtistService_ArtistById_FoundSuccessfully(){
         when(artistRepository.findById(Mockito.anyString())).thenReturn(Optional.of(artist));
@@ -57,6 +59,7 @@ public class ArtistServiceTests {
         assertThat(response.getArtist()).isNotNull();
     }
 
+    // Tests for when artists are not found by name
     @Test
     public void ArtistService_ArtistByName_NotFound(){
         when(artistRepository.findArtistByName(Mockito.anyString())).thenReturn(Optional.empty());
@@ -64,6 +67,7 @@ public class ArtistServiceTests {
         assertThat(response).isEmpty();
     }
 
+    // Tests for when artists are successfully found by name
     @Test
     public void ArtistService_ArtistByName_FoundSuccessfully(){
         when(artistRepository.findArtistByName(Mockito.anyString())).thenReturn(Optional.of(artists));
@@ -71,6 +75,7 @@ public class ArtistServiceTests {
         assertThat(response).isNotEmpty();
     }
 
+    // Tests for when an artist is successfully created
     @Test
     public void ArtistService_CreateArtist_Success(){
         ArtistRequest request = new ArtistRequest("name", new ArrayList<>());

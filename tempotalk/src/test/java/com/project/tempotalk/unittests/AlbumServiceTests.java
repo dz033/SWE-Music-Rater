@@ -41,7 +41,7 @@ public class AlbumServiceTests {
         albums.add(album);
     }
 
-
+    // Tests for when an album is not found by ID
     @Test
     public void UserService_AlbumsById_NotFound(){
         when(albumRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
@@ -50,6 +50,7 @@ public class AlbumServiceTests {
         assertThat(response.getAlbum()).isNull();
     }
 
+    // Tests for when an album is successfully found by ID
     @Test
     public void UserService_AlbumsById_SuccessfullyFound(){
         when(albumRepository.findById(Mockito.anyString())).thenReturn(Optional.of(album));
@@ -58,6 +59,7 @@ public class AlbumServiceTests {
         assertThat(response.getAlbum()).isNotNull();
     }
 
+    // Tests for when albums are not found by title
     @Test
     public void UserService_AlbumsByTitle_NotFound(){
         when(albumRepository.findAlbumByTitle(Mockito.anyString())).thenReturn(Optional.empty());
@@ -65,6 +67,7 @@ public class AlbumServiceTests {
         assertThat(response).isEmpty();
     }
 
+    // Tests for when albums are successfully found by title
     @Test
     public void UserService_AlbumsByTitle_SuccessfullyFound(){
         when(albumRepository.findAlbumByTitle(Mockito.anyString())).thenReturn(Optional.of(albums));
@@ -72,6 +75,7 @@ public class AlbumServiceTests {
         assertThat(response).isNotEmpty();
     }
 
+    // Tests for when an album is created successfully
     @Test
     public void UserService_CreateAlbum_Success(){
         AlbumRequest request = new AlbumRequest("title","artist","releaseDate", new ArrayList<>());

@@ -42,6 +42,7 @@ public class ImageServiceTest {
         user = new User("username", "email@gmail.com", "password");
     }
 
+    // Tests for when a user is not found during the first search
     @Test
     public void ImageService_UploadProfileImage_UserNotFound1(){
         ImageUploadRequest request = new ImageUploadRequest(file, "id");
@@ -51,6 +52,7 @@ public class ImageServiceTest {
         assertThat(response.getDateTime()).isNotNull();
     }
 
+    // Tests for when a user is not found during the second search
     @Test
     public void ImageService_UploadProfileImage_UserNotFound2(){
         ImageUploadRequest request = new ImageUploadRequest(file, "id");

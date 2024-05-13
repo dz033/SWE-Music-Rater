@@ -40,6 +40,7 @@ public class SongServiceTests {
         songs.add(song);
     }
 
+    // Tests for when a song is not found by an ID
     @Test
     public void SongService_SongById_NotFound(){
         when(songRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
@@ -48,6 +49,7 @@ public class SongServiceTests {
         assertThat(response.getSong()).isNull();
     }
 
+    // Tests for when a song is found successfully by an ID
     @Test
     public void SongService_SongById_FoundSuccessfully(){
         when(songRepository.findById(Mockito.anyString())).thenReturn(Optional.of(song));
@@ -56,6 +58,7 @@ public class SongServiceTests {
         assertThat(response.getSong()).isNotNull();
     }
 
+    // Tests for when a song is not found by a title
     @Test
     public void SongService_SongsByTitle_NotFound(){
         when(songRepository.findSongsByTitle(Mockito.anyString())).thenReturn(Optional.empty());
@@ -63,6 +66,7 @@ public class SongServiceTests {
         assertThat(response).isEmpty();
     }
 
+    // Tests for when a song is successfully found by a title
     @Test
     public void SongService_SongsByTitle_FoundSuccessfully(){
         when(songRepository.findSongsByTitle(Mockito.anyString())).thenReturn(Optional.of(songs));
@@ -71,6 +75,7 @@ public class SongServiceTests {
 
     }
 
+    // Tests for when a song is created successfully
     @Test
     public void SongService_CreateSong_Success(){
         SongRequest request = new SongRequest("title","artist","releaseDate", new ArrayList<>());
