@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../pages/home.css'
+import '../pages/home.css';
 import reviewService from '../services/reviewService';
 import AuthService from '../services/authService';
 import songService from '../services/songService';
@@ -8,12 +8,12 @@ import songService from '../services/songService';
 const API_DIR = "http://localhost:8080/";
 
 function Album({ id }) {
-  const [oneAlbum, setOneAlbum] = useState([]);
+  const [oneAlbum, setOneAlbum] = useState(null);
   const [reviewRating, setReviewRating] = useState('');
   const [reviewBody, setReviewBody] = useState('');
-  const [songs, setSongs] = useState('');
-  const userId = AuthService.getCurrentUser()?.id;
+  const [songs, setSongs] = useState([]);
 
+  const userId = AuthService.getCurrentUser()?.id;
 
   useEffect(() => {
     const fetchAlbumData = async () => {
@@ -23,7 +23,6 @@ function Album({ id }) {
         const songsData = await Promise.all(oneAlbumData.tracklist.map(async (trackId) => {
           try {
             const songData = await songService.getSongByID(trackId);
-            
             return songData; // Return the fetched song data
           } catch (error) {
             console.error('Error fetching song:', error);
@@ -36,7 +35,6 @@ function Album({ id }) {
 
         // Update the songs state with the valid song data
         setSongs(validSongsData);
-        // songService.getSongbyID(song).title
         setOneAlbum(oneAlbumData);
       } catch (error) {
         console.error('Error fetching album:', error);
@@ -44,7 +42,7 @@ function Album({ id }) {
     };
 
     fetchAlbumData();
-  }, [id]); // Make useEffect dependent on id
+  }, [id]);
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +65,6 @@ function Album({ id }) {
     handleReviewSubmit(e);
   };
 
-
   return (
     <div className="album">
       {oneAlbum && (
@@ -82,18 +79,16 @@ function Album({ id }) {
               Songs: 
             </h1>
             {/* Displaying songs */}
-          
             <ul>
-              {songs && songs.map((song, index) => (
-                <li key={index}>
+              {Array.isArray(songs) && songs.map((song) => (
+                <li key={song.id}>
                   <a href={`http://localhost:3000/song/${song.id}`}>
-                  {song.title}
+                    {song.title}
                   </a>
                   , {song.score}
                 </li>
               ))}
             </ul>
-          
             <form onSubmit={handleReviewSubmit} onKeyDown={handleKeyDown}>
               <input
                 placeholder="Enter a score from 0 to 100"
