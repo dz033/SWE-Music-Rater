@@ -33,6 +33,7 @@ public class ArtistServiceTests {
     private Artist artist;
     private List<Artist> artists;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         artist = new Artist("name", new ArrayList<>());

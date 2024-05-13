@@ -44,6 +44,7 @@ public class PlaylistServiceTests {
     private User user;
     private Song song;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         playlist = new Playlist("name", "description", "ownerId");

@@ -48,6 +48,7 @@ public class AuthServiceTests{
     private Optional<Role> userRole;
     private Optional<Role> adminRole;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         userRole = Optional.of(new Role(ROLE_USER));

@@ -32,6 +32,7 @@ public class SongServiceTests {
     private Song song;
     private List<Song> songs;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         song = new Song("title", "artist", "releaseDate", new ArrayList<>());

@@ -54,6 +54,7 @@ public class UserServiceTests {
     private Album album;
     private Song song;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         follower = new User("follower","temp@gmail.com","password");

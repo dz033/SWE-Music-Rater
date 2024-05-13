@@ -33,12 +33,14 @@ public class AlbumServiceTests {
     private Album album;
     private List<Album> albums;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         album = new Album("title","artist","releaseDate",new ArrayList<>());
         albums = new ArrayList<>();
         albums.add(album);
     }
+
 
     @Test
     public void UserService_AlbumsById_NotFound(){

@@ -35,6 +35,7 @@ public class ImageServiceTest {
     private MockMultipartFile file;
     private User user;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         file = new MockMultipartFile("data", "filename.txt", "text/plain", "some xml".getBytes());

@@ -60,6 +60,7 @@ public class ReviewServiceTests {
     private Review review;
     private List<String> userReviews;
 
+    // Initialize our used variables
     @BeforeEach
     public void init(){
         album = new Album("Wall of Eyes", "The Smile", "12-01-01", new ArrayList<>(Arrays.asList("Alternative Rock")));
