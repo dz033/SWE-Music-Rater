@@ -12,13 +12,16 @@ import { useLocation } from 'react-router-dom';
 import './home.css';
 import Review from '../components/Review';
 import AuthService from '../services/authService';
-
+import Playlist from '../components/Playlist';
+import playlistService from '../services/playlistService';
 
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
   console.log("currentUser object looks like this", currentUser)
   const [user, setUser] = useState(null);
+  const [playlistName, setReviewRating] = useState('');
+  const [playlistDescription, setReviewBody] = useState('');
 
   useEffect(() => {
     if (currentUser && !user) {
@@ -44,6 +47,27 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
+  const handlePlaylistSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await playlistService.createPlaylist(playlistName, playlistDescription, currentUser.id);
+      // Clear review inputs after submission
+      setReviewRating('');
+      setReviewBody('');
+      alert('Review submitted successfully!');
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      alert('Failed to submit review. Please try again.');
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key !== 'Enter') {
+      return;
+    }
+    handleReviewSubmit(e);
+  };
+
   return (
     <div className="profile">
       <div className="profile-header">
@@ -52,10 +76,12 @@ const Profile = () => {
         <a href="/profile" onClick={AuthService.logout}>
           Log Out
         </a>
-        <div>
-          <Review id={`users/${currentUser.id}`}/>
-        </div>
       </div>
+      <div classname='profile-info'>
+          <Review id={`users/${currentUser.id}`}/>
+
+          <Playlist id={`${currentUser.id}`}/>
+        </div>
     </div>
   );
 }

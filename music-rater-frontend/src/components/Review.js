@@ -10,7 +10,7 @@ function Review({id}) {
   useEffect(() => {
     axios.get(API_DIR + 'api/reviews/' + id)
       .then(response => {
-        console.log("API Response:", response.data);
+        //console.log("API Response:", response.data);
         const reviewsData = response.data;
         //console.log("DATA BEING PROCESSED:", reviewsData)
         setReviews(reviewsData);
@@ -27,6 +27,7 @@ function Review({id}) {
           <div className="review-list">
             {reviews.map(r => (
               <div key={r.review.id} className="review-item">
+                <p>Album: {r.review.album}</p>
                 <p>Score: {r.review.score}</p>
                 <p>{r.review.body}</p>
                 <p>Date: {r.review.creationDate.slice(0, 10)}</p>
