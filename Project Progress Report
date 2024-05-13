@@ -161,3 +161,81 @@ Continue backend
 Implement testing
 Frontend design draft
 
+Next iteration date: 22nd April
+Last Iteration’s completed tasks:
+Completed presentation!
+Fixed backend
+Started frontend implementation
+Connected frontend to backend
+
+Leftovers from last iteration:
+Keep working on frontend design
+Implement further testing
+
+Member contribution:
+Karolina frontend side of presentation,: Fixed retweet homework, meeting minutes, working on frontend (created home page)
+Yizhen (Eloise):   fix the github problem to commit directly; meeting minutes; Working on unfinished frontend“artist page””song page”
+David: 
+Emilio: continued to work on the backend; added “follow user” and “create review” functionality, as well as the ability to create album, song and artist objects. Also added the ability to get reviews, songs and artists (both single instance and multiple instances)
+
+
+Assignments: 
+Homework 6 to complete
+Frontend visuals to implement
+Brainstorm final presentation skeleton
+Redo homework 5
+
+
+
+Next iteration date: 25th April (meeting more frequently due to presentation)
+Last Iteration’s completed tasks:
+Implemented frontend
+Have a homepage
+Backend implementations added such as SpecifiedUser or finding FollowedUsers
+Designed a logo
+
+Leftovers from last iteration:
+Set individual pages in frontend
+Set up a header with a search bar
+Unfinished front end: Album song and so on
+Implement uiux
+
+Member contribution:
+Karolina:Frontend:
+Homepage
+Header with search bar
+Set up ‘new’ page with upcoming info
+Working on connecting frontend to backend to get database info
+Next step is profile and sign in page
+Yizhen (Eloise): 
+ -working on other unfinished frontend: “profile page” and so on and components part; 
+meeting minutes;
+creating a rough structure  slides of overall final presentation；
+work on hw
+David:
+Created a script that populated our database with Album, Song, and Artist objects
+Emilio: Worked on the backend:
+- Added the ability to get followed users
+- Added the ability to get a user’s feed
+- Added the “calculateScore” function in our Album and Song classes
+- Added the ability to unfollow users
+- Added the ability to edit reviews
+- Added the ability to delete reviews
+- Added all things Image related on the backend, including uploading images for Users, Albums, Songs, and Artists, as well as adding default images which are stored in our newly created AWS S3 bucket.
+- Added the ability to get albums randomly
+- Added the ability to get albums that were most recently released
+- Began work on implementing Playlists on the backend
+- Began working on documentation for our API endpoints
+
+
+Assignments: 
+Homework 6 (completed)
+- Finish header
+- Set up search bar
+- Set up frontend sign in authentication
+- Add the ability to get User feeds (completed)
+- Populate database (completed)
+- Add the ability to get new releases (completed)
+- Add the ability to unfollow a user (completed)
+- Fix image error in backend (completed)
+- Create ppt for final presentation
