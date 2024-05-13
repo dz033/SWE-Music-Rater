@@ -68,11 +68,14 @@
 } 
 
 .review {
+  position: absolute;
+  top: 18%;
+  left: 58%;
   color: white;
 }
 
 .album-page ,.song-page .review{
-  position: absolute;
+  /* position: absolute; */
   top: 18%;
   left: 58%;
 }
