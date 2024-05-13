@@ -42,3 +42,151 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.home {
+  margin-top: 0px; 
+  margin-left: 0px;
+  text-align: left; 
+  font-family:'Lucida Grande', verdana;
+  color: #FFFFFF;
+}
+
+/*.album-container {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+grid-gap: 20px;
+}  */ 
+
+.album-cover img {
+width: 400px; /* Adjust the width of the album cover */
+height: 400px;
+margin-left: 120px;
+justify-content: center;
+}
+
+.album-item {
+display: block;
+font-size: 24px;
+color: #FFFFFF;
+width: 20px;
+}
+
+.album-title {
+white-space: nowrap; 
+color: #FFFFFF;
+margin-left: 100px;
+justify-content: center;
+}
+.album-page{
+color: white;
+}
+
+.album {
+content{
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  gap: 4vmin; 
+  position: absolute;
+  margin-left: 130px;
+  margin-top: 50px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: left;
+  img{
+    width: 500px;
+    height: auto;
+
+  }
+}
+} 
+
+
+.album-page .review{
+position: absolute;
+top: 18%;
+left: 58%;
+}
+.profile .review {
+/* color: white; */
+position: absolute;
+top: 11%;
+left: 25%;
+/* border: 2px solid yellow; */
+}
+
+.review{
+h1{
+  text-align: left;
+}
+}
+
+.review-item{
+border: 2px solid rgb(202, 87, 156);
+padding: 10px;
+width: 100%;
+align-content: middle;
+text-align: left;
+margin: 0 auto;
+margin-top: 20px;
+margin-right: 250px;
+
+}
+
+
+.album-carousel {
+/* border: 2px solid rgb(0, 104, 40); */
+position: sticky;
+left: 0%;
+height: 150%;
+width: auto;
+
+}
+
+
+.album-carousel .album-group {
+/* border: 2px solid rgb(163, 0, 0); */
+width: 100%;
+overflow-x: auto; 
+display:inline-block;
+display: flex;  
+justify-content: space-between;
+margin-right: 50px;
+margin-top: 0;
+gap: 5px;
+text-align: center;
+font-family: 'Lato', sans-serif;
+}
+
+.album-carousel .album-item{
+/* border: 2px solid rgb(0, 104, 40);
+width: 100%;
+height: auto;
+margin-right: 15px; */
+}
+
+
+
+.featured-albums h1,
+.discoveries h1,
+.new-releases h1 {
+text-decoration: underline;
+margin-left: 100px;
+display: inline-block;
+margin-bottom: 40px;
+margin-top: 100px;
+}
+
+.profile-header {
+color: white;
+width: 300px; /* Example width */
+border: 2px solid #ccc; /* Example border */
+padding: 0.5%; 
+margin-top: 2%;
+margin-left: 2%; 
+}
+.profile-header .profile-photo{
+width: 80%;
+height: auto;
+
+}
+

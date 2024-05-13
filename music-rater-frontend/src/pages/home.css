@@ -6,6 +6,17 @@
     color: #FFFFFF;
   }
 
+.song{
+  color: white;
+}
+
+.song-image {
+  width: 400px;
+  height: auto;
+}
+
+
+
 /*.album-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -36,7 +47,7 @@
   color: white;
 }
 
-.album {
+.album, .song {
   content{
     object-fit: cover;
     object-position: center;
@@ -62,7 +73,7 @@
   left: 58%;
 }
 .profile .review {
-  color: white;
+  /* color: white; */
   position: absolute;
   top: 11%;
   left: 25%;
@@ -139,7 +150,7 @@
   margin-top: 2%;
   margin-left: 2%; 
 }
-.profile-header .profile-photo{
+.profile-photo{
   width: 80%;
   height: auto;
   
