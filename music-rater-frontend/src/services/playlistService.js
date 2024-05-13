@@ -4,8 +4,8 @@ import AuthService from "./authService";
 const API_URL = "http://localhost:8080/api/";
 
 const createPlaylist = async (name, description, creatorId) => {
-    const token = AuthService.getCurrentUser()?.accessToken;
-    
+    //const token = AuthService.getCurrentUser()?.accessToken;
+    const token = AuthService.getAccessToken();
     // const userData = JSON.parse(localStorage.getItem('user'));
     // const token = userData.token;
     console.log("reviewing user token", token)

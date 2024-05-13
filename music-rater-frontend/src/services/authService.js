@@ -33,16 +33,26 @@ const logout = () => {
 };
 
 const getCurrentUser = () => {
-  console.log("current user", JSON.parse(localStorage.getItem("user")))
+  //console.log("current user", JSON.parse(localStorage.getItem("user")))
   return JSON.parse(localStorage.getItem("user"));
   
 };
+
+const getAccessToken = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  // console.log("THIS IS AN USER", user)
+  
+  console.log("Access Token:", user.token);
+  return user.token;
+
+}
 
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  getAccessToken
 }
 
 export default AuthService;
