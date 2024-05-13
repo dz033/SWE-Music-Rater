@@ -4,11 +4,11 @@ import os
 import base64
 import json
 from requests import post, get
-CLIENT_ID= "9ae889ff3843458cbf365530b585f9a3"
-CLIENT_SECRET= "ca07f779424c428e9dd2b80beb9dbe50"
+CLIENT_ID= "{client.id}"
+CLIENT_SECRET= "{client.secret}"
 API_URL = "https://api.spotify.com/v1/"
 
-cluster = MongoClient("mongodb+srv://emiliomoya620:qM8DwyMzKq3Qam5J@cluster0.46qe8uw.mongodb.net/")
+cluster = MongoClient("mongodb+srv://{username}:{password}@cluster0.46qe8uw.mongodb.net/")
 db = cluster["music-rater-db"]
 collection_albums = db["albums"]
 collection_artists = db["artists"]
