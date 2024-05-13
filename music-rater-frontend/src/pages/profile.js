@@ -20,8 +20,8 @@ const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
   console.log("currentUser object looks like this", currentUser)
   const [user, setUser] = useState(null);
-  const [playlistName, setReviewRating] = useState('');
-  const [playlistDescription, setReviewBody] = useState('');
+  const [PlaylistName, setPlaylistName] = useState('');
+  const [PlaylistDescription, setPlaylistDescription] = useState('');
 
   useEffect(() => {
     if (currentUser && !user) {
@@ -50,14 +50,14 @@ const Profile = () => {
   const handlePlaylistSubmit = async (e) => {
     e.preventDefault();
     try {
-      await playlistService.createPlaylist(playlistName, playlistDescription, currentUser.id);
+      await playlistService.createPlaylist(PlaylistName, PlaylistDescription, currentUser.id);
       // Clear review inputs after submission
-      setReviewRating('');
-      setReviewBody('');
-      alert('Review submitted successfully!');
+      setPlaylistName('');
+      setPlaylistDescription('');
+      alert('Playlist created successfully!');
     } catch (error) {
-      console.error('Error submitting review:', error);
-      alert('Failed to submit review. Please try again.');
+      console.error('Error creating playlist:', error);
+      alert('Failed to create playlist. Please try again.');
     }
   };
 
@@ -65,7 +65,7 @@ const Profile = () => {
     if (e.key !== 'Enter') {
       return;
     }
-    handleReviewSubmit(e);
+    handlePlaylistSubmit(e);
   };
 
   return (
@@ -78,8 +78,23 @@ const Profile = () => {
         </a>
       </div>
       <div classname='profile-info'>
-          <Review id={`users/${currentUser.id}`}/>
-
+          <Review id={`users/${currentUser.id}`}/>  
+          <form onSubmit={handlePlaylistSubmit} onKeyDown={handleKeyDown}>
+              <input
+                placeholder="Enter a name for your playlist"
+                type="text"
+                value={PlaylistName}
+                onChange={(e) => setPlaylistName(e.target.value)}
+              />
+              <input
+                placeholder="Write your thoughts"
+                type="text"
+                value={PlaylistDescription}
+                onChange={(e) => setPlaylistDescription(e.target.value)}
+              />
+              <button type="submit">Create Playlist</button>
+            </form>
+          
           <Playlist id={`${currentUser.id}`}/>
         </div>
     </div>

@@ -30,19 +30,19 @@
   justify-content: center;
 }
 
-.album-item {
+/* .album-item {
   display: block;
   font-size: 24px;
   color: #FFFFFF;
   width: 20px;
-}
+} */
 
-.album-title {
+/* .album-title {
   white-space: nowrap; 
   color: #FFFFFF;
   margin-left: 100px;
   justify-content: center;
-}
+} */
 .album-page{
   color: white;
 }
@@ -56,8 +56,9 @@
     position: absolute;
     margin-left: 130px;
     margin-top: 50px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-align: left;
+
     img{
       width: 500px;
       height: auto;
@@ -66,14 +67,16 @@
   }
 } 
 
+.review {
+  color: white;
+}
 
-.album-page .review{
+.album-page ,.song-page .review{
   position: absolute;
   top: 18%;
   left: 58%;
 }
 .profile .review {
-  color: white;
   position: absolute;
   top: 11%;
   left: 25%;
@@ -81,6 +84,15 @@
 }
 
 
+.profile {
+  form{
+    width: 20%;
+    margin-top: 1%;
+    margin-left: 2%;
+    padding: 0.5%;
+    border: 2px solid #ccc;
+  }
+}
 
 .profile .playlists {
   position: absolute;

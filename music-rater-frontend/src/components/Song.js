@@ -28,7 +28,7 @@ function Song({id}) {
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
         try {
-          await reviewService.createReview(reviewBody, reviewRating, userId, oneAlbum.id);
+          await reviewService.createReview(reviewBody, reviewRating, userId, song.id);
           // Clear review inputs after submission
           setReviewRating('');
           setReviewBody('');
@@ -51,7 +51,7 @@ function Song({id}) {
         <div className="song">
         {song && (
           <>
-            <h1>Album: {song.title}</h1>
+            <h1>Song: {song.title}</h1>
             <content>
               <img src={song.coverArt} alt={song.title} className="left-aligned-image" />
               <h1>

@@ -19,6 +19,7 @@ function Playlist({ id }) {
     }, [id]);
 
     const [songs, setSongs] = useState({});
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -49,7 +50,9 @@ function Playlist({ id }) {
                         <h2>{playlist.name}</h2>
                         <ul>
                             {songs[playlist.id] && songs[playlist.id].map((song, songIndex) => (
-                                <li key={songIndex}>{song}</li>
+                                <li key={songIndex}>
+                                    <a href={`http://localhost:3000/song/` + playlist.tracks[songIndex]}>{song}</a>
+                                </li>
                             ))}
                         </ul>
                     </div>

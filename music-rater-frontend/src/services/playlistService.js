@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from 'react';
+import AuthService from "./authService";
 const API_URL = "http://localhost:8080/api/";
 
 const createPlaylist = async (name, description, creatorId) => {
@@ -10,7 +11,7 @@ const createPlaylist = async (name, description, creatorId) => {
     console.log("reviewing user token", token)
     try {
       // Send a POST request to create a review
-      const response = await axios.post(API_URL + '/playlists/create', {
+      const response = await axios.post(API_URL + 'playlists/create', {
         name,
         description,
         creatorId,
@@ -23,6 +24,7 @@ const createPlaylist = async (name, description, creatorId) => {
     );
   
       // Return the response data
+      console.log("cr playlist response data", response.data)
       return response.data;
     } catch (error) {
       // If the response status is 401, return an error message
