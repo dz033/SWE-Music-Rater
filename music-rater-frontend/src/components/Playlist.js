@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../pages/home.css';
+import playlistService from '../services/playlistService';
 
 const API_DIR = "http://localhost:8080/api/playlists/user/";
 
 function Playlist({ id }) {
     const [playlists, setPlaylists] = useState([]);
-
+    const [newSong, setNewSong] = useState('');
+  
     useEffect(() => {
         axios.get(API_DIR + id)
             .then(response => {
@@ -41,6 +43,8 @@ function Playlist({ id }) {
         fetchData();
     }, [playlists]);
 
+    
+
     return (
         <div className="playlists">
             <h1>Playlists:</h1>
@@ -48,6 +52,7 @@ function Playlist({ id }) {
                 playlists.map((playlist, index) => (
                     <div key={index}>
                         <h2>{playlist.name}</h2>
+                        <p>{playlist.description}</p>
                         <ul>
                             {songs[playlist.id] && songs[playlist.id].map((song, songIndex) => (
                                 <li key={songIndex}>
@@ -55,6 +60,23 @@ function Playlist({ id }) {
                                 </li>
                             ))}
                         </ul>
+                        {/* Form for adding a new song */}
+                        <form onSubmit={(e) => {
+                            e.preventDefault();
+                            playlistService.addSongByName(playlist.newSong, playlist.id);
+                            }}>
+                            <input
+                                type="text"
+                                value={playlist.newSong}
+                                onChange={(e) => {
+                                    const updatedPlaylists = [...playlists];
+                                    updatedPlaylists[index].newSong = e.target.value;
+                                    setPlaylists(updatedPlaylists);
+                                }}
+                                placeholder="Enter song title"
+                            />
+                            <button type="submit">Add Song</button>
+                        </form>
                     </div>
                 ))
             ) : (
@@ -62,6 +84,7 @@ function Playlist({ id }) {
             )}
         </div>
     );
+    
 }
 
 export default Playlist;

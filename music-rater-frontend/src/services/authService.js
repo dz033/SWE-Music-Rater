@@ -41,7 +41,7 @@ const getCurrentUser = () => {
 const getAccessToken = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   // console.log("THIS IS AN USER", user)
-  
+    
   console.log("Access Token:", user.token);
   return user.token;
 

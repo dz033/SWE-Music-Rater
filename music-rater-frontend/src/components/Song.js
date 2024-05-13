@@ -32,10 +32,10 @@ function Song({id}) {
           // Clear review inputs after submission
           setReviewRating('');
           setReviewBody('');
-          alert('Review submitted successfully!');
+          
         } catch (error) {
           console.error('Error submitting review:', error);
-          alert('Failed to submit review. Please try again.');
+          
         }
       };
     
