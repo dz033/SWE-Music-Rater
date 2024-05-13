@@ -2,6 +2,8 @@
   padding: 20px;
   display: flex;
   color: #FFFFFF;
+  min-height: 500vh;
+  background-color:#3b094d ;
 }
 
 .left-column {
@@ -10,8 +12,18 @@
   flex: 1;
 }
 
-.right-column {
-  padding: 20px;
-  flex: 1;
-  background-color: #ef92e3d0;
+.album-card {
+  transform: scale(0.9); 
+  margin: 10px;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: calc(33.33% - 20px); /* Adjusted width for three albums per line */
+}
+
+.album-card img {
+  max-width: 100%;
+  height: auto;
 }
