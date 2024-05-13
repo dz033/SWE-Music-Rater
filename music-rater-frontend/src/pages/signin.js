@@ -2,6 +2,8 @@
 import "./signin.css"
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthService from "../services/authService";
+import "./home.css"
 
 const API_DIR = "http://localhost:8080/";
 export default function Signin() {
@@ -12,7 +14,6 @@ export default function Signin() {
 
   const handleSignIn = async (e) => {
     e.preventDefault()
-    console.log('uytjhgnb')
     try {
       console.log("test");
       const response = await fetch(API_DIR + 'api/auth/signin', {
@@ -29,8 +30,13 @@ export default function Signin() {
 
       // Assuming the server responds with some data upon successful sign-in
       const data = await response.json()
-      
-      console.log("look here: ", data);
+      localStorage.setItem('token', response.token);
+      AuthService.login(username, password).then(
+        () => {
+          navigate("/profile");
+          window.location.reload();
+        }
+      );
       //console.log(JSON.stringify(data));
       // Handle successful sign-in, e.g., store user data in state or local storage
       console.log('Sign-in successful!', data);

@@ -6,6 +6,17 @@
     color: #FFFFFF;
   }
 
+.song{
+  color: white;
+}
+
+.song-image {
+  width: 400px;
+  height: auto;
+}
+
+
+
 /*.album-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -36,7 +47,7 @@
   color: white;
 }
 
-.album {
+.album, .song {
   content{
     object-fit: cover;
     object-position: center;
@@ -67,6 +78,34 @@
   top: 11%;
   left: 25%;
   /* border: 2px solid yellow; */
+}
+
+
+
+.profile .playlists {
+  position: absolute;
+  color: white;
+  width: 20%;
+  margin-top: 1%; 
+  left: 2%;
+  padding: 0.5%;
+  border: 2px solid #ccc;
+}
+
+
+
+.profile-header {
+  color: white;
+  width: 300px; /* Example width */
+  border: 2px solid #ccc; /* Example border */
+  padding: 0.5%; 
+  margin-top: 2%;
+  margin-left: 2%; 
+}
+.profile-photo{
+  width: 80%;
+  height: auto;
+  
 }
 
 .review{
@@ -131,17 +170,4 @@
   margin-top: 100px;
 }
 
-.profile-header {
-  color: white;
-  width: 300px; /* Example width */
-  border: 2px solid #ccc; /* Example border */
-  padding: 0.5%; 
-  margin-top: 2%;
-  margin-left: 2%; 
-}
-.profile-header .profile-photo{
-  width: 80%;
-  height: auto;
-  
-}
 
